@@ -2,18 +2,7 @@
 class Main : public Scene
 {
 private:
-	/*ObImage* bg;
-	ObImage* bg_1;
-	ObImage* bg_2;
-	ObImage* bg_3;
-	ObImage* bg_4;*/
-	bool gameStart;
-	int score_cur;
-	int score_max;
-
 	
-	class Map*		map;
-	class Player*	player;
 
 public:
 	Main();

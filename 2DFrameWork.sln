@@ -46,6 +46,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{23927E
 		Contents\Images\Tiles_Ulu City.png = Contents\Images\Tiles_Ulu City.png
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SaveData", "SaveData", "{B398A115-2D9B-4E11-98E7-C3473FF2655A}"
+	ProjectSection(SolutionItems) = preProject
+		Save\map_1.lua = Save\map_1.lua
+		Save\map_1.map = Save\map_1.map
+		Save\map_1_colliders.map = Save\map_1_colliders.map
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

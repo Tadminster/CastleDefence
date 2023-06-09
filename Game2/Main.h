@@ -2,7 +2,7 @@
 class Main : public Scene
 {
 private:
-	
+	class FileLoader* loadManager;
 
 public:
 	Main();

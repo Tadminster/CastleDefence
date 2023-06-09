@@ -1,14 +1,17 @@
 ﻿#include "stdafx.h"
+#include "FileLoader.h"
 #include "Main.h"
 
 
 Main::Main()
 {
+	loadManager = new FileLoader();
 }
 
 Main::~Main()
 {
 }
+
 void Main::Init()
 {
 	
@@ -29,6 +32,8 @@ void Main::Update()
 			ImGui::Text("\n");
 		}
 	}
+
+	loadManager->loadGame("map_1.map");
 }
 
 void Main::LateUpdate()

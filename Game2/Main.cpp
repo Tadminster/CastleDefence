@@ -1,20 +1,22 @@
 ﻿#include "stdafx.h"
-#include "FileLoader.h"
+#include "Map.h"
 #include "Main.h"
 
 
 Main::Main()
 {
-	loadManager = new FileLoader();
+	mapManager = new Map();
 }
 
 Main::~Main()
 {
+	mapManager->~Map();
 }
 
 void Main::Init()
 {
 	
+	mapManager->Init();
 }
 
 void Main::Release()
@@ -30,10 +32,19 @@ void Main::Update()
 			ImGui::Text(u8"[ 마우스_X ] %f\n", INPUT->GetWorldMousePos().x);
 			ImGui::Text(u8"[ 마우스_Y ] %f\n", INPUT->GetWorldMousePos().y);
 			ImGui::Text("\n");
+
+			ImGui::Text(u8"[ 카메라_X ] %f\n", CAM->position.x);
+			ImGui::Text(u8"[ 카메라_Y ] %f\n", CAM->position.y);
+			ImGui::Text("\n");
+
+			if (INPUT->KeyPress(VK_UP)) CAM->position.y += 5000 * DELTA;
+			if (INPUT->KeyPress(VK_DOWN)) CAM->position.y -= 5000 * DELTA;
+			if (INPUT->KeyPress(VK_LEFT)) CAM->position.x -= 5000 * DELTA;
+			if (INPUT->KeyPress(VK_RIGHT)) CAM->position.x += 5000 * DELTA;
 		}
 	}
 
-	loadManager->loadGame("map_1.map");
+	mapManager->Update();
 }
 
 void Main::LateUpdate()
@@ -42,6 +53,7 @@ void Main::LateUpdate()
 
 void Main::Render()
 {
+	mapManager->Render();
 }
 
 void Main::ResizeScreen()

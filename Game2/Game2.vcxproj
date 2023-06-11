@@ -19,15 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FileLoader.h" />
+    <ClInclude Include="MapLoader.h" />
     <ClInclude Include="FilePath.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="MapLoader.cpp" />
     <ClCompile Include="FilePath.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Map.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

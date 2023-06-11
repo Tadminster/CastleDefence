@@ -6,5 +6,6 @@ private:
 
 public:
 	FilePath();
+	std::string getPath(std::string& key);
 };
 

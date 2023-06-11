@@ -64,7 +64,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE prevInstance, LPWSTR param, in
 {
 	app.SetAppName(L"baram");
 	app.SetInstance(instance);
-	app.InitWidthHeight(1000.0f, 640.0f);
+	app.InitWidthHeight(1000.f, 1000.f);
 	WIN->Create();
 	Main* main = new Main();
 	int wParam = (int)WIN->Run(main);

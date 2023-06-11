@@ -1,22 +1,25 @@
 ﻿#include "stdafx.h"
 #include "Map.h"
+#include "Player.h"
 #include "Main.h"
 
 
 Main::Main()
 {
 	mapManager = new Map();
+	player = new Player();
 }
 
 Main::~Main()
 {
 	mapManager->~Map();
+	player->~Player();
 }
 
 void Main::Init()
 {
-	
 	mapManager->Init();
+	player->Init();
 }
 
 void Main::Release()
@@ -45,6 +48,7 @@ void Main::Update()
 	}
 
 	mapManager->Update();
+	player->Update();
 }
 
 void Main::LateUpdate()
@@ -54,6 +58,7 @@ void Main::LateUpdate()
 void Main::Render()
 {
 	mapManager->Render();
+	player->Render();
 }
 
 void Main::ResizeScreen()

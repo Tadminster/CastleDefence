@@ -62,7 +62,7 @@ void Main::ResizeScreen()
 
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE prevInstance, LPWSTR param, int command)
 {
-	app.SetAppName(L"Game2");
+	app.SetAppName(L"baram");
 	app.SetInstance(instance);
 	app.InitWidthHeight(1000.0f, 640.0f);
 	WIN->Create();

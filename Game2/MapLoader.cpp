@@ -60,12 +60,12 @@ bool MapLoader::loadGame(const std::string& saveFile, vector<ObImage*> (*tilemap
 				>> transform.x >> transform.y >> scale.x >> scale.y;
 
 			mapFile >> collider;
-			//if (collider)
-			//	mapFile >> colWidth >> colHeight >> offset.x >> offset.y;
+			if (collider)
+				mapFile >> colWidth >> colHeight >> offset.x >> offset.y;
 
 			mapFile >> animated;
-			//if (animated)
-				//mapFile >> numFrames >> frameSpeed >> vertical >> looped >> frameOffset;
+			if (animated)
+				mapFile >> numFrames >> frameSpeed >> vertical >> looped >> frameOffset;
 
 			// 이미지 생성
 			//imgFileName = assetID + ".png";
@@ -73,8 +73,6 @@ bool MapLoader::loadGame(const std::string& saveFile, vector<ObImage*> (*tilemap
 			ObImage* img = new ObImage(std::wstring(imgFileName.begin(), imgFileName.end()).c_str());
 
 			// 이미지 Initialize
-			//img->imageSize.x = tileWidth;
-			//img->imageSize.y = tileHeight;
 			img->uv.x = static_cast<float>(uvX) / img->imageSize.x;
 			img->uv.y = static_cast<float>(uvY) / img->imageSize.y;
 			img->uv.z = static_cast<float>(uvX + tileWidth) / img->imageSize.x;
@@ -82,20 +80,8 @@ bool MapLoader::loadGame(const std::string& saveFile, vector<ObImage*> (*tilemap
 			img->scale.x = scale.x * 16;
 			img->scale.y = scale.y * 16;
 			img->pivot = OFFSET_LT;
-			img->SetWorldPos(Vector2(transform.x, transform.y));
+			img->SetWorldPos(Vector2(transform.x, -transform.y));
 
-			//std::cout
-			//	<< "assetID:" << assetID << std::endl
-			//	<< "tileWidth:" << tileWidth << std::endl
-			//	<< "tileHeight:" << tileHeight << std::endl
-			//	<< "imgSize.x:" << img->imageSize.x << std::endl
-			//	<< "imgSize.y:" << img->imageSize.y << std::endl
-			//	<< "uvX:" << uvX << std::endl
-			//	<< "uvY:" << uvY << std::endl
-			//	<< "img->uv.x: " << img->uv.x << std::endl
-			//	<< "img->uv.y: " << img->uv.y << std::endl
-			//	<< "img->uv.z: " << img->uv.z << std::endl
-			//	<< "img->uv.w: " << img->uv.w << std::endl << std::endl;
 			// 이미지 vector에 push
 			(*tilemapPtr)[layer].emplace_back(img);
 		}

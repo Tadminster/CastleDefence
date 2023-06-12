@@ -66,11 +66,13 @@ void Player::Update()
 	{
 		skin_idle->reverseLR = false;
 		skin_run->reverseLR = false;
+		skin_run->SetLocalPosX(-10);
 	}
 	else if (dir == Direction::R)
 	{
 		skin_idle->reverseLR = true;
 		skin_run->reverseLR = true;
+		skin_run->SetLocalPosX(10);
 	}
 
 	if (state == State::IDLE)

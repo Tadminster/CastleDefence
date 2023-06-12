@@ -1,7 +1,5 @@
 ﻿#include "stdafx.h"
 #include "Player.h"
-#include "Map.h"
-
 
 Player::Player()
 {
@@ -54,8 +52,8 @@ Player::~Player()
 void Player::Init()
 {
 	collider->SetWorldPos(Vector2(0, 0));
-	state = PlayerState::IDLE;
-	dir = PlayerDir::R;
+	state = State::IDLE;
+	dir = Direction::R;
 }
 
 void Player::Update()
@@ -64,21 +62,21 @@ void Player::Update()
 	this->collider->Update();
 	this->area->Update();
 
-	if (dir == PlayerDir::L)
+	if (dir == Direction::L)
 	{
 		skin_idle->reverseLR = false;
 		skin_run->reverseLR = false;
 	}
-	else if (dir == PlayerDir::R)
+	else if (dir == Direction::R)
 	{
 		skin_idle->reverseLR = true;
 		skin_run->reverseLR = true;
 	}
 
-	if (state == PlayerState::IDLE)
+	if (state == State::IDLE)
 	{
 	}
-	else if (state == PlayerState::RUN)
+	else if (state == State::RUN)
 	{
 		static float tickCount = 0.0f;
 		if (TIMER->GetTick(tickCount, 0.1f))
@@ -94,16 +92,16 @@ void Player::Render()
 	this->collider->Render();
 	this->area->Render();
 
-	if (state == PlayerState::IDLE)
+	if (state == State::IDLE)
 		skin_idle->Render();
-	else if (state == PlayerState::RUN)
+	else if (state == State::RUN)
 		skin_run->Render();
 }
 
 void Player::Control()
 {	
 	if (INPUT->KeyUp(VK_UP) || INPUT->KeyUp(VK_DOWN) || INPUT->KeyUp(VK_LEFT) || INPUT->KeyUp(VK_RIGHT))
-		state = PlayerState::IDLE;
+		state = State::IDLE;
 
 	// 방향
 	//if (INPUT->KeyDown(VK_LEFT))
@@ -114,26 +112,26 @@ void Player::Control()
 	// 이동
 	if (INPUT->KeyPress(VK_UP))
 	{
-		state = PlayerState::RUN;
+		state = State::RUN;
 		collider->MoveWorldPos(UP * 200 * DELTA);
 	}
 	else if (INPUT->KeyPress(VK_DOWN))
 	{
-		state = PlayerState::RUN;
+		state = State::RUN;
 		collider->MoveWorldPos(DOWN * 200 * DELTA);
 	}
 
 	if (INPUT->KeyPress(VK_LEFT))
 	{
-		dir = PlayerDir::L;
-		state = PlayerState::RUN;
+		dir = Direction::L;
+		state = State::RUN;
 		collider->MoveWorldPos(LEFT * 200 * DELTA);
 	}
 	else if (INPUT->KeyPress(VK_RIGHT))
 	{
 
-		dir = PlayerDir::R;
-		state = PlayerState::RUN;
+		dir = Direction::R;
+		state = State::RUN;
 		collider->MoveWorldPos(RIGHT * 200 * DELTA);
 	}
 }

@@ -45,9 +45,9 @@ void Main::Update()
 		if (INPUT->KeyPress('A')) CAM->position.x -= 5000 * DELTA;
 		if (INPUT->KeyPress('D')) CAM->position.x += 5000 * DELTA;
 	}
-	else
-		CAM->position = player->getPos();
+	//else
 	
+		CAM->position = player->getPos();
 
 	mapManager->Relocation(player);
 	mapManager->Update();

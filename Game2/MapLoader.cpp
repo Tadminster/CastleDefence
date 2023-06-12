@@ -6,7 +6,7 @@
 #include <filesystem>
 #include <fstream>
 
-MapLoader::MapLoader() : savePath("../Save"), imgPath(new FilePath()) {}
+MapLoader::MapLoader() : savePath("../Contents/Save"), imgPath(new FilePath()) {}
 MapLoader::MapLoader(const std::string& savePath) : savePath(savePath), imgPath(new FilePath()) {}
 
 bool MapLoader::loadGame(const std::string& saveFile, vector<ObImage*> (*tilemapPtr)[10])
@@ -26,10 +26,10 @@ bool MapLoader::loadGame(const std::string& saveFile, vector<ObImage*> (*tilemap
 	{
 		int		tileWidth	= 0;
 		int		tileHeight	= 0;
-		float		uvX		= 0;
-		float		uvY		= 0;
-		int		uvZ			= 0;
-		int		uvW			= 0;
+		float	uvX			= 0;
+		float	uvY			= 0;
+		float	uvZ			= 0;
+		float	uvW			= 0;
 		int		layer		= 0;
 		int		colWidth	= 0;
 		int		colHeight	= 0;

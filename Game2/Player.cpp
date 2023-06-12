@@ -9,20 +9,16 @@ Player::Player()
 	area = new ObRect();
 	area->SetParentRT(*collider);
 	
-	skin_idle[0] = new ObImage(L"player_idle_left.png");
-	skin_idle[1] = new ObImage(L"player_idle_right.png");
-	skin_run[0] = new ObImage(L"player_run_left.png");
-	skin_run[1] = new ObImage(L"player_run_right.png");
+	skin_idle = new ObImage(L"player_idle_left.png");
+	skin_run = new ObImage(L"player_run_left.png");
 
 	// PLAYER COLLISION
-	//collider->pivot = OFFSET_B;
 	collider->scale = Vector2( 30.0f , 60.f);
 	collider->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
 	collider->isFilled = false;
 	collider->hasAxis = false;
 
-	//area->pivot = OFFSET_B;
-	area->scale = Vector2(500.0f, 500.f);
+	area->scale = Vector2(1500.0f, 1500.0f);
 	area->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
 	area->isFilled = false;
 	area->hasAxis = false;
@@ -32,41 +28,25 @@ Player::Player()
 	// SKIN
 	{
 		// IDLE
-		for (auto& idle : skin_idle)
-		{
-			idle->SetParentRT(*this->collider);
-			idle->scale.x = idle->imageSize.x;
-			idle->scale.y = idle->imageSize.y;
-			idle->SetLocalPosY(34);
-		}
-		//skin_idle[0]->SetLocalPosX(-10);
-		//skin_idle[1]->SetLocalPosX(10);
+		skin_idle->SetParentRT(*this->collider);
+		skin_idle->scale.x = skin_idle->imageSize.x;
+		skin_idle->scale.y = skin_idle->imageSize.y;
 
 		// RUN
-		for (auto& run : skin_run)
-		{
-			run->SetParentRT(*this->collider);
-			run->scale.x = run->imageSize.x / 4.0f;
-			run->scale.y = run->imageSize.y;
-			run->uv.z = 1.0f / 4.0f;
-			run->SetLocalPosY(34);
-		}
-		skin_run[0]->SetLocalPosX(-10);
-		skin_run[1]->SetLocalPosX(10);
+		skin_run->SetParentRT(*this->collider);
+		skin_run->scale.x = skin_run->imageSize.x / 4.0f;
+		skin_run->scale.y = skin_run->imageSize.y;
+		skin_run->maxFrame.x = 4;
 	}
 }
 
 Player::~Player()
 {
-	for (auto& idle : skin_idle)
-		delete idle;
-	TEXTURE->DeleteTexture(L"player_idel_left.png");
-	TEXTURE->DeleteTexture(L"player_idel_right.png");
 
-	for (auto& run : skin_run)
-		delete run;
+	delete skin_idle;
+	delete skin_run;
+	TEXTURE->DeleteTexture(L"player_idel_left.png");
 	TEXTURE->DeleteTexture(L"player_run_left.png");
-	TEXTURE->DeleteTexture(L"player_run_right.png");
 
 	delete collider;
 }
@@ -84,49 +64,29 @@ void Player::Update()
 	this->collider->Update();
 	this->area->Update();
 
-	if (state != PlayerState::IDLE)
+	if (dir == PlayerDir::L)
+	{
+		skin_idle->reverseLR = false;
+		skin_run->reverseLR = false;
+	}
+	else if (dir == PlayerDir::R)
+	{
+		skin_idle->reverseLR = true;
+		skin_run->reverseLR = true;
+	}
+
+	if (state == PlayerState::IDLE)
 	{
 	}
 	else if (state == PlayerState::RUN)
 	{
 		static float tickCount = 0.0f;
 		if (TIMER->GetTick(tickCount, 0.1f))
-			for (auto& playerSkin : this->skin_run)
-			{
-				playerSkin->uv.z += 1.0f / 4.0f;
-				playerSkin->uv.x += 1.0f / 4.0f;
-			}
+				skin_run->frame.x += 1;
 	}
 
-
-
-	//static float tickCount = 0.0f;
-	//if (TIMER->GetTick(tickCount, 0.1f))
-	//{
-	//	if (INPUT->KeyPress(VK_LEFT))
-	//	{
-	//		
-	//		for (auto& playerSkin : this->skin_run)
-	//		{
-	//			playerSkin->uv.z -= 1.0f / 4.0f;
-	//			playerSkin->uv.x -= 1.0f / 4.0f;
-	//		}
-	//	}
-	//	if (INPUT->KeyPress(VK_RIGHT))
-	//	{
-	//		for (auto& playerSkin : this->skin_run)
-	//		{
-	//			playerSkin->uv.z += 1.0f / 4.0f;
-	//			playerSkin->uv.x += 1.0f / 4.0f;
-	//		}
-	//	}
-
-	//}
-
-	for (auto& idle : this->skin_idle)
-		idle->Update();
-	for (auto& run : this->skin_run)
-		run->Update();
+	skin_idle->Update();
+	skin_run->Update();
 }
 
 void Player::Render()
@@ -134,41 +94,46 @@ void Player::Render()
 	this->collider->Render();
 	this->area->Render();
 
-	if (state == PlayerState::IDLE && dir == PlayerDir::L)
-		skin_idle[0]->Render();
-	else if (state == PlayerState::IDLE && dir == PlayerDir::R)
-		skin_idle[1]->Render();
-
-	else if (state == PlayerState::RUN && dir == PlayerDir::L)
-		skin_run[0]->Render();
-	else if (state == PlayerState::RUN && dir == PlayerDir::R)
-		skin_run[1]->Render();
-
-
+	if (state == PlayerState::IDLE)
+		skin_idle->Render();
+	else if (state == PlayerState::RUN)
+		skin_run->Render();
 }
 
 void Player::Control()
 {	
-	// 상태
-	if (INPUT->KeyDown(VK_UP) || INPUT->KeyDown(VK_DOWN) || INPUT->KeyDown(VK_LEFT) || INPUT->KeyDown(VK_RIGHT))
-		state = PlayerState::RUN;
-	if (INPUT->KeyUp(VK_UP) || INPUT->KeyDown(VK_DOWN) || INPUT->KeyDown(VK_LEFT) || INPUT->KeyDown(VK_RIGHT))
+	if (INPUT->KeyUp(VK_UP) || INPUT->KeyUp(VK_DOWN) || INPUT->KeyUp(VK_LEFT) || INPUT->KeyUp(VK_RIGHT))
 		state = PlayerState::IDLE;
 
 	// 방향
-	if (INPUT->KeyDown(VK_LEFT))
-		dir = PlayerDir::L;
-	else if (INPUT->KeyDown(VK_RIGHT))
-		dir = PlayerDir::R;
+	//if (INPUT->KeyDown(VK_LEFT))
+	//	dir = PlayerDir::L;
+	//else if (INPUT->KeyDown(VK_RIGHT))
+	//	dir = PlayerDir::R;
 
 	// 이동
 	if (INPUT->KeyPress(VK_UP))
-		collider->MoveWorldPos(UP * 500 * DELTA);
+	{
+		state = PlayerState::RUN;
+		collider->MoveWorldPos(UP * 200 * DELTA);
+	}
 	else if (INPUT->KeyPress(VK_DOWN))
-		collider->MoveWorldPos(DOWN * 500 * DELTA);
+	{
+		state = PlayerState::RUN;
+		collider->MoveWorldPos(DOWN * 200 * DELTA);
+	}
 
 	if (INPUT->KeyPress(VK_LEFT))
-		collider->MoveWorldPos(LEFT * 500 * DELTA);
+	{
+		dir = PlayerDir::L;
+		state = PlayerState::RUN;
+		collider->MoveWorldPos(LEFT * 200 * DELTA);
+	}
 	else if (INPUT->KeyPress(VK_RIGHT))
-		collider->MoveWorldPos(RIGHT * 500 * DELTA);
+	{
+
+		dir = PlayerDir::R;
+		state = PlayerState::RUN;
+		collider->MoveWorldPos(RIGHT * 200 * DELTA);
+	}
 }

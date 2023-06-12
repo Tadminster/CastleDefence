@@ -1,10 +1,13 @@
-﻿#include "Slime.h"
+﻿#include "stdafx.h"
+#include "Slime.h"
 
 Slime::Slime()
 {
 	this->collider = new ObRect();
 	this->skin_run = new ObImage(L"Slime.png");
 	this->skin_run->SetParentRT(*this->collider);
+
+	speed = 50;
 }
 
 Slime::~Slime()

@@ -3,22 +3,73 @@
   <ItemGroup>
     <ClInclude Include="Main.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="FilePath.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="MapLoader.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Monster.h" />
+    <ClInclude Include="FilePath.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLoader.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterManager.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="FilePath.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="MapLoader.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="FilePath.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLoader.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterManager.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="imgui.ini" />
     <None Include="window.ini" />
+    <None Include="imgui.ini">
+      <Filter>System</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="System">
+      <UniqueIdentifier>{a279b42d-1c16-4c31-9103-272541b1f2f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{4989fc3e-d711-4391-b9f5-e91339f980b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Enemy">
+      <UniqueIdentifier>{c6b02eb3-412b-4213-9d4d-4cb772866178}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

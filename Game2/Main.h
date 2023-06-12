@@ -3,8 +3,6 @@ class Main : public Scene
 {
 private:
 	class Map* mapManager;
-	class MonsterManager* monsterManager;
-	class Player* player;
 
 public:
 	Main();

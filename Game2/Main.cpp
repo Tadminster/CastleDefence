@@ -1,30 +1,25 @@
 ﻿#include "stdafx.h"
 #include "Map.h"
-#include "GameManager.h"
 #include "MonsterManager.h"
 #include "Slime.h"
-#include "Player.h"
 #include "Main.h"
 
 
 Main::Main()
 {
 	mapManager = new Map();
-	monsterManager = new MonsterManager();
 }
 
 Main::~Main()
 {
 	mapManager->~Map();
-	delete monsterManager;
-	GAME_MANAGER->player->~Player();
 }
 
 void Main::Init()
 {
 	mapManager->Init();
-	GAME_MANAGER->Init();
-	GAME_MANAGER->player->Init();
+	GM->Init();
+	GM->player->Init();
 	Slime* slime = new Slime();
 	slime->Init();
 	MONSTER->AddEnemy(slime);
@@ -57,12 +52,12 @@ void Main::Update()
 	}
 	//else
 	
-	CAM->position = GAME_MANAGER->player->getPos();
+	CAM->position = GM->player->getPos();
 
-	mapManager->Relocation(GAME_MANAGER->player);
+	mapManager->Relocation();
 	mapManager->Update();
 	MONSTER->Update();
-	GAME_MANAGER->player->Update();
+	GM->player->Update();
 }
 
 void Main::LateUpdate()
@@ -73,7 +68,7 @@ void Main::Render()
 {
 	mapManager->Render();
 	MONSTER->Render();
-	GAME_MANAGER->player->Render();
+	GM->player->Render();
 
 }
 

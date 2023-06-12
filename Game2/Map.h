@@ -16,6 +16,6 @@ public:
 	void Update();
 	void LateUpdate();
 	void Render();
-	void Relocation(class Player* player);
+	void Relocation();
 };
 

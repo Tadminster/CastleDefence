@@ -1,6 +1,5 @@
 ﻿#include "stdafx.h"
 #include "MapLoader.h"
-#include "Player.h"
 #include "Map.h"
 
 Map::Map()
@@ -83,28 +82,27 @@ void Map::Render()
 		img_bg->Render();
 }
 
-void Map::Relocation(Player* player)
+void Map::Relocation()
 {
 	int i = 0;
 	for (auto& col_bg : col_background)
 	{
 		//ImGui::Text("bg[%i] pos_X = %f\n", i, col_bg->GetWorldPos().x);
 		//ImGui::Text("bg[%i] pos_Y = %f\n", i, col_bg->GetWorldPos().y);
-
-		if (col_bg->Intersect(player->getArea()))
+		if (col_bg->Intersect(GM->player->getArea()))
 		{
 			//i++;
 			continue;
 
 		}
 
-		float dirX = player->getPos().x - col_bg->GetWorldPos().x;
-		float dirY = player->getPos().y - col_bg->GetWorldPos().y;
+		float dirX = GM->player->getPos().x - col_bg->GetWorldPos().x;
+		float dirY = GM->player->getPos().y - col_bg->GetWorldPos().y;
 		//ImGui::Text("bg[%i] dir_X = %i\n", i, dirX);
 		//ImGui::Text("bg[%i] dir_Y = %i\n", i, dirY);
 
-		float diffX = abs(player->getPos().x - col_bg->GetWorldPos().x);
-		float diffY = abs(player->getPos().y - col_bg->GetWorldPos().y);
+		float diffX = abs(GM->player->getPos().x - col_bg->GetWorldPos().x);
+		float diffY = abs(GM->player->getPos().y - col_bg->GetWorldPos().y);
 
 		dirX = dirX > 0 ? 1 : -1;
 		dirY = dirY > 0 ? 1 : -1;

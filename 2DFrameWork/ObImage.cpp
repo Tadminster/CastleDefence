@@ -103,7 +103,7 @@ void ObImage::PlayAnim()
                         frame.x = maxFrame.x - 1;
                     }
                 }
-                else //REVERSE_ONCE
+                else if (animState == ANIMSTATE::REVERSE_ONCE)
                 {
                     frame.x--;
                     if (frame.x == -1)
@@ -140,7 +140,7 @@ void ObImage::PlayAnim()
                         frame.y = maxFrame.y - 1;
                     }
                 }
-                else //REVERSE_ONCE
+                else if (animState == ANIMSTATE::REVERSE_ONCE)
                 {
                     frame.y--;
                     if (frame.y == -1)

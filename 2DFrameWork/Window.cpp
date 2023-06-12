@@ -28,17 +28,20 @@ WPARAM Window::Run(Scene* main)
 		{
 			TIMER->Chronometry(app.fixFrame);
 			INPUT->Update();
-			//SOUND->Update();
+			SOUND->Update();
 			GUI->Update();
 			main->Update();
 			main->LateUpdate();
 			CAM->Set();
+			Light::GetInstance()->Set();
 			D3D->SetRenderTarget();
 			D3D->Clear(app.background);
+			DWRITE->GetDC()->BeginDraw();
 			{
 				main->Render();
 				GUI->Render();
 			}
+			DWRITE->GetDC()->EndDraw();
 			D3D->Present();
 		}
 	}
@@ -56,8 +59,10 @@ WPARAM Window::Run(Scene* main)
 	GUI->DeleteSingleton();
 	CAM->DeleteSingleton();
 	RANDOM->DeleteSingleton();
-	//SOUND->DeleteSingleton();
+	SOUND->DeleteSingleton();
 	TEXTURE->DeleteSingleton();
+	DWRITE->DeleteSingleton();
+	Light::GetInstance()->DeleteSingleton();
 	//SCENE->DeleteSingleton();
 
 	return msg.wParam;

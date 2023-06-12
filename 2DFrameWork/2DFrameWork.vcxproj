@@ -160,10 +160,12 @@
   <ItemGroup>
     <ClInclude Include="Camara.h" />
     <ClInclude Include="Direct3D11.h" />
+    <ClInclude Include="Dwrite.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="ObCircle.h" />
     <ClInclude Include="ObImage.h" />
     <ClInclude Include="ObLine.h" />
@@ -171,6 +173,7 @@
     <ClInclude Include="ObStar.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Types.h" />
@@ -181,9 +184,11 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Direct3D11.cpp" />
+    <ClCompile Include="Dwrite.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="ObCircle.cpp" />
     <ClCompile Include="ObImage.cpp" />
     <ClCompile Include="ObLine.cpp" />
@@ -191,6 +196,7 @@
     <ClCompile Include="ObStar.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Utility.cpp" />

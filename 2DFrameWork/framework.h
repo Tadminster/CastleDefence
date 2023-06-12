@@ -23,6 +23,15 @@ using namespace std;
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "dxgi.lib")
 
+
+//D2D
+#include <d2d1_1.h>
+#pragma comment(lib, "d2d1.lib")
+
+//Direct Write
+#include <dwrite.h>
+#pragma comment(lib, "dwrite.lib")
+
 //DirectXTk 
 #include "../Libs/DirectXTK/SimpleMath.h"
 using namespace DirectX;
@@ -48,8 +57,7 @@ using namespace SimpleMath;
 #include "../Libs/ImGui/ImGuiFileDialog.h"
 #include "../Libs/ImGui/ImGuiFileDialogConfig.h"
 
-//Debug
-#define DEBUG_MODE			false
+#define DEBUG_MODE false
 
 //Macro(Pascal)
 #define Check(hr)			{ assert(SUCCEEDED(hr)); }
@@ -86,7 +94,9 @@ extern Application app;//Extern Global
 #include "Camara.h"
 #include "Random.h"
 #include "Texture.h"
-//#include "Sound.h"
+#include "Sound.h"
+#include "Light.h"
+#include "Dwrite.h"
 //#include "SceneManager.h"
 
 #include "VertexType.h"
@@ -109,5 +119,7 @@ extern Application app;//Extern Global
 #define DELTA		Timer::GetInstance()->GetDeltaTime()
 #define RANDOM		Random::GetInstance()
 #define TEXTURE		Texture::GetInstance()
-//#define SOUND		Sound::GetInstance()
+#define SOUND		Sound::GetInstance()
+#define LIGHT		Light::GetInstance()->Get()
+#define DWRITE		Dwrite::GetInstance()
 //#define SCENE       SceneManager::GetInstance()

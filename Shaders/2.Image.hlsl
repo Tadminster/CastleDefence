@@ -32,7 +32,7 @@ cbuffer PS_LIGHT : register(b0)
 {
 	float2 screenPos; //스크린좌표
 	float radius; //반지름크기
-	float select; //남는값
+	float select; //조명 타입 선택
 	float4 lightColor; //조명 색
 	float4 outColor; //외곽 색
 };
@@ -77,12 +77,6 @@ SamplerState Sampler : register(s0);
 //픽셀쉐이더 진입 함수
 float4 PS(PixelInput input) : SV_TARGET //SV_TARGET 은 타겟이될 색깔 
 {
-	//float2 UV = input.uv *100.0f;
-	//UV.x = (int) UV.x;
-	//UV.y = (int) UV.y;
-	//UV /= 100.0f;
-    
-    
     float4 TextureColor =
     // 매핑된 좌표로 텍스쳐 로드
     Texture.Sample(Sampler, input.uv);
@@ -98,6 +92,32 @@ float4 PS(PixelInput input) : SV_TARGET //SV_TARGET 은 타겟이될 색깔
     
     TextureColor = TextureColor + (input.color * 2.0f - 1.0f);
 	TextureColor = saturate(TextureColor);
-
-    return TextureColor;
+    
+    //조명효과
+	float2 Minus = input.position.xy - screenPos;
+	float dis = sqrt(Minus.x * Minus.x + Minus.y * Minus.y);
+	if (select == 0.0f)
+	{
+		if (dis > radius)
+		{
+			TextureColor.rgb += (outColor.rgb * 2.0f - 1.0f);
+		}
+		else
+		{
+			TextureColor.rgb += (lightColor.rgb * 2.0f - 1.0f);
+		}
+	}
+	else
+	{
+        //외각선이 0 가운데가 1
+		float temp2 = pow(saturate(dis / radius), 3.0f);
+		float temp = 1.0f - temp2;
+        
+		TextureColor.rgb=
+		saturate((TextureColor.rgb + (lightColor.rgb * 2.0f - 1.0f)) * temp) +
+		saturate((TextureColor.rgb + (outColor.rgb * 2.0f - 1.0f)) * temp2);
+        
+		//TextureColor.rgb *= temp;
+	}
+	return saturate(TextureColor);
 }

@@ -156,6 +156,22 @@ void Sound::SetMasterVolume()
     }
 }
 
+void Sound::PauseAll()
+{
+    for (auto iter = SoundList.begin(); iter != SoundList.end(); iter++)
+    {
+        iter->second->channel->setPaused(true);
+    }
+}
+
+void Sound::ResumeAll()
+{
+    for (auto iter = SoundList.begin(); iter != SoundList.end(); iter++)
+    {
+        iter->second->channel->setPaused(false);
+    }
+}
+
 void Sound::Update()
 {
     system->update();

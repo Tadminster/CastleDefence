@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.5.33627.172
+VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "2DFrameWork", "2DFrameWork\2DFrameWork.vcxproj", "{C2138BC9-A195-455F-91A6-5FF469EB5E61}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CastleDefence", "Game2\Game2.vcxproj", "{E4AABC26-46D5-436A-BE00-FF12933156D1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game2", "Game2\Game2.vcxproj", "{E4AABC26-46D5-436A-BE00-FF12933156D1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C2138BC9-A195-455F-91A6-5FF469EB5E61} = {C2138BC9-A195-455F-91A6-5FF469EB5E61}
 	EndProjectSection
@@ -26,36 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Txt", "Txt", "{BC1DD457-26F
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{23927E1A-8E5E-46EE-82F6-D613BF3CD580}"
-	ProjectSection(SolutionItems) = preProject
-		Contents\Images\Assets.png = Contents\Images\Assets.png
-		Contents\Images\bg_1.bmp = Contents\Images\bg_1.bmp
-		Contents\Images\bg_2.bmp = Contents\Images\bg_2.bmp
-		Contents\Images\bg_3.bmp = Contents\Images\bg_3.bmp
-		Contents\Images\bg_4.bmp = Contents\Images\bg_4.bmp
-		Contents\Images\bg_Background_0.png = Contents\Images\bg_Background_0.png
-		Contents\Images\bg_Background_1.png = Contents\Images\bg_Background_1.png
-		Contents\Images\bg_Background_2.png = Contents\Images\bg_Background_2.png
-		Contents\Images\bg_Background_3.png = Contents\Images\bg_Background_3.png
-		Contents\Images\bg_Background_5.png = Contents\Images\bg_Background_5.png
-		Contents\Images\floor.png = Contents\Images\floor.png
-		Contents\Images\obstacle.png = Contents\Images\obstacle.png
-		Contents\Images\player_idle_left.png = Contents\Images\player_idle_left.png
-		Contents\Images\player_idle_right.png = Contents\Images\player_idle_right.png
-		Contents\Images\player_jump_left.png = Contents\Images\player_jump_left.png
-		Contents\Images\player_jump_right.png = Contents\Images\player_jump_right.png
-		Contents\Images\player_run_left.png = Contents\Images\player_run_left.png
-		Contents\Images\player_run_right.png = Contents\Images\player_run_right.png
-		Contents\Images\shark.png = Contents\Images\shark.png
-		Contents\Images\Tiles_Omega Sector.png = Contents\Images\Tiles_Omega Sector.png
-		Contents\Images\Tiles_Ulu City.png = Contents\Images\Tiles_Ulu City.png
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SaveData", "SaveData", "{B398A115-2D9B-4E11-98E7-C3473FF2655A}"
-	ProjectSection(SolutionItems) = preProject
-		Save\map_1.lua = Save\map_1.lua
-		Save\map_1.map = Save\map_1.map
-		Save\map_1_colliders.map = Save\map_1_colliders.map
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

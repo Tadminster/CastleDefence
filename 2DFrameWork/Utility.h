@@ -32,6 +32,8 @@ namespace Utility
 
     float DirToRadian(Vector2 Dir);
 
+    Vector2 WorldToScreen(Vector2 wol);
+
     //템플릿 함수는 선언,정의 분리 불가
     template<typename T>
     T Saturate(T src, T min = 0, T max = 1)

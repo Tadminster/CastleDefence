@@ -1,4 +1,4 @@
-﻿#include "Framework.h"
+#include "Framework.h"
 
 // Forward declare message handler from imgui_impl_win32.cpp
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -25,9 +25,9 @@ Gui::Gui()
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
 	io.ConfigViewportsNoDefaultParent = true;
 	io.ConfigDockingAlwaysTabBar = true;
+
 	io.Fonts->AddFontFromFileTTF("..\\Contents\\Fonts\\malgun.ttf", 16.0f, NULL, io.Fonts->GetGlyphRangesKorean());
 	//io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\malgun.ttf", 16.0f, NULL, io.Fonts->GetGlyphRangesKorean());
-	
 
 	ImGui::StyleColorsDark();
 

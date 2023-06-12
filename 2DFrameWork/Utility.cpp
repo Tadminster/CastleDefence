@@ -171,3 +171,12 @@ float Utility::DirToRadian(Vector2 Dir)
     //Dir.Normalize();
     return atan2f(Dir.y, Dir.x);
 }
+
+Vector2 Utility::WorldToScreen(Vector2 wol)
+{
+    wol -= CAM->position;
+    wol.x += app.GetHalfWidth();
+    wol.y = app.GetHalfHeight() - wol.y;
+
+    return wol;
+}

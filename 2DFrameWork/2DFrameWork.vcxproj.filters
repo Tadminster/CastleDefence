@@ -56,6 +56,15 @@
     <ClInclude Include="Texture.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Dwrite.h">
+      <Filter>System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
@@ -115,6 +124,15 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Dwrite.cpp">
       <Filter>System</Filter>
     </ClCompile>
   </ItemGroup>

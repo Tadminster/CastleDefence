@@ -49,7 +49,7 @@ PixelInput VS(VertexInput input)
 }
 //->pixel  PS   ->color
 //ÇÈ¼¿½¦ÀÌ´õ ÁøÀÔ ÇÔ¼ö
-float4 PS(PixelInput input) : SV_TARGET //SV_TARGET Àº Å¸°ÙÀÌµÉ »ö±ò 
+float4 PS(PixelInput input) : SV_TARGET 
 {
 	//if (input.position.y > 200.0f)
 	//{
@@ -58,6 +58,32 @@ float4 PS(PixelInput input) : SV_TARGET //SV_TARGET Àº Å¸°ÙÀÌµÉ »ö±ò
     
 	float4 outputColor;
 	outputColor = saturate(input.color);
+    
+	float2 Minus = input.position.xy - screenPos;
+	float dis = Minus.x * Minus.x + Minus.y * Minus.y;
+	dis = sqrt(dis);
+	if (select == 0.0f)
+	{
+		if (dis > radius)
+		{
+			outputColor.rgb += (outColor * 2.0f - 1.0f);
+		}
+		else
+		{
+			outputColor.rgb += (lightColor * 2.0f - 1.0f);
+		}
+	}
+	else
+	{
+		float temp2 = pow(saturate(dis / radius), 3.0f);
+		float temp = 1.0f - temp2;
+        
+		outputColor.rgb =
+		saturate((outputColor.rgb + (lightColor.rgb * 2.0f - 1.0f)) * temp) +
+		saturate((outputColor.rgb + (outColor.rgb * 2.0f - 1.0f)) * temp2);
+        
+	}
+	outputColor = saturate(outputColor);
     
 	return outputColor;
 }

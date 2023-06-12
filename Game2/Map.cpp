@@ -85,22 +85,44 @@ void Map::Render()
 
 void Map::Relocation(Player* player)
 {
+	int i = 0;
 	for (auto& col_bg : col_background)
 	{
-		if(col_bg->Intersect(player->getArea())) return;
+		//ImGui::Text("bg[%i] pos_X = %f\n", i, col_bg->GetWorldPos().x);
+		//ImGui::Text("bg[%i] pos_Y = %f\n", i, col_bg->GetWorldPos().y);
+
+		if (col_bg->Intersect(player->getArea()))
+		{
+			//i++;
+			continue;
+
+		}
 
 		float dirX = player->getPos().x - col_bg->GetWorldPos().x;
 		float dirY = player->getPos().y - col_bg->GetWorldPos().y;
+		//ImGui::Text("bg[%i] dir_X = %i\n", i, dirX);
+		//ImGui::Text("bg[%i] dir_Y = %i\n", i, dirY);
 
-		float diffX = abs(dirX);
-		float diffY = abs(dirY);
+		float diffX = abs(player->getPos().x - col_bg->GetWorldPos().x);
+		float diffY = abs(player->getPos().y - col_bg->GetWorldPos().y);
 
 		dirX = dirX > 0 ? 1 : -1;
 		dirY = dirY > 0 ? 1 : -1;
 
-		if (diffX > player->getArea()->scale.x / 2)
+		//ImGui::Text("bg[%i] diff_X = %f\n", i, diffX);
+		//ImGui::Text("bg[%i] diff_Y = %f\n", i, diffY);
+		//ImGui::Text("bg[%i] dir_X = %i\n", i, dirX);
+		//ImGui::Text("bg[%i] dir_Y = %i\n\n", i, dirY);
+		//i++;
+
+		if (diffX > diffY)
 			col_bg->MoveWorldPos(RIGHT * dirX * col_bg->scale.x * 2);
-		if (diffY > player->getArea()->scale.y / 2)
+		else if (diffX < diffY)
 			col_bg->MoveWorldPos(UP * dirY * col_bg->scale.y * 2);
+		else
+		{
+			col_bg->MoveWorldPos(RIGHT * dirX * col_bg->scale.x * 2);
+			col_bg->MoveWorldPos(UP * dirY * col_bg->scale.y * 2);
+		}
 	}
 }

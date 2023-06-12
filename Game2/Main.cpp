@@ -29,24 +29,27 @@ void Main::Release()
 void Main::Update()
 {
 
-	{	// DEBUG TEXT OUTPUT
-		if (DEBUG_MODE)
-		{
-			ImGui::Text(u8"[ 마우스_X ] %f\n", INPUT->GetWorldMousePos().x);
-			ImGui::Text(u8"[ 마우스_Y ] %f\n", INPUT->GetWorldMousePos().y);
-			ImGui::Text("\n");
+	// DEBUG TEXT OUTPUT
+	if (DEBUG_MODE)
+	{
+		ImGui::Text(u8"[ 마우스_X ] %f\n", INPUT->GetWorldMousePos().x);
+		ImGui::Text(u8"[ 마우스_Y ] %f\n", INPUT->GetWorldMousePos().y);
+		ImGui::Text("\n");
 
-			ImGui::Text(u8"[ 카메라_X ] %f\n", CAM->position.x);
-			ImGui::Text(u8"[ 카메라_Y ] %f\n", CAM->position.y);
-			ImGui::Text("\n");
+		ImGui::Text(u8"[ 카메라_X ] %f\n", CAM->position.x);
+		ImGui::Text(u8"[ 카메라_Y ] %f\n", CAM->position.y);
+		ImGui::Text("\n");
 
-			if (INPUT->KeyPress(VK_UP)) CAM->position.y += 5000 * DELTA;
-			if (INPUT->KeyPress(VK_DOWN)) CAM->position.y -= 5000 * DELTA;
-			if (INPUT->KeyPress(VK_LEFT)) CAM->position.x -= 5000 * DELTA;
-			if (INPUT->KeyPress(VK_RIGHT)) CAM->position.x += 5000 * DELTA;
-		}
+		if (INPUT->KeyPress('W')) CAM->position.y += 5000 * DELTA;
+		if (INPUT->KeyPress('S')) CAM->position.y -= 5000 * DELTA;
+		if (INPUT->KeyPress('A')) CAM->position.x -= 5000 * DELTA;
+		if (INPUT->KeyPress('D')) CAM->position.x += 5000 * DELTA;
 	}
+	else
+		CAM->position = player->getPos();
+	
 
+	mapManager->Relocation(player);
 	mapManager->Update();
 	player->Update();
 }

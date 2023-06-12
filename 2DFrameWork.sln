@@ -28,6 +28,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{23927E1A-8E5E-46EE-82F6-D613BF3CD580}"
 	ProjectSection(SolutionItems) = preProject
 		Contents\Images\Assets.png = Contents\Images\Assets.png
+		Contents\Images\bg_1.bmp = Contents\Images\bg_1.bmp
+		Contents\Images\bg_2.bmp = Contents\Images\bg_2.bmp
+		Contents\Images\bg_3.bmp = Contents\Images\bg_3.bmp
+		Contents\Images\bg_4.bmp = Contents\Images\bg_4.bmp
 		Contents\Images\bg_Background_0.png = Contents\Images\bg_Background_0.png
 		Contents\Images\bg_Background_1.png = Contents\Images\bg_Background_1.png
 		Contents\Images\bg_Background_2.png = Contents\Images\bg_Background_2.png

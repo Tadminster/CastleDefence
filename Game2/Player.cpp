@@ -6,18 +6,26 @@
 Player::Player()
 {
 	collider = new ObRect();
+	area = new ObRect();
+	area->SetParentRT(*collider);
+	
 	skin_idle[0] = new ObImage(L"player_idle_left.png");
 	skin_idle[1] = new ObImage(L"player_idle_right.png");
 	skin_run[0] = new ObImage(L"player_run_left.png");
 	skin_run[1] = new ObImage(L"player_run_right.png");
 
 	// PLAYER COLLISION
-	collider->pivot = OFFSET_B;
-	collider->scale.x = 30.0f;
-	collider->scale.y = 60.0f;
+	//collider->pivot = OFFSET_B;
+	collider->scale = Vector2( 30.0f , 60.f);
 	collider->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
 	collider->isFilled = false;
 	collider->hasAxis = false;
+
+	//area->pivot = OFFSET_B;
+	area->scale = Vector2(500.0f, 500.f);
+	area->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
+	area->isFilled = false;
+	area->hasAxis = false;
 
 	this->Init();
 
@@ -74,6 +82,7 @@ void Player::Update()
 {
 	this->Control();
 	this->collider->Update();
+	this->area->Update();
 
 	if (state != PlayerState::IDLE)
 	{
@@ -123,6 +132,7 @@ void Player::Update()
 void Player::Render()
 {
 	this->collider->Render();
+	this->area->Render();
 
 	if (state == PlayerState::IDLE && dir == PlayerDir::L)
 		skin_idle[0]->Render();

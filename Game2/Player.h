@@ -15,6 +15,7 @@ class Player
 {
 private:
 	ObRect*			collider;
+	ObRect*			area;
 	ObImage*		skin_idle[2];
 	ObImage*		skin_run[2];
 
@@ -27,6 +28,7 @@ public:
 	~Player();
 
 	ObRect*			getCollider()	{ return this->collider; }
+	ObRect*			getArea()		{ return this->area; }
 	PlayerState		getSate()		{ return this->state;  }
 	PlayerDir		getDir()		{ return this->dir;  }
 

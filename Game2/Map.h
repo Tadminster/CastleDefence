@@ -2,8 +2,11 @@
 class Map
 {
 private:
-	class MapLoader* mapLoader;
-	vector<ObImage*> tilemap[10];
+	class MapLoader*	mapLoader;
+	ObRect*				col_background[4];
+	ObImage*			img_background[4];
+
+	//vector<ObImage*>	tilemap[10];
 
 public:
 	Map();
@@ -13,5 +16,6 @@ public:
 	void Update();
 	void LateUpdate();
 	void Render();
+	void Relocation(class Player* player);
 };
 

@@ -16,8 +16,8 @@ class Player
 private:
 	ObRect*			collider;
 	ObRect*			area;
-	ObImage*		skin_idle[2];
-	ObImage*		skin_run[2];
+	ObImage*		skin_idle;
+	ObImage*		skin_run;
 
 	// state
 	PlayerState		state;

@@ -57,7 +57,7 @@ using namespace SimpleMath;
 #include "../Libs/ImGui/ImGuiFileDialog.h"
 #include "../Libs/ImGui/ImGuiFileDialogConfig.h"
 
-#define DEBUG_MODE false
+#define DEBUG_MODE true
 
 //Macro(Pascal)
 #define Check(hr)			{ assert(SUCCEEDED(hr)); }

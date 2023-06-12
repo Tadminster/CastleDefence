@@ -26,6 +26,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Txt", "Txt", "{BC1DD457-26F
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{23927E1A-8E5E-46EE-82F6-D613BF3CD580}"
+	ProjectSection(SolutionItems) = preProject
+		Contents\Images\Assets.png = Contents\Images\Assets.png
+		Contents\Images\bg_1.bmp = Contents\Images\bg_1.bmp
+		Contents\Images\bg_2.bmp = Contents\Images\bg_2.bmp
+		Contents\Images\bg_3.bmp = Contents\Images\bg_3.bmp
+		Contents\Images\bg_4.bmp = Contents\Images\bg_4.bmp
+		Contents\Images\bg_Background_0.png = Contents\Images\bg_Background_0.png
+		Contents\Images\bg_Background_1.png = Contents\Images\bg_Background_1.png
+		Contents\Images\bg_Background_2.png = Contents\Images\bg_Background_2.png
+		Contents\Images\bg_Background_3.png = Contents\Images\bg_Background_3.png
+		Contents\Images\bg_Background_5.png = Contents\Images\bg_Background_5.png
+		Contents\Images\floor.png = Contents\Images\floor.png
+		Contents\Images\obstacle.png = Contents\Images\obstacle.png
+		Contents\Images\player_idle_left.png = Contents\Images\player_idle_left.png
+		Contents\Images\player_idle_right.png = Contents\Images\player_idle_right.png
+		Contents\Images\player_jump_left.png = Contents\Images\player_jump_left.png
+		Contents\Images\player_jump_right.png = Contents\Images\player_jump_right.png
+		Contents\Images\player_run_left.png = Contents\Images\player_run_left.png
+		Contents\Images\player_run_right.png = Contents\Images\player_run_right.png
+		Contents\Images\shark.png = Contents\Images\shark.png
+		Contents\Images\Tiles_Omega Sector.png = Contents\Images\Tiles_Omega Sector.png
+		Contents\Images\Tiles_Ulu City.png = Contents\Images\Tiles_Ulu City.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

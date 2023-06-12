@@ -1,5 +1,8 @@
 ﻿#include "stdafx.h"
 #include "Map.h"
+#include "GameManager.h"
+#include "MonsterManager.h"
+#include "Slime.h"
 #include "Player.h"
 #include "Main.h"
 
@@ -7,19 +10,24 @@
 Main::Main()
 {
 	mapManager = new Map();
-	player = new Player();
+	monsterManager = new MonsterManager();
 }
 
 Main::~Main()
 {
 	mapManager->~Map();
-	player->~Player();
+	delete monsterManager;
+	GAME_MANAGER->player->~Player();
 }
 
 void Main::Init()
 {
 	mapManager->Init();
-	player->Init();
+	GAME_MANAGER->Init();
+	GAME_MANAGER->player->Init();
+	Slime* slime = new Slime();
+	slime->Init();
+	MONSTER->AddEnemy(slime);
 }
 
 void Main::Release()
@@ -28,7 +36,6 @@ void Main::Release()
 
 void Main::Update()
 {
-
 	// DEBUG TEXT OUTPUT
 	if (DEBUG_MODE)
 	{
@@ -40,6 +47,9 @@ void Main::Update()
 		ImGui::Text(u8"[ 카메라_Y ] %f\n", CAM->position.y);
 		ImGui::Text("\n");
 
+		ImGui::Text(u8"[ 몬스터수 ] %i\n", MONSTER->getEnemyCount());
+		ImGui::Text("\n");
+
 		if (INPUT->KeyPress('W')) CAM->position.y += 5000 * DELTA;
 		if (INPUT->KeyPress('S')) CAM->position.y -= 5000 * DELTA;
 		if (INPUT->KeyPress('A')) CAM->position.x -= 5000 * DELTA;
@@ -47,11 +57,12 @@ void Main::Update()
 	}
 	//else
 	
-		CAM->position = player->getPos();
+	CAM->position = GAME_MANAGER->player->getPos();
 
-	mapManager->Relocation(player);
+	mapManager->Relocation(GAME_MANAGER->player);
 	mapManager->Update();
-	player->Update();
+	MONSTER->Update();
+	GAME_MANAGER->player->Update();
 }
 
 void Main::LateUpdate()
@@ -61,7 +72,9 @@ void Main::LateUpdate()
 void Main::Render()
 {
 	mapManager->Render();
-	player->Render();
+	MONSTER->Render();
+	GAME_MANAGER->player->Render();
+
 }
 
 void Main::ResizeScreen()

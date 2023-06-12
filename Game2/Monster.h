@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#pragma once
+﻿#pragma once
 enum class MonsterDir
 {
 	U, D, L, R
@@ -8,9 +7,13 @@ enum class MonsterDir
 class Monster
 {
 protected:
-	ObRect* collider;
-	ObImage* skin_run;
+	class ObRect* collider;
+	class ObImage* skin_run;
 	MonsterDir dir;
+
+	int		hp;
+	float	speed;
+
 
 public:
 	//Monster() {};
@@ -20,5 +23,6 @@ public:
 	virtual void Init();
 	virtual void Update();
 	virtual void Render();
+	virtual void Trace();
 };
 

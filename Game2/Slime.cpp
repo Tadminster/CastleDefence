@@ -54,7 +54,6 @@ void Slime::Update()
 
 void Slime::Render()
 {
-	ImGui::Text("frame: %i\n", skin_run->frame.x);
 	this->collider->Render();
 	this->skin_run->Render();
 	static float frameTick = 0.0f;

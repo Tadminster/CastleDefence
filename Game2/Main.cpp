@@ -43,10 +43,10 @@ void Main::Update()
 		ImGui::Text(u8"[ 몬스터수 ] %i\n", MONSTER->getEnemyCount());
 		ImGui::Text("\n");
 
-		if (INPUT->KeyPress('W')) CAM->position.y += 5000 * DELTA;
-		if (INPUT->KeyPress('S')) CAM->position.y -= 5000 * DELTA;
-		if (INPUT->KeyPress('A')) CAM->position.x -= 5000 * DELTA;
-		if (INPUT->KeyPress('D')) CAM->position.x += 5000 * DELTA;
+		if (INPUT->KeyPress(VK_UP)) CAM->position.y += 5000 * DELTA;
+		if (INPUT->KeyPress(VK_DOWN)) CAM->position.y -= 5000 * DELTA;
+		if (INPUT->KeyPress(VK_LEFT)) CAM->position.x -= 5000 * DELTA;
+		if (INPUT->KeyPress(VK_RIGHT)) CAM->position.x += 5000 * DELTA;
 	}
 	//else
 	

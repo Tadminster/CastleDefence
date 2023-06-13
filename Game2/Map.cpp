@@ -84,7 +84,6 @@ void Map::Render()
 
 void Map::Relocation()
 {
-	int i = 0;
 	for (auto& col_bg : col_background)
 	{
 		//ImGui::Text("bg[%i] pos_X = %f\n", i, col_bg->GetWorldPos().x);

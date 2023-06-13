@@ -13,8 +13,11 @@ public:
 	void	LateUpdate();
 	void	Render();
 
-	void	AddEnemy(Monster* monster);
 
 	int		getEnemyCount() { return enemy.size(); }
+
+	void	AddEnemy(Monster* monster);
+	void	Relocation();
+	void	Pool();
 };
 

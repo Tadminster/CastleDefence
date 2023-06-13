@@ -24,5 +24,8 @@ public:
 	virtual void Update();
 	virtual void Render();
 	virtual void Trace();
+
+	virtual ObRect* getCollider() { return collider;}
+	
 };
 

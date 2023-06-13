@@ -80,8 +80,8 @@ void Player::Update()
 	}
 	else if (state == State::RUN)
 	{
-		static float tickCount = 0.0f;
-		if (TIMER->GetTick(tickCount, 0.1f))
+		static float frameTick = 0.0f;
+		if (TIMER->GetTick(frameTick, 0.1f))
 				skin_run->frame.x += 1;
 	}
 

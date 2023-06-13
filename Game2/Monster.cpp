@@ -16,6 +16,33 @@ void Monster::Update()
 	this->Trace();
 	this->collider->Update();
 
+	// 몬스터 방향 설정
+	Vector2 targetPos = GM->player->getPos();
+	float diffX = targetPos.x - collider->GetWorldPos().x;
+	float diffY = targetPos.y - collider->GetWorldPos().y;
+
+	float dirX = diffX > 0 ? 1 : -1;
+	float dirY = diffY > 0 ? 1 : -1;
+
+	diffX = abs(diffX);
+	diffY = abs(diffY);
+
+	if (diffX * 3 < diffY)
+	{
+		if (dirY == -1)
+			this->dir = MonsterDir::U;
+		else if (dirY == 1)
+			this->dir = MonsterDir::D;
+	}
+	else if (targetPos.x < collider->GetWorldPos().x)
+	{
+		this->dir = MonsterDir::L;
+	}
+	else if (targetPos.x > collider->GetWorldPos().x)
+	{
+		this->dir = MonsterDir::R;
+	}
+
 	if (this->skin_run)
 		this->skin_run->Update();
 }

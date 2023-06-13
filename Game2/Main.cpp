@@ -20,9 +20,7 @@ void Main::Init()
 	mapManager->Init();
 	GM->Init();
 	GM->player->Init();
-	Slime* slime = new Slime();
-	slime->Init();
-	MONSTER->AddEnemy(slime);
+	MONSTER->Init();
 }
 
 void Main::Release()
@@ -62,6 +60,7 @@ void Main::Update()
 
 void Main::LateUpdate()
 {
+	MONSTER->LateUpdate();
 }
 
 void Main::Render()

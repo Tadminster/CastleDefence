@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Weapon.h"
+#include "Fireball.h"
 #include "Projectile.h"
 #include "Player.h"
 
@@ -13,8 +14,6 @@ Player::Player()
 	
 	skin_idle = new ObImage(L"player_idle_left.png");
 	skin_run = new ObImage(L"player_run_left.png");
-
-	this->Init();
 }
 
 Player::~Player()
@@ -65,10 +64,18 @@ void Player::Init()
 		skin_run->scale.y = skin_run->imageSize.y;
 		skin_run->maxFrame.x = 4;
 	}
+
+	equip.emplace_back(new Fireball());
 }
 
 void Player::Update()
 {
+	ImGui::Text("weapons : %i\n", this->equip.size());
+	ImGui::Text("bullets : %i\n", this->projectiles.size());
+	ImGui::Text("col_weapon : %f\n", this->collider_muzzle->GetRight().x);
+	ImGui::Text("col_weapon : %f\n", this->collider_muzzle->GetRight().y);
+
+
 	// 공격
 	for (auto& att : equip)
 		att->Attack();
@@ -110,6 +117,10 @@ void Player::Update()
 	this->area->Update();
 	this->skin_idle->Update();
 	this->skin_run->Update();
+
+	// 탄 업데이트
+	for (auto& projectiles : projectiles)
+		projectiles.Update();
 }
 
 void Player::Render()
@@ -125,6 +136,9 @@ void Player::Render()
 		skin_idle->Render();
 	else if (state == State::RUN)
 		skin_run->Render();
+
+	for (auto& projectiles : projectiles)
+		projectiles.Render();
 }
 
 void Player::Control()
@@ -139,24 +153,24 @@ void Player::Control()
 	//	dir = PlayerDir::R;
 
 	// 이동
-	if (INPUT->KeyPress(VK_UP))
+	if (INPUT->KeyPress('W'))
 	{
 		state = State::RUN;
 		collider->MoveWorldPos(UP * 200 * DELTA);
 	}
-	else if (INPUT->KeyPress(VK_DOWN))
+	else if (INPUT->KeyPress('S'))
 	{
 		state = State::RUN;
 		collider->MoveWorldPos(DOWN * 200 * DELTA);
 	}
 
-	if (INPUT->KeyPress(VK_LEFT))
+	if (INPUT->KeyPress('A'))
 	{
 		dir = Direction::L;
 		state = State::RUN;
 		collider->MoveWorldPos(LEFT * 200 * DELTA);
 	}
-	else if (INPUT->KeyPress(VK_RIGHT))
+	else if (INPUT->KeyPress('D'))
 	{
 
 		dir = Direction::R;

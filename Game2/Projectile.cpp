@@ -10,11 +10,13 @@ Projectile::Projectile
     float damage
 ) :
     skin(nullptr),
+    dir(dir),
     speed(speed),
     range(range),
-    traveledDistance(0.f),
-    damage(damage)
+    damage(damage),
+    traveledDistance(0.f)
 {
+    this->SetWorldPos(spawnPos);
     this->scale.x = 10;
     this->scale.y = 10;
     this->isFilled = true;
@@ -22,12 +24,23 @@ Projectile::Projectile
 
 void Projectile::Update()
 {
-    // V2_탄속만 적용
+    // 발사체 이동
     Vector2 velocity = (this->dir * this->speed);
-
     this->MoveWorldPos(velocity * DELTA);
-    ObRect::Update();
 
-    // 탄이 이동한 거리 계산
+    ObRect::Update();
+    skin->Update();
+    ImGui::Text("this.x = %f\n", this->GetWorldPos().x);
+    ImGui::Text("this.y = %f\n", this->GetWorldPos().y);
+    ImGui::Text("skin.x = %f\n", skin->GetWorldPos().x);
+    ImGui::Text("skin.y = %f\n", skin->GetWorldPos().y);
+
+    // 이동한 거리 계산
     traveledDistance += std::sqrt(std::pow(speed * DELTA, 2) + std::pow(speed * DELTA, 2));
+}
+
+void Projectile::Render()
+{
+    ObRect::Render();
+    skin->Render();
 }

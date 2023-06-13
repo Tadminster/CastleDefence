@@ -8,16 +8,17 @@ Fireball::Fireball()
     this->timeSinceLastTime = 0;
 
 	this->name = "파이어볼";
+	this->attackSpeed = 0.8f;
+
 	this->damage = 10.0f;
-	this->attackSpeed = 2.0f;
-	this->range = 500.0f;
 	this->critical = 0.1;
+	
+    this->range = 400.0f;
+    this->projectileSpeed = 400.f;
 }
 
 bool Fireball::Attack()
 {
-    static float lastShotTime = 0;
-
     float currentTime = TIMER->GetWorldTime();
     float elapsedTime = currentTime - lastShotTime;
 
@@ -26,8 +27,7 @@ bool Fireball::Attack()
         // 총구 위치 계산
         Vector2 muzzle = Vector2(
             GM->player->getColliderWeapon()->GetWorldPos() 
-            + GM->player->getColliderWeapon()->GetRight() 
-            * GM->player->getColliderWeapon()->scale.x);
+            + GM->player->getColliderWeapon()->GetRight() * GM->player->getColliderWeapon()->scale.x);
         // 탄각 계산(플레이어가 바라보는 방향)
         // float rotation_z{ atan2f(shooter->get_right().y, shooter->get_right().x) };
 
@@ -40,6 +40,14 @@ bool Fireball::Attack()
             this->range,
             this->damage
         );
+        projectile.skin = new ObImage(L"FireballProjectile.png");
+        projectile.skin->SetParentRT(projectile);
+        projectile.skin->maxFrame.x = 4;
+        projectile.skin->frame.x = 2;
+        projectile.skin->scale.x = 16;
+        projectile.skin->scale.y = 16;
+        //projectile.skin->scale.x = projectile.skin->imageSize.x / projectile.skin->maxFrame.x;
+        //projectile.skin->scale.y = projectile.skin->imageSize.y;
 
         //벡터에 탄 push
         GM->player->getProjectiles().emplace_back(projectile);

@@ -27,6 +27,15 @@
     <ClInclude Include="GameManager.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -54,6 +63,15 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Fireball.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="window.ini" />
@@ -70,6 +88,9 @@
     </Filter>
     <Filter Include="Object\Enemy">
       <UniqueIdentifier>{c6b02eb3-412b-4213-9d4d-4cb772866178}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapon">
+      <UniqueIdentifier>{4b41a285-c8d9-406d-9ba1-3e10353470c0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

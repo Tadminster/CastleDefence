@@ -1,41 +1,20 @@
 ﻿#include "stdafx.h"
+#include "Weapon.h"
+#include "Projectile.h"
 #include "Player.h"
 
 Player::Player()
 {
 	collider = new ObRect();
+	collider_muzzle = new ObRect();
+	collider_muzzle->SetParentRT(*collider);
 	area = new ObRect();
 	area->SetParentRT(*collider);
 	
 	skin_idle = new ObImage(L"player_idle_left.png");
 	skin_run = new ObImage(L"player_run_left.png");
 
-	// PLAYER COLLISION
-	collider->scale = Vector2( 30.0f , 60.f);
-	collider->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
-	collider->isFilled = false;
-	collider->hasAxis = false;
-
-	area->scale = Vector2(1500.0f, 1500.0f);
-	area->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
-	area->isFilled = false;
-	area->hasAxis = false;
-
 	this->Init();
-
-	// SKIN
-	{
-		// IDLE
-		skin_idle->SetParentRT(*this->collider);
-		skin_idle->scale.x = skin_idle->imageSize.x;
-		skin_idle->scale.y = skin_idle->imageSize.y;
-
-		// RUN
-		skin_run->SetParentRT(*this->collider);
-		skin_run->scale.x = skin_run->imageSize.x / 4.0f;
-		skin_run->scale.y = skin_run->imageSize.y;
-		skin_run->maxFrame.x = 4;
-	}
 }
 
 Player::~Player()
@@ -54,14 +33,54 @@ void Player::Init()
 	collider->SetWorldPos(Vector2(0, 0));
 	state = State::IDLE;
 	dir = Direction::R;
+
+	// COLLISION
+	collider->scale = Vector2(30.0f, 60.f);
+	collider->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
+	collider->isFilled = false;
+	collider->hasAxis = false;
+
+	// MUZZLE
+	collider_muzzle->scale.x = 50.0f;
+	collider_muzzle->scale.y = 3.0;
+	collider_muzzle->pivot = OFFSET_L;
+	collider_muzzle->isFilled = false;
+
+	// AREA
+	area->scale = Vector2(1500.0f, 1500.0f);
+	area->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
+	area->isFilled = false;
+	area->hasAxis = false;
+
+	// SKIN
+	{
+		// IDLE
+		skin_idle->SetParentRT(*this->collider);
+		skin_idle->scale.x = skin_idle->imageSize.x;
+		skin_idle->scale.y = skin_idle->imageSize.y;
+
+		// RUN
+		skin_run->SetParentRT(*this->collider);
+		skin_run->scale.x = skin_run->imageSize.x / 4.0f;
+		skin_run->scale.y = skin_run->imageSize.y;
+		skin_run->maxFrame.x = 4;
+	}
 }
 
 void Player::Update()
 {
-	this->Control();
-	this->collider->Update();
-	this->area->Update();
+	// 공격
+	for (auto& att : equip)
+		att->Attack();
 
+	// 컨트롤
+	this->Control();
+
+	// 조준선 마우스 방향으로
+	Vector2 mouse_point(INPUT->GetWorldMousePos() - this->collider_muzzle->GetWorldPos());
+	collider_muzzle->rotation.z = atan2f(mouse_point.y, mouse_point.x);
+
+	// 방향과 상태에 따른 설정
 	if (dir == Direction::L)
 	{
 		skin_idle->reverseLR = false;
@@ -85,14 +104,22 @@ void Player::Update()
 				skin_run->frame.x += 1;
 	}
 
-	skin_idle->Update();
-	skin_run->Update();
+	// 업데이트
+	this->collider->Update();
+	this->collider_muzzle->Update();
+	this->area->Update();
+	this->skin_idle->Update();
+	this->skin_run->Update();
 }
 
 void Player::Render()
 {
-	this->collider->Render();
-	this->area->Render();
+	if (DEBUG_MODE)
+	{
+		this->collider_muzzle->Render();
+		this->collider->Render();
+		this->area->Render();
+	}
 
 	if (state == State::IDLE)
 		skin_idle->Render();

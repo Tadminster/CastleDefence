@@ -41,13 +41,11 @@ bool Fireball::Attack()
             this->damage
         );
         projectile.skin = new ObImage(L"FireballProjectile.png");
-        projectile.skin->SetParentRT(projectile);
+        projectile.skin->SetParentRT(*projectile.collider);
         projectile.skin->maxFrame.x = 4;
-        projectile.skin->frame.x = 2;
-        projectile.skin->scale.x = 16;
-        projectile.skin->scale.y = 16;
-        //projectile.skin->scale.x = projectile.skin->imageSize.x / projectile.skin->maxFrame.x;
-        //projectile.skin->scale.y = projectile.skin->imageSize.y;
+        projectile.skin->frame.x = 1;
+        projectile.skin->scale.x = 32;
+        projectile.skin->scale.y = 32;
 
         //벡터에 탄 push
         GM->player->getProjectiles().emplace_back(projectile);

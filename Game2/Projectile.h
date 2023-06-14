@@ -13,7 +13,7 @@ public:
 
 public:
     Projectile(Vector2 spawnPos, Vector2 dir, float speed, float range, float damage);
-    ~Projectile();
+    //~Projectile();
     void            Update();
     void            Render();
     

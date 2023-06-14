@@ -25,29 +25,21 @@ Projectile::Projectile
     //skin->SetParentRT(*collider);
 }
 
-Projectile::~Projectile()
-{
-    //if (skin != nullptr)
-        //delete skin;
-}
+//Projectile::~Projectile()
+//{
+//    delete skin;
+//    delete collider;
+//}
 
 void Projectile::Update()
 {
-    // 충돌 처리
-
-
-
-
     // 발사체 이동
     Vector2 velocity = (this->dir * this->speed);
     collider->MoveWorldPos(velocity * DELTA);
 
+    // 업데이트
     collider->Update();
     skin->Update();
-    ImGui::Text("this.x = %f\n", collider->GetWorldPos().x);
-    ImGui::Text("this.y = %f\n", collider->GetWorldPos().y);
-    ImGui::Text("skin.x = %f\n", skin->GetWorldPos().x);
-    ImGui::Text("skin.y = %f\n", skin->GetWorldPos().y);
 
     // 이동한 거리 계산
     traveledDistance += std::sqrt(std::pow(speed * DELTA, 2) + std::pow(speed * DELTA, 2));

@@ -16,7 +16,7 @@ protected:
 
 
 public:
-	//Monster() {};
+	// defalut
 	Monster();
 	virtual ~Monster() {};
 
@@ -25,9 +25,14 @@ public:
 	virtual void Render();
 	virtual void Trace();
 
+	// get
 	virtual ObRect* getCollider() { return collider;}
 
+	// set
 	void			SetHP(int value);
+
+	// etc
 	bool            isDead() const { return hp == 0; }
+	void			knockBack(int value);
 };
 

@@ -65,5 +65,12 @@ void Monster::Trace()
 
 void Monster::SetHP(int value)
 {
-	this->hp = hp + value > 0 ? hp + value : 0;
+	this->hp = max(hp + value, 0);
+}
+
+void Monster::knockBack(int value)
+{
+	Vector2 knockBackDir = this->collider->GetWorldPos() - GM->player->getPos();
+	knockBackDir.Normalize();
+	this->collider->MoveWorldPos(knockBackDir * value);
 }

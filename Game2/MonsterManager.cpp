@@ -25,7 +25,7 @@ void MonsterManager::Update()
 		(
 			enemy.begin(),
 			enemy.end(),
-			[](Monster* pr) { return pr->isDead(); }
+			[](Monster* monster) { return monster->isDead(); }
 		),
 		enemy.end()
 	);

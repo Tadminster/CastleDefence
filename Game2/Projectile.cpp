@@ -58,6 +58,8 @@ bool Projectile::hasCollideWithMonster()
         if (enemy->getCollider()->Intersect(collider))
         {
             cout << "collide" << endl;
+            //enemy->
+            enemy->knockBack(10);
             enemy->SetHP(-this->damage);
             return true;
         }

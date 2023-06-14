@@ -25,8 +25,11 @@ private:
 	State			state;
 	Direction		dir;
 
-	vector<class Weapon*> equip;
-	vector<class Projectile> projectiles;
+	vector<class Weapon*>		equip;
+	vector<class Projectile>	projectiles;
+
+	int				level;
+	int				exp;
 
 public:
 	Player();

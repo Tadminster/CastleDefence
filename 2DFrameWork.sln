@@ -37,6 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{23927E
 		Contents\Images\bg_Background_2.png = Contents\Images\bg_Background_2.png
 		Contents\Images\bg_Background_3.png = Contents\Images\bg_Background_3.png
 		Contents\Images\bg_Background_5.png = Contents\Images\bg_Background_5.png
+		Contents\Images\FireballProjectile.png = Contents\Images\FireballProjectile.png
 		Contents\Images\floor.png = Contents\Images\floor.png
 		Contents\Images\KingSlimeGreen.png = Contents\Images\KingSlimeGreen.png
 		Contents\Images\MegaSlimeGreen.png = Contents\Images\MegaSlimeGreen.png

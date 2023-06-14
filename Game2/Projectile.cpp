@@ -17,13 +17,24 @@ Projectile::Projectile
     traveledDistance(0.f)
 {
     this->SetWorldPos(spawnPos);
-    this->scale.x = 10;
-    this->scale.y = 10;
-    this->isFilled = true;
+    this->scale.x = 5;
+    this->scale.y = 5;
+    this->isFilled = false;
+}
+
+Projectile::~Projectile()
+{
+    //if (skin != nullptr)
+        //delete skin;
 }
 
 void Projectile::Update()
 {
+    // 충돌 처리
+
+
+
+
     // 발사체 이동
     Vector2 velocity = (this->dir * this->speed);
     this->MoveWorldPos(velocity * DELTA);
@@ -43,4 +54,19 @@ void Projectile::Render()
 {
     ObRect::Render();
     skin->Render();
+}
+
+bool Projectile::hasCollideWithMonster()
+{
+    for (auto& enemy : GM->monster->getEnemy())
+    {
+        if (enemy->getCollider()->Intersect(this))
+        {
+            cout << "collide" << endl;
+            enemy->SetHP(-this->damage);
+            return true;
+        }
+    }
+
+    return false;
 }

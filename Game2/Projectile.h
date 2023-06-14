@@ -12,10 +12,12 @@ public:
 
 public:
     Projectile(Vector2 spawnPos, Vector2 dir, float speed, float range, float damage);
-    void Update() override;
-    void Render() override;
-
+    ~Projectile();
+    void            Update() override;
+    void            Render() override;
+    
+    bool            hasCollideWithMonster();
     /* 탄이 이동한 거리가 range를 넘었는지 확인 */
-    bool hasTraveledTooFar() const { return traveledDistance >= range; }
+    bool            hasTraveledTooFar() const { return traveledDistance >= range; }
 };
 

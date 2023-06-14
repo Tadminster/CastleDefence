@@ -20,7 +20,7 @@ void Main::Init()
 	mapManager->Init();
 	GM->Init();
 	GM->player->Init();
-	MONSTER->Init();
+	GM->monster->Init();
 }
 
 void Main::Release()
@@ -29,6 +29,7 @@ void Main::Release()
 
 void Main::Update()
 {
+
 	// DEBUG TEXT OUTPUT
 	if (DEBUG_MODE)
 	{
@@ -40,7 +41,8 @@ void Main::Update()
 		ImGui::Text(u8"[ 카메라_Y ] %f\n", CAM->position.y);
 		ImGui::Text("\n");
 
-		ImGui::Text(u8"[ 몬스터수 ] %i\n", MONSTER->getEnemyCount());
+		ImGui::Text(u8"[ 몬스터수 ] %i\n", 
+			GM->monster->getEnemyCount());
 		ImGui::Text("\n");
 
 		if (INPUT->KeyPress(VK_UP)) CAM->position.y += 5000 * DELTA;
@@ -54,20 +56,20 @@ void Main::Update()
 
 	mapManager->Relocation();
 	mapManager->Update();
-	MONSTER->Update();
 	GM->player->Update();
+	GM->monster->Update();
 }
 
 void Main::LateUpdate()
 {
-	MONSTER->LateUpdate();
+	GM->monster->LateUpdate();
 }
 
 void Main::Render()
 {
 	mapManager->Render();
-	MONSTER->Render();
 	GM->player->Render();
+	GM->monster->Render();
 
 }
 

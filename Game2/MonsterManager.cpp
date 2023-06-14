@@ -10,7 +10,7 @@ void MonsterManager::Init()
 	{
 		slime[i] = new Slime();
 		slime[i]->Init();
-		MONSTER->AddEnemy(slime[i]);
+		GM->monster->AddEnemy(slime[i]);
 	}
 }
 
@@ -20,6 +20,16 @@ void MonsterManager::Release()
 
 void MonsterManager::Update()
 {
+	enemy.erase(
+		std::remove_if
+		(
+			enemy.begin(),
+			enemy.end(),
+			[](Monster* pr) { return pr->isDead(); }
+		),
+		enemy.end()
+	);
+
 	for (auto& enemy : this->enemy)
 		enemy->Update();
 }
@@ -46,20 +56,13 @@ void MonsterManager::Relocation()
 
 	for (auto& enemy : this->enemy)
 	{
-		
-		//ImGui::Text("bg[%i] pos_X = %f\n", i, col_bg->GetWorldPos().x);
-		//ImGui::Text("bg[%i] pos_Y = %f\n", i, col_bg->GetWorldPos().y);
 		if (enemy->getCollider()->Intersect(GM->player->getArea()))
 		{
-			//i++;
 			continue;
-
 		}
 
 		float dirX = GM->player->getPos().x - enemy->getCollider()->GetWorldPos().x;
 		float dirY = GM->player->getPos().y - enemy->getCollider()->GetWorldPos().y;
-		//ImGui::Text("bg[%i] dir_X = %i\n", i, dirX);
-		//ImGui::Text("bg[%i] dir_Y = %i\n", i, dirY);
 
 		float diffX = abs(dirX);
 		float diffY = abs(dirY);
@@ -67,11 +70,6 @@ void MonsterManager::Relocation()
 		dirX = dirX > 0 ? 1 : -1;
 		dirY = dirY > 0 ? 1 : -1;
 
-		//ImGui::Text("bg[%i] diff_X = %f\n", i, diffX);
-		//ImGui::Text("bg[%i] diff_Y = %f\n", i, diffY);
-		//ImGui::Text("bg[%i] dir_X = %i\n", i, dirX);
-		//ImGui::Text("bg[%i] dir_Y = %i\n\n", i, dirY);
-		//i++;
 		Vector2 targetPos = GM->player->getPos();
 
 		if (diffX > diffY)
@@ -112,6 +110,6 @@ void MonsterManager::Pool()
 		Slime* slime = new Slime();
 		slime->Init();
 			
-		MONSTER->AddEnemy(slime);
+		GM->monster->AddEnemy(slime);
 	}
 }

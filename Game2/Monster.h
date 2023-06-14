@@ -26,6 +26,8 @@ public:
 	virtual void Trace();
 
 	virtual ObRect* getCollider() { return collider;}
-	
+
+	void			SetHP(int value);
+	bool            isDead() const { return hp == 0; }
 };
 

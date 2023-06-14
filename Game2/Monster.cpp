@@ -62,3 +62,8 @@ void Monster::Trace()
 	dirVec.Normalize();
 	this->collider->MoveWorldPos(dirVec * speed * DELTA);
 }
+
+void Monster::SetHP(int value)
+{
+	this->hp = hp + value > 0 ? hp + value : 0;
+}

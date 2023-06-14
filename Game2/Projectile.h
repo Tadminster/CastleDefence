@@ -1,8 +1,9 @@
 ﻿#pragma once
-class Projectile : public ObRect
+class Projectile
 {
 public:
-    ObImage* skin;
+    class ObRect*   collider;
+    class ObImage*  skin;
 
     Vector2         dir;                    // 방향
     float           speed;                  // 속도
@@ -13,8 +14,8 @@ public:
 public:
     Projectile(Vector2 spawnPos, Vector2 dir, float speed, float range, float damage);
     ~Projectile();
-    void            Update() override;
-    void            Render() override;
+    void            Update();
+    void            Render();
     
     bool            hasCollideWithMonster();
     /* 탄이 이동한 거리가 range를 넘었는지 확인 */

@@ -9,6 +9,7 @@ Projectile::Projectile
     float range,
     float damage
 ) :
+    collider(new ObRect()),
     skin(nullptr),
     dir(dir),
     speed(speed),
@@ -16,10 +17,12 @@ Projectile::Projectile
     damage(damage),
     traveledDistance(0.f)
 {
-    this->SetWorldPos(spawnPos);
-    this->scale.x = 5;
-    this->scale.y = 5;
-    this->isFilled = false;
+    collider->scale.x = 5;
+    collider->scale.y = 5;
+    collider->isFilled = false;
+    collider->SetWorldPos(spawnPos);
+
+    //skin->SetParentRT(*collider);
 }
 
 Projectile::~Projectile()
@@ -37,12 +40,12 @@ void Projectile::Update()
 
     // 발사체 이동
     Vector2 velocity = (this->dir * this->speed);
-    this->MoveWorldPos(velocity * DELTA);
+    collider->MoveWorldPos(velocity * DELTA);
 
-    ObRect::Update();
+    collider->Update();
     skin->Update();
-    ImGui::Text("this.x = %f\n", this->GetWorldPos().x);
-    ImGui::Text("this.y = %f\n", this->GetWorldPos().y);
+    ImGui::Text("this.x = %f\n", collider->GetWorldPos().x);
+    ImGui::Text("this.y = %f\n", collider->GetWorldPos().y);
     ImGui::Text("skin.x = %f\n", skin->GetWorldPos().x);
     ImGui::Text("skin.y = %f\n", skin->GetWorldPos().y);
 
@@ -52,7 +55,7 @@ void Projectile::Update()
 
 void Projectile::Render()
 {
-    ObRect::Render();
+    collider->Render();
     skin->Render();
 }
 
@@ -60,7 +63,7 @@ bool Projectile::hasCollideWithMonster()
 {
     for (auto& enemy : GM->monster->getEnemy())
     {
-        if (enemy->getCollider()->Intersect(this))
+        if (enemy->getCollider()->Intersect(collider))
         {
             cout << "collide" << endl;
             enemy->SetHP(-this->damage);

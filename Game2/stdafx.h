@@ -4,7 +4,9 @@
 
 
 #include "GameManager.h"
+#include "MonsterManager.h"
 #include "Player.h"
+#include "Monster.h"
 
 //Singleton Macro
 #define GM		GameManager::GetInstance()

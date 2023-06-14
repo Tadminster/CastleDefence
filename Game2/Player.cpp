@@ -40,7 +40,7 @@ void Player::Init()
 	collider->hasAxis = false;
 
 	// MUZZLE
-	collider_muzzle->scale.x = 50.0f;
+	collider_muzzle->scale.x = 30.0f;
 	collider_muzzle->scale.y = 3.0;
 	collider_muzzle->pivot = OFFSET_L;
 	collider_muzzle->isFilled = false;
@@ -111,13 +111,37 @@ void Player::Update()
 				skin_run->frame.x += 1;
 	}
 
+
+
+	// 탄이 몬스터와 충돌했으면 삭제
+	projectiles.erase(
+	std::remove_if
+	(
+		projectiles.begin(),
+		projectiles.end(),
+		[](Projectile& pr) { return pr.hasCollideWithMonster(); }
+	),
+	projectiles.end()
+	);
+
+	// 탄이 충돌했으면 삭제
+	projectiles.erase(
+	std::remove_if
+	(
+		projectiles.begin(),
+		projectiles.end(),
+		[](const Projectile& pr) { return pr.hasTraveledTooFar(); }
+	),
+	projectiles.end()
+	);
+
+
 	// 업데이트
 	this->collider->Update();
 	this->collider_muzzle->Update();
 	this->area->Update();
 	this->skin_idle->Update();
 	this->skin_run->Update();
-
 	// 탄 업데이트
 	for (auto& projectiles : projectiles)
 		projectiles.Update();
@@ -143,7 +167,7 @@ void Player::Render()
 
 void Player::Control()
 {	
-	if (INPUT->KeyUp(VK_UP) || INPUT->KeyUp(VK_DOWN) || INPUT->KeyUp(VK_LEFT) || INPUT->KeyUp(VK_RIGHT))
+	if (INPUT->KeyUp('W') || INPUT->KeyUp('A') || INPUT->KeyUp('S') || INPUT->KeyUp('D'))
 		state = State::IDLE;
 
 	// 방향

@@ -45,11 +45,7 @@ void Main::Update()
 		ImGui::Text("\n");
 
 		ImGui::Text(u8"[ 몬스터 ] %i\n", GM->monster->getEnemyCount());
-		ImGui::Text(u8"[ 킬  수 ] %i\n", GM->kill);
-		ImGui::Text("\n");
-
-		ImGui::Text(u8"[ 경험치 ] %i / %i \n", GM->player->exp, GM->nextExp[GM->player->level]);
-		ImGui::Text(u8"[ 레  벨 ] %i\n", GM->player->level);
+		ImGui::Text(u8"[ HP ] %f / %f \n", GM->player->getHp(), GM->player->getMaxHp());
 		ImGui::Text("\n");
 
 		if (INPUT->KeyPress(VK_UP)) CAM->position.y += 5000 * DELTA;

@@ -36,8 +36,10 @@ private:
 	vector<class Weapon*>		equip;
 	vector<class Projectile>	projectiles;
 
-	float timeOfDamage;				// 데미지 받은 시간 기록
-	int		hp;			// 체력
+	float	timeOfDamage;				// 데미지 받은 시간 기록
+	
+	float	hp;			// 체력
+	float	maxHp;		// 최대체력
 	float	damage;		// 공격력
 	float	def;		// 방어력
 	float	speed;		// 이동속도
@@ -61,6 +63,8 @@ public:
 	ObRect*			getCollider()		{ return this->collider; }
 	ObRect*			getColliderWeapon()	{ return this->collider_muzzle; }
 	ObRect*			getArea()			{ return this->area; }
+	float			getHp()				{ return this->hp; }
+	float			getMaxHp()			{ return this->maxHp; }
 	virtual Vector2 getPos()			{ return this->collider->GetWorldPos(); }
 	vector<class Projectile>& getProjectiles() {return projectiles;}
 	PlayerStatus	getPlayerStatus() { return playerStatus; }

@@ -44,6 +44,17 @@ void HUD::Init()
 	gauge_exp->scale.x = 0;
 	gauge_exp->scale.y = box_exp->imageSize.y * 2;
 
+	box_hp->pivot = OFFSET_L;
+	box_hp->color = Vector4(0.5, 0.5, 0.5, 0.4);
+	box_hp->SetWorldPos(Vector2(-50, -45));
+	box_hp->scale.x = 100;
+	box_hp->scale.y = box_hp->imageSize.y * 2;
+
+	gauge_hp->pivot = OFFSET_L;
+	gauge_hp->SetLocalPosX(3);
+	gauge_hp->scale.x = 0;
+	gauge_hp->scale.y = box_hp->imageSize.y * 2;
+
 	icon_kill->pivot = OFFSET_L;
 	icon_kill->SetWorldPos(Vector2(-app.GetHalfWidth() + 15, app.GetHalfHeight() - 50));
 	icon_kill->scale.x = 32;
@@ -72,6 +83,7 @@ void HUD::Release()
 void HUD::Update()
 {
 	gauge_exp->scale.x = (GM->player->exp / GM->nextExp[GM->player->level]) * app.GetWidth();
+	gauge_hp->scale.x = (GM->player->getHp() / GM->player->getMaxHp()) * 94;
 
 	box_exp->Update();
 	gauge_exp->Update();

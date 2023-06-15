@@ -10,6 +10,7 @@ Slime::Slime()
 	hp = 20;
 	speed = 40;
 	exp = 1;
+	damage = 5;
 }
 
 Slime::~Slime()

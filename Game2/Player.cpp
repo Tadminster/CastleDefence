@@ -35,7 +35,8 @@ void Player::Init()
 	
 	level = 0;
 	exp = 0;
-	hp = 100;
+	maxHp = 50;
+	hp = maxHp;
 	damage = 8;		
 	def = 0;		
 	speed = 150;		
@@ -240,5 +241,5 @@ void Player::actionsWhenDamaged(int value)
 	// 데미지 차감
 	int damage = max(value - def, 0);
 	// 체력 감소
-	hp = max(hp + damage, 0);
+	hp = max(hp - damage, 0);
 }

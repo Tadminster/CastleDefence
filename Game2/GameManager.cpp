@@ -18,3 +18,14 @@ void GameManager::Init()
 	monster = new MonsterManager();
 }
 
+void GameManager::Update()
+{
+	if (player->exp >= nextExp[player->level])
+	{
+		player->exp = 0;
+		player->level++;
+
+	}
+
+}
+

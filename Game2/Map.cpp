@@ -30,7 +30,7 @@ void Map::Init()
 {
 	//mapLoader->loadGame("TileMap.map", &this->tilemap);
 
-
+	// 배경
 	for (int i = 0; i < 4; i++)
 	{
 		Vector2 sacle(2300.f, 2300.f);
@@ -45,8 +45,6 @@ void Map::Init()
 			case 3 : col_background[i]->SetWorldPos(Vector2(-sacle.x / 2, -sacle.y / 2)); break;
 		}
 		img_background[i]->scale = sacle;
-		//ImGui::Text("%f", img_background[i]->imageSize.x);
-		//ImGui::Text("%f", img_background[i]->imageSize.y);
 	}
 }
 

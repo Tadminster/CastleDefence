@@ -36,6 +36,7 @@
     <ClInclude Include="Projectile.h">
       <Filter>Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="HUD.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -72,6 +73,7 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>Weapon</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="window.ini" />

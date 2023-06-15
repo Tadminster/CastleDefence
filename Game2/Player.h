@@ -28,8 +28,9 @@ private:
 	vector<class Weapon*>		equip;
 	vector<class Projectile>	projectiles;
 
+public:
 	int				level;
-	int				exp;
+	float			exp;
 
 public:
 	Player();

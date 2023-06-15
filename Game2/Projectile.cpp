@@ -15,7 +15,8 @@ Projectile::Projectile
     speed(speed),
     range(range),
     damage(damage),
-    traveledDistance(0.f)
+    traveledDistance(0.f),
+    shove(300)
 {
     collider->scale.x = 5;
     collider->scale.y = 5;
@@ -24,12 +25,6 @@ Projectile::Projectile
 
     //skin->SetParentRT(*collider);
 }
-
-//Projectile::~Projectile()
-//{
-//    delete skin;
-//    delete collider;
-//}
 
 void Projectile::Update()
 {
@@ -58,9 +53,8 @@ bool Projectile::hasCollideWithMonster()
         if (enemy->getCollider()->Intersect(collider))
         {
             cout << "collide" << endl;
-            //enemy->
-            enemy->knockBack(10);
-            enemy->SetHP(-this->damage);
+
+            enemy->actionsWhenDamaged(Vector4(-damage, shove, 0, 0));
             return true;
         }
     }

@@ -9,6 +9,7 @@ public:
     float           speed;                  // 속도
     int             damage;                 // 공격력
     float           range;                  // 사정거리
+    float           shove;                  // 밀쳐내기 계수
     float           traveledDistance;       // 이동거리
 
 public:

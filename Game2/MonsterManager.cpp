@@ -20,12 +20,21 @@ void MonsterManager::Release()
 
 void MonsterManager::Update()
 {
+	// 체력이 0되는 몬스터 삭제
 	enemy.erase(
 		std::remove_if
 		(
 			enemy.begin(),
 			enemy.end(),
-			[](Monster* monster) { return monster->isDead(); }
+			[](Monster* monster)
+			{ if (monster->isDead()) 
+				{
+					GM->kill++;
+					GM->player->exp += monster->getExp();
+					return true;
+				}
+			else false;
+			}
 		),
 		enemy.end()
 	);

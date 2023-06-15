@@ -2,11 +2,20 @@
 class HUD
 {
 private:
-	class ObImage* exp_box;
-	class ObImage* exp_gauge;
+	class ObImage* box_exp;
+	class ObImage* gauge_exp;
 
-	class ObImage* hp_box;
-	class ObImage* hp_gauge;
+	class ObImage* box_hp;
+	class ObImage* gauge_hp;
+
+	class ObImage* icon_kill;
+
+	RECT textBox_kill;
+	RECT textBox_level;
+	RECT textBox_time;
+	
+	string fontFile;
+	int minute, second;
 
 public:
 	HUD();

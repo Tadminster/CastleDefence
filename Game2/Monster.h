@@ -18,9 +18,11 @@ protected:
 	MonsterDir dir;
 	MonsterStatus status;
 
-	int		hp;
-	float	speed;
-	float	knockBackFactor;
+	int		hp;						// 체력
+	float	speed;					// 이동속도
+	int		exp;					// 몬스터 킬 시 얻게되는 경험치
+	float	knockBackFactor;		// 넉백에 사용되는 계수
+	
 
 public:
 	float timeOfDamage;
@@ -36,6 +38,7 @@ public:
 
 	// get
 	virtual ObRect* getCollider() { return collider;}
+	int				getExp() { return exp; }
 
 	// set
 	void			setHP(int value);

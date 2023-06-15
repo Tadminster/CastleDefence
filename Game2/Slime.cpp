@@ -7,8 +7,9 @@ Slime::Slime()
 	this->skin_run = new ObImage(L"Slime.png");
 	this->skin_run->SetParentRT(*this->collider);
 
-	speed = 40;
 	hp = 20;
+	speed = 40;
+	exp = 1;
 }
 
 Slime::~Slime()

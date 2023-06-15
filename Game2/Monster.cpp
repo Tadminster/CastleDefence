@@ -6,7 +6,7 @@ Monster::Monster() :
 	skin_run(nullptr),
 	dir(MonsterDir::D),
 	status(MonsterStatus::NOMAL),
-	hp(0), speed(0), timeOfDamage(0)
+	hp(1), speed(10), exp(1), timeOfDamage(0)
 	{}
 
 void Monster::Init()

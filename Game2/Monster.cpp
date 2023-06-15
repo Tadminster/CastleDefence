@@ -5,8 +5,8 @@ Monster::Monster() :
 	collider(new ObRect()), 
 	skin_run(nullptr),
 	dir(MonsterDir::D),
-	status(MonsterStatus::NOMAL),
-	hp(1), speed(10), exp(1), timeOfDamage(0)
+	status(MonsterStatus::NORMAL),
+	hp(1), speed(10), damage(1), exp(1), timeOfDamage(0)
 	{}
 
 void Monster::Init()
@@ -16,7 +16,7 @@ void Monster::Init()
 void Monster::Update()
 {
 	// 몬스터 상태에 따른 작동
-	if (status == MonsterStatus::NOMAL)
+	if (status == MonsterStatus::NORMAL)
 	{
 		Trace();
 
@@ -30,7 +30,7 @@ void Monster::Update()
 		if (timeOfDamage + 0.05f < TIMER->GetWorldTime())
 		{
 			knockBackFactor = 0;
-			status = MonsterStatus::NOMAL;
+			status = MonsterStatus::NORMAL;
 		}
 	}
 
@@ -100,7 +100,7 @@ void Monster::setHP(int value)
 void Monster::setStatus(int type)
 {
 	if (type == 0)
-		status = MonsterStatus::NOMAL;
+		status = MonsterStatus::NORMAL;
 	else if (type == 1)
 		status = MonsterStatus::DAMAGED;
 }

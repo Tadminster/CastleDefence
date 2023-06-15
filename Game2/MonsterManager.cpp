@@ -39,6 +39,9 @@ void MonsterManager::Update()
 		enemy.end()
 	);
 
+	// 유닛끼리 충돌 처리
+	collisionsBetweenUnits();
+
 	for (auto& enemy : this->enemy)
 		enemy->Update();
 }
@@ -53,6 +56,49 @@ void MonsterManager::Render()
 {
 	for (auto& enemy : this->enemy)
 		enemy->Render();
+}
+
+void MonsterManager::collisionsBetweenUnits()
+{
+	for (auto& enemy : this->enemy)
+	{
+		// 플레이어와 몬스터 충돌
+		if (enemy->getCollider()->Intersect(GM->player->getCollider()))
+		{
+			if (GM->player->getPlayerStatus() == PlayerStatus::NORMAL)
+				GM->player->actionsWhenDamaged(enemy->getDamage());
+
+			Vector2 enemyDir = enemy->getCollider()->GetWorldPos() - GM->player->getCollider()->GetWorldPos();
+			Vector2 OtherEnemyDir = GM->player->getCollider()->GetWorldPos() - enemy->getCollider()->GetWorldPos();
+
+			enemyDir.Normalize();
+			OtherEnemyDir.Normalize();
+
+			enemy->getCollider()->MoveWorldPos(enemyDir * 200 * DELTA);
+			GM->player->getCollider()->MoveWorldPos(OtherEnemyDir * 100 * DELTA);
+
+		}
+
+		// 몬스터와 몬스터 충돌
+		for (auto& OtherEnemy : this->enemy)
+		{
+			// 충돌 몬스터가 자기 자신이면 넘김
+			if (enemy == OtherEnemy) continue;
+
+			// 몬스터가 다른 몬스터와 충돌하면 밀어냄
+			if (enemy->getCollider()->Intersect(OtherEnemy->getCollider()))
+			{
+				Vector2 enemyDir = enemy->getCollider()->GetWorldPos() - OtherEnemy->getCollider()->GetWorldPos();
+				Vector2 OtherEnemyDir = OtherEnemy->getCollider()->GetWorldPos() - enemy->getCollider()->GetWorldPos();
+
+				enemyDir.Normalize();
+				OtherEnemyDir.Normalize();
+
+				enemy->getCollider()->MoveWorldPos(enemyDir * 500 * DELTA);
+				OtherEnemy->getCollider()->MoveWorldPos(OtherEnemyDir * 500 * DELTA);
+			}
+		}
+	}
 }
 
 void MonsterManager::AddEnemy(class Monster* monster)

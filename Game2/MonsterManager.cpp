@@ -1,6 +1,9 @@
 ﻿#include "stdafx.h"
 #include "Monster.h"
 #include "Slime.h"
+#include "KingSlime.h"
+#include "MegaSlime.h"
+#include "KingMegaSlime.h"
 #include "MonsterManager.h"
 
 void MonsterManager::Init()
@@ -159,12 +162,49 @@ void MonsterManager::Relocation()
 
 void MonsterManager::Pool()
 {
-	static float spawnTime = 0.0f;
-	if (TIMER->GetTick(spawnTime, 3.0f))
+	static float slimeSpawnTime = 0.0f;
+	static float magaSlimeSpawnTime = 0.0f;
+	static float kingSlimeSpawnTime = 0.0f;
+	static float kingMegaSlimeSpawnTime = 0.0f;
+
+	if (TIMER->GetTick(slimeSpawnTime, 3.0f))
 	{
 		Slime* slime = new Slime();
 		slime->Init();
 			
 		GM->monster->AddEnemy(slime);
+	}
+
+	if (TIMER->GetWorldTime() > 7.0f)
+	{
+		if (TIMER->GetTick(magaSlimeSpawnTime, 4.0f))
+		{
+			MegaSlime* megaSlime = new MegaSlime();
+			megaSlime->Init();
+
+			GM->monster->AddEnemy(megaSlime);
+		}
+	}
+
+	if (TIMER->GetWorldTime() > 15.0f)
+	{
+		if (TIMER->GetTick(kingSlimeSpawnTime, 5.0f))
+		{
+			KingSlime* kingSlime = new KingSlime();
+			kingSlime->Init();
+
+			GM->monster->AddEnemy(kingSlime);
+		}
+	}
+
+	if (TIMER->GetWorldTime() > 20.0f)
+	{
+		if (TIMER->GetTick(kingMegaSlimeSpawnTime, 5.0f))
+		{
+			KingMegaSlime* kingMegaSlime = new KingMegaSlime();
+			kingMegaSlime->Init();
+
+			GM->monster->AddEnemy(kingMegaSlime);
+		}
 	}
 }

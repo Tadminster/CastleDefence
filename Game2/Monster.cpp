@@ -70,7 +70,8 @@ void Monster::Update()
 
 void Monster::Render()
 {
-	this->collider->Render();
+	if (DEBUG_MODE)
+		this->collider->Render();
 
 	if (this->skin_run)
 		this->skin_run->Render();

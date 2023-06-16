@@ -74,8 +74,8 @@ void Window::Create()
 	wndClass.cbClsExtra = 0;
 	wndClass.cbWndExtra = 0;
 	wndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	//wndClass.hCursor = LoadCursorFromFile(L"cursor_att.cur");
+	//wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wndClass.hCursor = LoadCursorFromFile(L"cursor_att.cur");
 	wndClass.hIcon = LoadIcon(NULL, IDI_WINLOGO);
 	wndClass.hIconSm = wndClass.hIcon;
 	wndClass.hInstance = app.instance;

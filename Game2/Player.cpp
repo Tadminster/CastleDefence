@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Weapon.h"
 #include "Fireball.h"
+#include "ThrowingAxe.h"
 #include "Projectile.h"
 #include "Player.h"
 
@@ -29,7 +30,7 @@ Player::~Player()
 
 void Player::Init()
 {
-	collider->SetWorldPos(Vector2(0, 0));
+	collider->SetWorldPos(Vector2(500, 500));
 	state = ImgState::IDLE;
 	dir = Direction::R;
 	
@@ -74,6 +75,7 @@ void Player::Init()
 	}
 
 	equip.emplace_back(new Fireball());
+	equip.emplace_back(new ThrowingAxe());
 }
 
 void Player::Update()

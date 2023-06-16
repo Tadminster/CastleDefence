@@ -7,7 +7,7 @@ Slime::Slime()
 	this->skin_run = new ObImage(L"Slime.png");
 	this->skin_run->SetParentRT(*this->collider);
 
-	hp = 20;
+	hp = 15;
 	speed = 40;
 	exp = 1;
 	damage = 5;
@@ -57,8 +57,10 @@ void Slime::Update()
 
 void Slime::Render()
 {
-	this->collider->Render();
+	if (DEBUG_MODE)
+		this->collider->Render();
 	this->skin_run->Render();
+	
 	static float frameTick = 0.0f;
 	if (TIMER->GetTick(frameTick, 0.4f))
 	{

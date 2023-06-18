@@ -22,31 +22,41 @@
     <ClInclude Include="FilePath.h" />
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="KingMegaSlime.h" />
+    <ClInclude Include="KingSlime.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapLoader.h" />
+    <ClInclude Include="MegaSlime.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="Proj_axe.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="ThrowingAxe.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FilePath.cpp" />
     <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="KingMegaSlime.cpp" />
+    <ClCompile Include="KingSlime.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapLoader.cpp" />
+    <ClCompile Include="MegaSlime.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Proj_axe.cpp" />
     <ClCompile Include="Slime.cpp" />
+    <ClCompile Include="ThrowingAxe.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>

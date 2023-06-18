@@ -17,6 +17,7 @@ public:
 	vector<class Monster*>& getEnemy() { return enemy; }
 	int		getEnemyCount() { return enemy.size(); }
 
+	void	collisionsBetweenUnits();
 	void	AddEnemy(Monster* monster);
 	void	Relocation();
 	void	Pool();

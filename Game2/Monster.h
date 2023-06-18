@@ -6,7 +6,7 @@ enum class MonsterDir
 
 enum class MonsterStatus
 {
-	NOMAL,
+	NORMAL,
 	DAMAGED
 };
 
@@ -19,13 +19,13 @@ protected:
 	MonsterStatus status;
 
 	int		hp;						// 체력
+	float	damage;					// 공격력
 	float	speed;					// 이동속도
+
 	int		exp;					// 몬스터 킬 시 얻게되는 경험치
 	float	knockBackFactor;		// 넉백에 사용되는 계수
-	
 
-public:
-	float timeOfDamage;
+	float timeOfDamage;				// 데미지 받은 시간 기록
 
 public:
 	// defalut
@@ -39,6 +39,7 @@ public:
 	// get
 	virtual ObRect* getCollider() { return collider;}
 	int				getExp() { return exp; }
+	float			getDamage() { return damage; }
 
 	// set
 	void			setHP(int value);

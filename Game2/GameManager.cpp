@@ -27,6 +27,11 @@ void GameManager::Init()
 
 void GameManager::Update()
 {
+	if (player->level == 0)
+	{
+		player->exp += 1;
+	}
+
 	// 레벨업하면
 	if (player->exp >= nextExp[player->level])
 	{
@@ -67,7 +72,6 @@ void GameManager::Render()
 {
 	if (lvUp)
 	{
-		cout << "RENDER!" << endl;
 		levelUp->Render();
 	}
 }

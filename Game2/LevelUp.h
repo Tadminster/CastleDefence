@@ -28,4 +28,5 @@ public:
 	int		onClick();
 	bool	GetRandomItem();
 	bool	GetFirstItem();
+	void	LvEeventHandle(int number);
 };

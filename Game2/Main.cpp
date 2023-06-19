@@ -46,7 +46,11 @@ void Main::Update()
 		ImGui::Text("\n");
 
 		ImGui::Text(u8"[ 몬스터 ] %i\n", GM->monster->getEnemyCount());
+
 		ImGui::Text(u8"[ HP ] %f / %f \n", GM->player->getHp(), GM->player->getMaxHp());
+		ImGui::Text(u8"[ ATT_POWER  ] %f \n", GM->player->damage);
+		ImGui::Text(u8"[ ATT_SPEED  ] %f \n", GM->player->attSpeed);
+		ImGui::Text(u8"[ MOVE_SPEED ] %f \n", GM->player->moveSpeed);
 		ImGui::Text("\n");
 
 		if (INPUT->KeyPress(VK_UP)) CAM->position.y += 5000 * DELTA;

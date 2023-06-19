@@ -12,18 +12,35 @@ ThrowingAxe::ThrowingAxe()
 
     this->timeSinceLastTime = 0;
 
-    this->name = L" 쓰로잉액스";
-    this->explain = L"도끼를 던져 적에게 피해를 줍니다.";
-    this->attackSpeed = 1.1f;
-
-    this->damage = 13.0f;
+    this->damage = 15.0f;
+    this->attackSpeed = 0.7f;
+    this->range = 300.0f;
     this->critical = 0.1;
-
-    this->range = 400.0f;
     this->projectileSpeed = 350.f;
 
     this->level = 0;
     this->maxLevel = 10;
+
+    this->name = L" 쓰로잉액스";
+    //this->explain = L"도끼를 던져 적에게 피해를 줍니다.\n\n공격력: 15 \n공격속도: 0.7 \n사정거리: 300";
+
+    std::wstringstream ss;
+    ss << L"화살을 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
+        L"\n공격 속도: " << this->attackSpeed <<
+        L"\n사정거리: " << this->range;
+    this->explain = ss.str();
+}
+
+void ThrowingAxe::Update()
+{
+    this->damage = 15.0f + level * 3;
+    this->attackSpeed = 0.7f + level * 0.1;
+
+    std::wstringstream ss;
+    ss << L"화살을 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
+        L"\n공격 속도: " << this->attackSpeed <<
+        L"\n사정거리: " << this->range;
+    this->explain = ss.str();
 }
 
 bool ThrowingAxe::Attack()
@@ -45,7 +62,7 @@ bool ThrowingAxe::Attack()
             GM->player->getColliderWeapon()->GetRight(),
             this->projectileSpeed,
             this->range,
-            this->damage
+            this->damage * GM->player->getDamage()
         );
 
         //벡터에 탄 push
@@ -53,7 +70,7 @@ bool ThrowingAxe::Attack()
 
         // 공속계산
         this->lastShotTime = currentTime;
-        this->timeSinceLastTime = 1.0f / this->attackSpeed;
+        this->timeSinceLastTime = 1.0f / (this->attackSpeed * GM->player->getAttSpeed());
     }
 
     return false;

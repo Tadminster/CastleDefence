@@ -12,11 +12,10 @@ Fireball::Fireball()
 
     this->timeSinceLastTime = 0;
 
-	this->name = L" 파이어볼";
-	this->explain = L"불덩이를 날려 적에게 피해를 줍니다.";
-	this->attackSpeed = 0.8f;
+	//this->explain = L"불덩이를 날려 적에게 피해를 줍니다. \n\n공격력: 12 \n공격속도: 0.9 \n사정거리: 400";
+	this->attackSpeed = 0.9f;
 
-	this->damage = 10.0f;
+	this->damage = 12.0f;
 	this->critical = 0.1;
 	
     this->range = 400.0f;
@@ -24,6 +23,25 @@ Fireball::Fireball()
 
     this->level = 0;
     this->maxLevel = 10;
+
+	this->name = L" 파이어볼";
+    std::wstringstream ss;
+    ss << L"불덩이를 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
+        L"\n공격 속도: " << this->attackSpeed <<
+        L"\n사정거리: " << this->range;
+    this->explain = ss.str();
+}
+
+void Fireball::Update()
+{
+    this->damage = 12.0f + level * 2;
+    this->attackSpeed = 0.7f + level * 0.15;
+
+    std::wstringstream ss;
+    ss << L"불덩이를 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
+        L"\n공격 속도: " << this->attackSpeed <<
+        L"\n사정거리: " << this->range;
+    this->explain = ss.str();
 }
 
 bool Fireball::Attack()
@@ -47,7 +65,7 @@ bool Fireball::Attack()
             GM->player->getColliderWeapon()->GetRight(),
             this->projectileSpeed,
             this->range,
-            this->damage
+            this->damage * GM->player->getDamage()
         );
 
         //벡터에 탄 push
@@ -55,7 +73,7 @@ bool Fireball::Attack()
 
         // 공속계산
         this->lastShotTime = currentTime;
-        this->timeSinceLastTime = 1.0f / this->attackSpeed;
+        this->timeSinceLastTime = 1.0f / (this->attackSpeed * GM->player->getAttSpeed());
     }
 
     return false;

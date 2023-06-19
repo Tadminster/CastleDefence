@@ -12,6 +12,7 @@ public:
 	// 패시브장비류
 	class Boot* boot;
 	class Glove* glove;
+	class SharpEdge* sharpEdge;
 
 	map<int, class Item*> itemList;
 

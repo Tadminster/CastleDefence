@@ -21,10 +21,13 @@ public:
 
 public:
 	Item();
+	virtual ~Item() {};
+
+	virtual void	Update() {};
 
 	// get
-	ObImage* GetSkin()				{ return skin;  }
-	std::wstring GetItemName()		{ return name; };
-	std::wstring GetItemexplain()	{ return explain; };
+	ObImage*		GetSkin()			{ return skin;  }
+	std::wstring	GetItemName()		{ return name; };
+	std::wstring	GetItemexplain()	{ return explain; };
 };
 

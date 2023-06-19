@@ -5,6 +5,8 @@ private:
 
 public:
 	Bow();
+	void Update() override;
+
 	bool Attack() override;
 };
 

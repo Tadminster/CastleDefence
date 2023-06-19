@@ -14,6 +14,7 @@
 
 #include "Boot.h"
 #include "Glove.h"
+#include "SharpEdge.h"
 
 #include "ItemList.h"
 
@@ -25,6 +26,7 @@ ItemList::ItemList() : itemSize(0)
 
 	boot = new Boot();
 	glove = new Glove();
+    sharpEdge = new SharpEdge();
 }
 
 void ItemList::Init()
@@ -35,6 +37,7 @@ void ItemList::Init()
 
 	this->itemList.insert(std::make_pair(4, boot));
 	this->itemList.insert(std::make_pair(5, glove));
+	this->itemList.insert(std::make_pair(6, sharpEdge));
 
     itemSize = itemList.size();
 }

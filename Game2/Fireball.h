@@ -5,6 +5,8 @@ private:
 
 public:
 	Fireball();
+	void Update() override;
+
 	bool Attack() override;
 };
 

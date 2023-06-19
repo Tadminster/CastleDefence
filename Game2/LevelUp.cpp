@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
-#include "Item.h"
 #include "ItemList.h"
+#include "Item.h"
+#include "Weapon.h"
 #include "LevelUp.h"
 
 LevelUp::LevelUp()
@@ -279,14 +280,17 @@ int LevelUp::onClick()
 	{
 		if (btn_col[0]->Intersect(INPUT->GetWorldMousePos()))
 		{
+			LvEeventHandle(0);
 			return 1;
 		}
 		if (btn_col[1]->Intersect(INPUT->GetWorldMousePos()))
 		{
+			LvEeventHandle(1);
 			return 2;
 		}
 		if (btn_col[2]->Intersect(INPUT->GetWorldMousePos()))
 		{
+			LvEeventHandle(2);
 			return 3;
 		}
 
@@ -350,4 +354,30 @@ bool LevelUp::GetFirstItem()
 
 
 	return true;
+}
+
+void LevelUp::LvEeventHandle(int number)
+{
+	if (items[number]->tag == Tag::WEAPON)
+	{
+		Weapon* weaponPtr = dynamic_cast<Weapon*>(items[number]);
+
+		if (weaponPtr)
+		{
+			if (items[number]->level == 0)
+			{
+				GM->player->equip.emplace_back(weaponPtr);
+			}
+
+			weaponPtr->level++;
+			weaponPtr->Update();
+		}
+	}
+	else if (items[number]->tag == Tag::PASSIVE)
+	{
+		items[number]->level++;
+		items[number]->Update();
+	}
+
+
 }

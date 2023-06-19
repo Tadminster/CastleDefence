@@ -5,6 +5,8 @@ private:
 
 public:
 	ThrowingAxe();
+	void Update() override;
+
 	bool Attack() override;
 };
 

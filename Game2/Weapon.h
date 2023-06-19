@@ -14,6 +14,7 @@ protected:
 	float		lastShotTime;
 
 public:
+	virtual ~Weapon() {}
 	virtual bool Attack() = 0;
 };
 

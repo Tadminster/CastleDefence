@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Boot.h" />
     <ClInclude Include="Bow.h" />
+    <ClInclude Include="SharpEdge.h" />
     <ClInclude Include="FilePath.h" />
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="Glove.h" />
@@ -50,6 +51,7 @@
   <ItemGroup>
     <ClCompile Include="Boot.cpp" />
     <ClCompile Include="Bow.cpp" />
+    <ClCompile Include="SharpEdge.cpp" />
     <ClCompile Include="FilePath.cpp" />
     <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="Glove.cpp" />

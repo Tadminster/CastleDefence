@@ -40,9 +40,10 @@ void Player::Init()
 	exp = 0;
 	maxHp = 50;
 	hp = maxHp;
-	damage = 8;		
+	damage = 1.0f;		
 	def = 0;		
-	speed = 150;		
+	moveSpeed = 150;
+	attSpeed = 1.0f;
 
 	// COLLISION
 	collider->scale = Vector2(30.0f, 60.f);
@@ -76,8 +77,8 @@ void Player::Init()
 		skin_run->maxFrame.x = 4;
 	}
 
-	equip.emplace_back(new Fireball());
-	equip.emplace_back(new ThrowingAxe());
+	//equip.emplace_back(new Fireball());
+	//equip.emplace_back(new ThrowingAxe());
 }
 
 void Player::Update()
@@ -209,26 +210,26 @@ void Player::Control()
 	if (INPUT->KeyPress('W'))
 	{
 		state = ImgState::RUN;
-		collider->MoveWorldPos(UP * speed * DELTA);
+		collider->MoveWorldPos(UP * moveSpeed * DELTA);
 	}
 	else if (INPUT->KeyPress('S'))
 	{
 		state = ImgState::RUN;
-		collider->MoveWorldPos(DOWN * speed * DELTA);
+		collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
 	}
 
 	if (INPUT->KeyPress('A'))
 	{
 		dir = Direction::L;
 		state = ImgState::RUN;
-		collider->MoveWorldPos(LEFT * speed * DELTA);
+		collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
 	}
 	else if (INPUT->KeyPress('D'))
 	{
 
 		dir = Direction::R;
 		state = ImgState::RUN;
-		collider->MoveWorldPos(RIGHT * speed * DELTA);
+		collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
 	}
 }
 

@@ -78,6 +78,9 @@
     <ClInclude Include="Glove.h">
       <Filter>Items\Passive</Filter>
     </ClInclude>
+    <ClInclude Include="SharpEdge.h">
+      <Filter>Items\Passive</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -154,6 +157,9 @@
       <Filter>Items\Passive</Filter>
     </ClCompile>
     <ClCompile Include="Glove.cpp">
+      <Filter>Items\Passive</Filter>
+    </ClCompile>
+    <ClCompile Include="SharpEdge.cpp">
       <Filter>Items\Passive</Filter>
     </ClCompile>
   </ItemGroup>

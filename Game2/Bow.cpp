@@ -12,18 +12,35 @@ Bow::Bow()
 
     this->timeSinceLastTime = 0;
 
-    this->name = L"    활";
-    this->explain = L"화살을 날려 적에게 피해를 줍니다.";
-    this->attackSpeed = 0.8f;
-
     this->damage = 10.0f;
+    this->attackSpeed = 1.0f;
+    this->range = 650.0f;
     this->critical = 0.1;
-
-    this->range = 400.0f;
-    this->projectileSpeed = 400.f;
+    this->projectileSpeed = 600.f;
 
     this->level = 0;
     this->maxLevel = 10;
+
+    this->name = L"    활";
+    //this->explain = L"화살을 날려 적에게 피해를 줍니다. \n\n공격력: 10 \n공격속도: 1.0 \n사정거리: 650";
+
+    std::wstringstream ss;
+    ss << L"화살을 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
+        L"\n공격 속도: " << this->attackSpeed <<
+        L"\n사정거리: " << this->range;
+    this->explain = ss.str();
+}
+
+void Bow::Update()
+{
+    this->damage = 10.0f + level * 1;
+    this->attackSpeed = 1.0f + level * 0.2;
+
+    std::wstringstream ss;
+    ss << L"화살을 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
+        L"\n공격 속도: " << this->attackSpeed <<
+        L"\n사정거리: " << this->range;
+    this->explain = ss.str();
 }
 
 bool Bow::Attack()
@@ -47,7 +64,7 @@ bool Bow::Attack()
             GM->player->getColliderWeapon()->GetRight(),
             this->projectileSpeed,
             this->range,
-            this->damage
+            this->damage * GM->player->getDamage()
         );
 
         //벡터에 탄 push
@@ -55,7 +72,7 @@ bool Bow::Attack()
 
         // 공속계산
         this->lastShotTime = currentTime;
-        this->timeSinceLastTime = 1.0f / this->attackSpeed;
+        this->timeSinceLastTime = 1.0f / (this->attackSpeed * GM->player->getAttSpeed());
     }
 
     return false;

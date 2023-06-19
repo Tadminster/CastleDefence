@@ -16,10 +16,13 @@ Proj_arrow::Proj_arrow(
 
 	this->skin = new ObImage(L"proj_arrowShort.png");
 	this->skin->SetParentRT(*this->collider);
-	this->skin->maxFrame.x = 8;
-	this->skin->maxFrame.y = 1;
+	this->skin->maxFrame.x = 2;
+	this->skin->maxFrame.y = 2;
+	this->skin->frame.y = 1;
 	this->skin->scale.x = 32;
 	this->skin->scale.y = 32;
+	this->skin->rotation.z = atanf(dir.y / dir.x);
+	if (dir.x < 0) this->skin->reverseLR = true;
 
 	this->dir = dir;
 	this->speed = speed;

@@ -3,17 +3,8 @@
   <ItemGroup>
     <ClInclude Include="Main.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="FilePath.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="MapLoader.h">
-      <Filter>System</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>Object\Enemy</Filter>
@@ -21,19 +12,6 @@
     <ClInclude Include="Slime.h">
       <Filter>Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterManager.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="Fireball.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="HUD.h" />
     <ClInclude Include="KingSlime.h">
       <Filter>Object\Enemy</Filter>
     </ClInclude>
@@ -43,36 +21,68 @@
     <ClInclude Include="KingMegaSlime.h">
       <Filter>Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="ThrowingAxe.h">
-      <Filter>Weapon</Filter>
-    </ClInclude>
     <ClInclude Include="Projectile.h">
-      <Filter>Weapon\Projectile</Filter>
+      <Filter>Items\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="Proj_axe.h">
-      <Filter>Weapon\Projectile</Filter>
+      <Filter>Items\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="Proj_fireball.h">
-      <Filter>Weapon\Projectile</Filter>
+      <Filter>Items\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="Proj_arrow.h">
-      <Filter>Weapon\Projectile</Filter>
+      <Filter>Items\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="LevelUp.h" />
+    <ClInclude Include="Fireball.h">
+      <Filter>Items\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowingAxe.h">
+      <Filter>Items\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Items\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemList.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Bow.h">
+      <Filter>Items\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="FilePath.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelUp.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="MapLoader.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterManager.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Boot.h">
+      <Filter>Items\Passive</Filter>
+    </ClInclude>
+    <ClInclude Include="Glove.h">
+      <Filter>Items\Passive</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="FilePath.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="MapLoader.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="Slime.cpp">
       <Filter>Object\Enemy</Filter>
@@ -80,19 +90,6 @@
     <ClCompile Include="Monster.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterManager.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>System</Filter>
-    </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="Fireball.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="KingSlime.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
@@ -102,22 +99,63 @@
     <ClCompile Include="KingMegaSlime.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="ThrowingAxe.cpp">
-      <Filter>Weapon</Filter>
-    </ClCompile>
     <ClCompile Include="Projectile.cpp">
-      <Filter>Weapon\Projectile</Filter>
+      <Filter>Items\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="Proj_axe.cpp">
-      <Filter>Weapon\Projectile</Filter>
+      <Filter>Items\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="Proj_fireball.cpp">
-      <Filter>Weapon\Projectile</Filter>
+      <Filter>Items\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="Proj_arrow.cpp">
-      <Filter>Weapon\Projectile</Filter>
+      <Filter>Items\Projectile</Filter>
     </ClCompile>
-    <ClCompile Include="LevelUp.cpp" />
+    <ClCompile Include="Fireball.cpp">
+      <Filter>Items\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowingAxe.cpp">
+      <Filter>Items\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Items\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemList.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Bow.cpp">
+      <Filter>Items\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="FilePath.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelUp.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="MapLoader.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterManager.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Boot.cpp">
+      <Filter>Items\Passive</Filter>
+    </ClCompile>
+    <ClCompile Include="Glove.cpp">
+      <Filter>Items\Passive</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="window.ini" />
@@ -126,20 +164,26 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="System">
-      <UniqueIdentifier>{a279b42d-1c16-4c31-9103-272541b1f2f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{4989fc3e-d711-4391-b9f5-e91339f980b3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Enemy">
       <UniqueIdentifier>{c6b02eb3-412b-4213-9d4d-4cb772866178}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Weapon">
+    <Filter Include="Items">
+      <UniqueIdentifier>{6532cc5f-2fc8-49d7-b17b-465b0a0dcdc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Items\Weapon">
       <UniqueIdentifier>{4b41a285-c8d9-406d-9ba1-3e10353470c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Weapon\Projectile">
+    <Filter Include="Items\Projectile">
       <UniqueIdentifier>{5afa64e8-01f7-4f11-88b7-97d5abc26cb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Items\Passive">
+      <UniqueIdentifier>{820fbb54-ed77-4c67-aa52-8c8e46f13ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{0df84137-1437-4345-9f77-bf76847d81dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "Item.h"
 #include "Weapon.h"
 #include "Projectile.h"
 #include "Proj_fireball.h"
@@ -6,9 +7,13 @@
 
 Fireball::Fireball()
 {
+    this->skin = new ObImage(L"Item_fireball.png");
+    this->tag = Tag::WEAPON;
+
     this->timeSinceLastTime = 0;
 
-	this->name = "파이어볼";
+	this->name = L" 파이어볼";
+	this->explain = L"불덩이를 날려 적에게 피해를 줍니다.";
 	this->attackSpeed = 0.8f;
 
 	this->damage = 10.0f;
@@ -16,6 +21,9 @@ Fireball::Fireball()
 	
     this->range = 400.0f;
     this->projectileSpeed = 400.f;
+
+    this->level = 0;
+    this->maxLevel = 10;
 }
 
 bool Fireball::Attack()

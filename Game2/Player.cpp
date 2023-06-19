@@ -1,6 +1,8 @@
 ﻿#include "stdafx.h"
+#include "Item.h"
 #include "Weapon.h"
 #include "Fireball.h"
+#include "Bow.h"
 #include "ThrowingAxe.h"
 #include "Projectile.h"
 #include "Player.h"

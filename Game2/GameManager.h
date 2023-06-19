@@ -4,6 +4,7 @@
 class GameManager : public Singleton<GameManager>
 {
 public:
+	class ItemList* itemList;
 	class LevelUp* levelUp;
 	class Player* player;
 	class MonsterManager* monster;
@@ -20,7 +21,6 @@ public:
 	
 	
 public:
-	GameManager();
 	~GameManager();
 	void Init();
 	void Update();

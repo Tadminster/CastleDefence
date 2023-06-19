@@ -19,9 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Boot.h" />
+    <ClInclude Include="Bow.h" />
     <ClInclude Include="FilePath.h" />
     <ClInclude Include="Fireball.h" />
+    <ClInclude Include="Glove.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemList.h" />
     <ClInclude Include="KingMegaSlime.h" />
     <ClInclude Include="KingSlime.h" />
     <ClInclude Include="LevelUp.h" />
@@ -43,9 +48,14 @@
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Boot.cpp" />
+    <ClCompile Include="Bow.cpp" />
     <ClCompile Include="FilePath.cpp" />
     <ClCompile Include="Fireball.cpp" />
+    <ClCompile Include="Glove.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemList.cpp" />
     <ClCompile Include="KingMegaSlime.cpp" />
     <ClCompile Include="KingSlime.cpp" />
     <ClCompile Include="LevelUp.cpp" />

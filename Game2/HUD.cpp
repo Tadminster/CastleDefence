@@ -61,19 +61,19 @@ void HUD::Init()
 	icon_kill->scale.y = 32;
 
 	textBox_kill.left = icon_kill->GetWorldPos().x + 60;
-	textBox_kill.top = icon_kill->GetWorldPos().y + 27;
+	textBox_kill.top = icon_kill->GetWorldPos().y + 35;
 	textBox_kill.right = textBox_kill.left + 200;
 	textBox_kill.bottom = textBox_kill.top + 200;
 
 	textBox_level.left = Utility::WorldToScreen(Vector2(app.GetHalfWidth(), 0)).x - 90;
-	textBox_level.top = Utility::WorldToScreen(Vector2(0, app.GetHalfHeight())).y + 27;
+	textBox_level.top = Utility::WorldToScreen(Vector2(0, app.GetHalfHeight())).y + 35;
 	textBox_level.right = textBox_level.left + 200;
 	textBox_level.bottom = textBox_level.top + 200;
 
-	textBox_time.left = Utility::WorldToScreen(Vector2(0, 0)).x - 60;
-	textBox_time.top = Utility::WorldToScreen(Vector2(0, 0)).y - 450;
-	textBox_time.right = textBox_time.left + 200;
-	textBox_time.bottom = textBox_time.top + 200;
+	textBox_time.left = Utility::WorldToScreen(Vector2(-60, 0)).x ;
+	textBox_time.top = Utility::WorldToScreen(Vector2(0, 400)).y;
+	textBox_time.right = textBox_time.left + 1000;
+	textBox_time.bottom = textBox_time.top + 1000;
 }
 
 void HUD::Release()
@@ -112,7 +112,7 @@ void HUD::Render()
 		L"" + to_wstring(GM->kill), 
 		textBox_kill, 
 		30.0f, 
-		L"HMFMMUEX", 
+		L"Neo둥근모", 
 		Color(0.1, 0.1, 0.1, 1), 
 		DWRITE_FONT_WEIGHT_BOLD,
 		DWRITE_FONT_STYLE_NORMAL, 
@@ -123,7 +123,7 @@ void HUD::Render()
 		L"LV." + to_wstring(GM->player->level), 
 		textBox_level, 
 		30.0f, 
-		L"HMFMMUEX", 
+		L"Neo둥근모", 
 		Color(0.1, 0.1, 0.1, 1), 
 		DWRITE_FONT_WEIGHT_BOLD,
 		DWRITE_FONT_STYLE_NORMAL, 
@@ -134,7 +134,7 @@ void HUD::Render()
 		wstring(2 - to_wstring(minute).length(), L'0') + to_wstring(minute) + L":" + wstring(2 - to_wstring(second).length(), L'0') + to_wstring(second),
 		textBox_time, 
 		50.0f, 
-		L"HMFMMUEX", 
+		L"Neo둥근모", 
 		Color(0.7, 0.7, 0.7, 1), 
 		DWRITE_FONT_WEIGHT_BOLD,
 		DWRITE_FONT_STYLE_NORMAL, 

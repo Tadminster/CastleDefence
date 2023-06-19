@@ -1,5 +1,10 @@
 ﻿#pragma once
-class Proj_arrow
+class Proj_arrow : public Projectile
 {
+public:
+	Proj_arrow(Vector2 spawnPos, Vector2 dir, float speed, float range, float damage);
+
+	void Update() override;
+	void Render() override;
 };
 

@@ -1,8 +1,9 @@
 ﻿#pragma once
-class Weapon
+class Weapon : public Item
 {
 protected:
-	string		name;
+	//wstring		name;
+	//wstring		explain;
 	float		attackSpeed;
 	float		damage;
 	float		projectileSpeed;

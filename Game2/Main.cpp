@@ -77,10 +77,10 @@ void Main::LateUpdate()
 void Main::Render()
 {
 	mapManager->Render();
-	GM->Render();
 	GM->player->Render();
 	GM->monster->Render();
 	hud->Render();
+	GM->Render();
 
 	//if (GM->lvUp)
 		//GM->levelUp->Render();
@@ -94,7 +94,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE prevInstance, LPWSTR param, in
 {
 	app.SetAppName(L"VamsurLike");
 	app.SetInstance(instance);
-	app.InitWidthHeight(1000.f, 1000.f);
+	app.InitWidthHeight(1000.f, 900.f);
 	WIN->Create();
 	Main* main = new Main();
 	int wParam = (int)WIN->Run(main);

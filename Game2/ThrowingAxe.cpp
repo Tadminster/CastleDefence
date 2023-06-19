@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "Item.h"
 #include "Weapon.h"
 #include "Projectile.h"
 #include "Proj_axe.h"
@@ -6,9 +7,13 @@
 
 ThrowingAxe::ThrowingAxe()
 {
+    this->skin = new ObImage(L"Item_axe.png");
+    this->tag = Tag::WEAPON;
+
     this->timeSinceLastTime = 0;
 
-    this->name = "쓰로잉액스";
+    this->name = L" 쓰로잉액스";
+    this->explain = L"도끼를 던져 적에게 피해를 줍니다.";
     this->attackSpeed = 1.1f;
 
     this->damage = 13.0f;
@@ -16,6 +21,9 @@ ThrowingAxe::ThrowingAxe()
 
     this->range = 400.0f;
     this->projectileSpeed = 350.f;
+
+    this->level = 0;
+    this->maxLevel = 10;
 }
 
 bool ThrowingAxe::Attack()

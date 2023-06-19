@@ -9,13 +9,13 @@ ThrowingAxe::ThrowingAxe()
     this->timeSinceLastTime = 0;
 
     this->name = "쓰로잉액스";
-    this->attackSpeed = 1.0f;
+    this->attackSpeed = 1.1f;
 
-    this->damage = 10.0f;
+    this->damage = 13.0f;
     this->critical = 0.1;
 
     this->range = 400.0f;
-    this->projectileSpeed = 400.f;
+    this->projectileSpeed = 350.f;
 }
 
 bool ThrowingAxe::Attack()
@@ -31,7 +31,7 @@ bool ThrowingAxe::Attack()
             + GM->player->getColliderWeapon()->GetRight() * GM->player->getColliderWeapon()->scale.x);
 
         // 탄생성
-        Proj_axe axe
+        Proj_axe* throwingAxe = new Proj_axe
         (
             muzzle,
             GM->player->getColliderWeapon()->GetRight(),
@@ -41,7 +41,7 @@ bool ThrowingAxe::Attack()
         );
 
         //벡터에 탄 push
-        GM->player->getProjectiles().emplace_back(axe);
+        GM->player->getProjectiles().emplace_back(throwingAxe);
 
         // 공속계산
         this->lastShotTime = currentTime;

@@ -4,6 +4,7 @@
 
 
 #include "GameManager.h"
+#include "LevelUp.h"
 #include "MonsterManager.h"
 #include "Player.h"
 #include "Monster.h"

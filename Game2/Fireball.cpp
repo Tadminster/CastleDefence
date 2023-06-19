@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "Weapon.h"
 #include "Projectile.h"
+#include "Proj_fireball.h"
 #include "Fireball.h"
 
 Fireball::Fireball()
@@ -32,7 +33,7 @@ bool Fireball::Attack()
         // float rotation_z{ atan2f(shooter->get_right().y, shooter->get_right().x) };
 
         // 탄생성
-        Projectile projectile
+        Proj_fireball* fireball = new Proj_fireball
         (
             muzzle,
             GM->player->getColliderWeapon()->GetRight(),
@@ -40,15 +41,9 @@ bool Fireball::Attack()
             this->range,
             this->damage
         );
-        projectile.skin = new ObImage(L"FireballProjectile.png");
-        projectile.skin->SetParentRT(*projectile.collider);
-        projectile.skin->maxFrame.x = 4;
-        projectile.skin->frame.x = 1;
-        projectile.skin->scale.x = 32;
-        projectile.skin->scale.y = 32;
 
         //벡터에 탄 push
-        GM->player->getProjectiles().emplace_back(projectile);
+        GM->player->getProjectiles().emplace_back(fireball);
 
         // 공속계산
         this->lastShotTime = currentTime;

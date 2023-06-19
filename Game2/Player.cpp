@@ -145,7 +145,7 @@ void Player::Update()
 	(
 		projectiles.begin(),
 		projectiles.end(),
-		[](Projectile& pr) { return pr.hasCollideWithMonster(); }
+		[](unique_ptr<Projectile>& pr) { return pr->hasCollideWithMonster(); }
 	),
 	projectiles.end()
 	);
@@ -156,7 +156,7 @@ void Player::Update()
 	(
 		projectiles.begin(),
 		projectiles.end(),
-		[](const Projectile& pr) { return pr.hasTraveledTooFar(); }
+		[](unique_ptr<Projectile>& pr) { return pr->hasTraveledTooFar(); }
 	),
 	projectiles.end()
 	);
@@ -168,9 +168,10 @@ void Player::Update()
 	this->area->Update();
 	this->skin_idle->Update();
 	this->skin_run->Update();
+
 	// 탄 업데이트
 	for (auto& projectiles : projectiles)
-		projectiles.Update();
+		projectiles->Update();
 }
 
 void Player::Render()
@@ -188,7 +189,7 @@ void Player::Render()
 		skin_run->Render();
 
 	for (auto& projectiles : projectiles)
-		projectiles.Render();
+		projectiles->Render();
 }
 
 void Player::Control()

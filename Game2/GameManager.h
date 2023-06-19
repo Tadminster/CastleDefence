@@ -4,9 +4,11 @@
 class GameManager : public Singleton<GameManager>
 {
 public:
+	class LevelUp* levelUp;
 	class Player* player;
 	class MonsterManager* monster;
 
+	bool lvUp = false;
 	int kill = 0;
 	// 경험치, row는 +1, col은 이전 row*2
 	int nextExp[21] = {
@@ -15,11 +17,13 @@ public:
 						101, 123, 146, 170, 195,	// 21~25
 						246, 298, 351, 405, 460, 
 						9999999};	// 51~55
-						
+	
 	
 public:
+	GameManager();
 	~GameManager();
 	void Init();
 	void Update();
+	void Render();
 };
 

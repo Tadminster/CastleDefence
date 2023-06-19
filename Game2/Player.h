@@ -34,7 +34,7 @@ private:
 	PlayerStatus	playerStatus;
 
 	vector<class Weapon*>		equip;
-	vector<class Projectile>	projectiles;
+	vector<unique_ptr<class Projectile>>	projectiles;
 
 	float	timeOfDamage;				// 데미지 받은 시간 기록
 	
@@ -66,7 +66,7 @@ public:
 	float			getHp()				{ return this->hp; }
 	float			getMaxHp()			{ return this->maxHp; }
 	virtual Vector2 getPos()			{ return this->collider->GetWorldPos(); }
-	vector<class Projectile>& getProjectiles() {return projectiles;}
+	vector<unique_ptr<class Projectile>>& getProjectiles() {return projectiles;}
 	PlayerStatus	getPlayerStatus() { return playerStatus; }
 
 	/* 데미지 받았을 때 액션

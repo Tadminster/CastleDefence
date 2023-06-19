@@ -18,8 +18,9 @@ Projectile::Projectile
     traveledDistance(0.f),
     shove(300)
 {
-    collider->scale.x = 5;
-    collider->scale.y = 5;
+    collider->rotation.z = atanf(dir.y / dir.x);
+    collider->scale.x = 10;
+    collider->scale.y = 10;
     collider->isFilled = false;
     collider->SetWorldPos(spawnPos);
 
@@ -42,8 +43,10 @@ void Projectile::Update()
 
 void Projectile::Render()
 {
-    collider->Render();
     skin->Render();
+
+    if (DEBUG_MODE)
+        collider->Render();
 }
 
 bool Projectile::hasCollideWithMonster()

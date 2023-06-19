@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Map.h"
-#include "MonsterManager.h"
+//#include "MonsterManager.h"
 #include "HUD.h"
 #include "Main.h"
 
@@ -22,6 +22,8 @@ void Main::Init()
 	mapManager->Init();
 	hud->Init();
 	GM->Init();
+
+	GM->levelUp->Init();
 	GM->player->Init();
 	GM->monster->Init();
 }
@@ -32,7 +34,6 @@ void Main::Release()
 
 void Main::Update()
 {
-	GM->Update();
 	// DEBUG TEXT OUTPUT
 	if (DEBUG_MODE)
 	{
@@ -58,9 +59,14 @@ void Main::Update()
 
 	mapManager->Relocation();
 	mapManager->Update();
+
+	GM->Update();
 	hud->Update();
 	GM->player->Update();
 	GM->monster->Update();
+
+	//if (GM->lvUp)
+		//GM->levelUp->Update();
 }
 
 void Main::LateUpdate()
@@ -71,9 +77,13 @@ void Main::LateUpdate()
 void Main::Render()
 {
 	mapManager->Render();
+	GM->Render();
 	GM->player->Render();
 	GM->monster->Render();
 	hud->Render();
+
+	//if (GM->lvUp)
+		//GM->levelUp->Render();
 }
 
 void Main::ResizeScreen()

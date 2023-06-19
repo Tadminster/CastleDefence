@@ -10,10 +10,14 @@ Proj_axe::Proj_axe(
 	float damage)
 {
 	this->collider = new ObRect();
-	this->skin = new ObImage(L"Axe.png");
+	this->collider->SetWorldPos(spawnPos);
+	this->collider->scale = Vector2(16, 16);
+	this->collider->isFilled = false;
+
+	this->skin = new ObImage(L"proj_axe.png");
 	this->skin->SetParentRT(*this->collider);
-	this->skin->maxFrame.x = 4;
-	this->skin->maxFrame.y = 2;
+	this->skin->maxFrame.x = 8;
+	this->skin->maxFrame.y = 1;
 	this->skin->scale.x = 32;
 	this->skin->scale.y = 32;
 
@@ -27,10 +31,10 @@ Proj_axe::Proj_axe(
 
 void Proj_axe::Update()
 {
-	skin->frame.x++;
-	if (skin->frame.x == skin->maxFrame.x)
+	static float frameTick = 0.0f;
+	if (TIMER->GetTick(frameTick, 0.05f))
 	{
-		skin->frame.y++;
+		skin->frame.x++;
 	}
 
 	Projectile::Update();

@@ -48,61 +48,61 @@ void LevelUp::Init()
 	for (int i = 0; i < 3; i++)
 	{
 		btn_col[i]->isFilled = false;
-		btn_col[i]->scale = Vector2(250, 350);
+		btn_col[i]->scale = Vector2(270, 430);
 
 		btn_skin[i]->scale = btn_col[i]->scale;
 		btn_skin[i]->color = Vector4(0.55, 0.55, 0.55, 0.5);
 
 		skin_item[i]->scale.x = 64;
 		skin_item[i]->scale.y = 64;
-		skin_item[i]->SetLocalPosY(100);
+		skin_item[i]->SetLocalPosY(120);
 	}
 
 	// 아이템 이름
 	textBox_itemName[0].left = Utility::WorldToScreen(Vector2(-370, 0)).x;
-	textBox_itemName[0].top = Utility::WorldToScreen(Vector2(0, 60)).y;
+	textBox_itemName[0].top = Utility::WorldToScreen(Vector2(0, 90)).y;
 	textBox_itemName[0].right = textBox_itemName[0].left + 400;
 	textBox_itemName[0].bottom = textBox_itemName[0].top + 400;
 
 	textBox_itemName[1].left = Utility::WorldToScreen(Vector2(-70, 0)).x;
-	textBox_itemName[1].top = Utility::WorldToScreen(Vector2(0, 60)).y;
+	textBox_itemName[1].top = Utility::WorldToScreen(Vector2(0, 90)).y;
 	textBox_itemName[1].right = textBox_itemName[1].left + 400;
 	textBox_itemName[1].bottom = textBox_itemName[1].top + 400;
 
 	textBox_itemName[2].left = Utility::WorldToScreen(Vector2(230, 0)).x;
-	textBox_itemName[2].top = Utility::WorldToScreen(Vector2(0, 60)).y;
+	textBox_itemName[2].top = Utility::WorldToScreen(Vector2(0, 90)).y;
 	textBox_itemName[2].right = textBox_itemName[2].left + 400;
 	textBox_itemName[2].bottom = textBox_itemName[2].top + 400;
 
 	// 아이템 설명
 	textBox_itemExplain[0].left = Utility::WorldToScreen(Vector2(-400, 0)).x;
-	textBox_itemExplain[0].top = Utility::WorldToScreen(Vector2(0, 0)).y;
+	textBox_itemExplain[0].top = Utility::WorldToScreen(Vector2(0, 40)).y;
 	textBox_itemExplain[0].right = textBox_itemExplain[0].left + 200;
 	textBox_itemExplain[0].bottom = textBox_itemExplain[0].top + 400;
 
 	textBox_itemExplain[1].left = Utility::WorldToScreen(Vector2(-100, 0)).x;
-	textBox_itemExplain[1].top = Utility::WorldToScreen(Vector2(0, 0)).y;
+	textBox_itemExplain[1].top = Utility::WorldToScreen(Vector2(0, 40)).y;
 	textBox_itemExplain[1].right = textBox_itemExplain[1].left + 200;
 	textBox_itemExplain[1].bottom = textBox_itemExplain[1].top + 400;
 
 	textBox_itemExplain[2].left = Utility::WorldToScreen(Vector2(200, 0)).x;
-	textBox_itemExplain[2].top = Utility::WorldToScreen(Vector2(0, 0)).y;
+	textBox_itemExplain[2].top = Utility::WorldToScreen(Vector2(0, 40)).y;
 	textBox_itemExplain[2].right = textBox_itemExplain[2].left + 200;
 	textBox_itemExplain[2].bottom = textBox_itemExplain[2].top + 400;
 
 	// 아이템 레벨
 	textBox_itemLevel[0].left = Utility::WorldToScreen(Vector2(-400, 0)).x;
-	textBox_itemLevel[0].top = Utility::WorldToScreen(Vector2(0, -150)).y;
+	textBox_itemLevel[0].top = Utility::WorldToScreen(Vector2(0, -190)).y;
 	textBox_itemLevel[0].right = textBox_itemLevel[0].left + 200;
 	textBox_itemLevel[0].bottom = textBox_itemLevel[0].top + 400;
 
 	textBox_itemLevel[1].left = Utility::WorldToScreen(Vector2(-100, 0)).x;
-	textBox_itemLevel[1].top = Utility::WorldToScreen(Vector2(0, -150)).y;
+	textBox_itemLevel[1].top = Utility::WorldToScreen(Vector2(0, -190)).y;
 	textBox_itemLevel[1].right = textBox_itemLevel[1].left + 200;
 	textBox_itemLevel[1].bottom = textBox_itemLevel[1].top + 400;
 
 	textBox_itemLevel[2].left = Utility::WorldToScreen(Vector2(200, 0)).x;
-	textBox_itemLevel[2].top = Utility::WorldToScreen(Vector2(0, -150)).y;
+	textBox_itemLevel[2].top = Utility::WorldToScreen(Vector2(0, -190)).y;
 	textBox_itemLevel[2].right = textBox_itemLevel[2].left + 200;
 	textBox_itemLevel[2].bottom = textBox_itemLevel[2].top + 400;
 }
@@ -244,7 +244,7 @@ void LevelUp::Render()
 			DWRITE->RenderText(
 				L"레벨 " + to_wstring(items[0]->level) + L"/" + to_wstring(items[0]->maxLevel),
 				textBox_itemLevel[0],
-				15.0f,
+				18.0f,
 				L"Neo둥근모",
 				Color(0.8, 0.8, 0.8, 1),
 				DWRITE_FONT_WEIGHT_BOLD,
@@ -254,7 +254,7 @@ void LevelUp::Render()
 			DWRITE->RenderText(
 				L"레벨 " + to_wstring(items[1]->level) + L"/" + to_wstring(items[1]->maxLevel),
 				textBox_itemLevel[1],
-				15.0f,
+				18.0f,
 				L"Neo둥근모",
 				Color(0.8, 0.8, 0.8, 1),
 				DWRITE_FONT_WEIGHT_BOLD,
@@ -264,7 +264,7 @@ void LevelUp::Render()
 			DWRITE->RenderText(
 				L"레벨 " + to_wstring(items[2]->level) + L"/" + to_wstring(items[2]->maxLevel),
 				textBox_itemLevel[2],
-				15.0f,
+				18.0f,
 				L"Neo둥근모",
 				Color(0.8, 0.8, 0.8, 1),
 				DWRITE_FONT_WEIGHT_BOLD,
@@ -349,7 +349,7 @@ bool LevelUp::GetFirstItem()
 		skin_item[i]->SetParentRT(*btn_col[i]);
 		skin_item[i]->scale.x = 64;
 		skin_item[i]->scale.y = 64;
-		skin_item[i]->SetLocalPosY(100);
+		skin_item[i]->SetLocalPosY(140);
 	}
 
 

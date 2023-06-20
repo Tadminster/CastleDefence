@@ -7,7 +7,8 @@ Projectile::Projectile
     Vector2 dir,
     float speed,
     float range,
-    float damage
+    float damage,
+    int   penetration
 ) :
     collider(new ObRect()),
     skin(nullptr),
@@ -15,6 +16,7 @@ Projectile::Projectile
     speed(speed),
     range(range),
     damage(damage),
+    penetration(penetration),
     traveledDistance(0.f),
     shove(300)
 {
@@ -51,14 +53,26 @@ void Projectile::Render()
 
 bool Projectile::hasCollideWithMonster()
 {
+    // 모든 몬스터를 순회
     for (auto& enemy : GM->monster->getEnemy())
     {
-        if (enemy->getCollider()->Intersect(collider))
+        // 몬스터가 화살과 충돌했으면
+        if (enemy->getCollider()->Intersect(this->collider))
         {
-            cout << "collide" << endl;
+            // 이전에 충돌한적이 있는지 비교
+            for (auto& crashed : crash)
+                if (crashed == enemy) return false;
+
+            cout << "new collide" << endl;
+            this->crash.emplace_back(enemy);
+            this->penetration--;
+            cout << penetration << endl;
 
             enemy->actionsWhenDamaged(Vector4(-damage, shove, 0, 0));
-            return true;
+            
+            // 남은 관통력 반환
+            if (penetration > 0) return false;
+            else return true;
         }
     }
 

@@ -14,8 +14,9 @@ ThrowingAxe::ThrowingAxe()
 
     this->damage = 15.0f;
     this->attackSpeed = 0.7f;
-    this->range = 300.0f;
     this->critical = 0.1;
+    this->penetration = 1;
+    this->range = 300.0f;
     this->projectileSpeed = 350.f;
 
     this->level = 0;
@@ -62,7 +63,8 @@ bool ThrowingAxe::Attack()
             GM->player->getColliderWeapon()->GetRight(),
             this->projectileSpeed,
             this->range,
-            this->damage * GM->player->getDamage()
+            this->damage * GM->player->getDamage(),
+            this->penetration
         );
 
         //벡터에 탄 push

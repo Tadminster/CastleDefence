@@ -12,10 +12,11 @@ Bow::Bow()
 
     this->timeSinceLastTime = 0;
 
-    this->damage = 10.0f;
+    this->damage = 7.0f;
     this->attackSpeed = 1.0f;
-    this->range = 650.0f;
     this->critical = 0.1;
+    this->penetration = 2;
+    this->range = 650.0f;
     this->projectileSpeed = 600.f;
 
     this->level = 0;
@@ -27,7 +28,8 @@ Bow::Bow()
     std::wstringstream ss;
     ss << L"화살을 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
         L"\n공격 속도: " << this->attackSpeed <<
-        L"\n사정거리: " << this->range;
+        L"\n사정거리: " << this->range <<
+        L"\n관통력: " << this->penetration-1;
     this->explain = ss.str();
 }
 
@@ -39,7 +41,8 @@ void Bow::Update()
     std::wstringstream ss;
     ss << L"화살을 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
         L"\n공격 속도: " << this->attackSpeed <<
-        L"\n사정거리: " << this->range;
+        L"\n사정거리: " << this->range <<
+        L"\n관통력: " << this->penetration-1;
     this->explain = ss.str();
 }
 
@@ -64,7 +67,8 @@ bool Bow::Attack()
             GM->player->getColliderWeapon()->GetRight(),
             this->projectileSpeed,
             this->range,
-            this->damage * GM->player->getDamage()
+            this->damage * GM->player->getDamage(),
+            this->penetration
         );
 
         //벡터에 탄 push

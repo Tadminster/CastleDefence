@@ -12,12 +12,10 @@ Fireball::Fireball()
 
     this->timeSinceLastTime = 0;
 
-	//this->explain = L"불덩이를 날려 적에게 피해를 줍니다. \n\n공격력: 12 \n공격속도: 0.9 \n사정거리: 400";
-	this->attackSpeed = 0.9f;
-
 	this->damage = 12.0f;
+	this->attackSpeed = 0.9f;
 	this->critical = 0.1;
-	
+    this->penetration = 1;
     this->range = 400.0f;
     this->projectileSpeed = 400.f;
 
@@ -65,7 +63,8 @@ bool Fireball::Attack()
             GM->player->getColliderWeapon()->GetRight(),
             this->projectileSpeed,
             this->range,
-            this->damage * GM->player->getDamage()
+            this->damage * GM->player->getDamage(),
+            this->penetration
         );
 
         //벡터에 탄 push

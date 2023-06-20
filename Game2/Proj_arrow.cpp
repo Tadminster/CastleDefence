@@ -7,7 +7,8 @@ Proj_arrow::Proj_arrow(
 	Vector2 dir,
 	float speed,
 	float range,
-	float damage)
+	float damage,
+	int   penetration)
 {
 	this->collider = new ObRect();
 	this->collider->SetWorldPos(spawnPos);
@@ -27,8 +28,9 @@ Proj_arrow::Proj_arrow(
 	this->dir = dir;
 	this->speed = speed;
 	this->range = range;
-	this->damage = damage,
-		this->traveledDistance = 0.f;
+	this->damage = damage;
+	this->penetration = penetration;
+	this->traveledDistance = 0.f;
 	this->shove = 350;
 }
 

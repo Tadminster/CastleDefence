@@ -142,7 +142,7 @@ void Player::Update()
 
 
 
-	// 탄이 몬스터와 충돌했으면 삭제
+	 //탄이 몬스터와 충돌했으면 삭제
 	projectiles.erase(
 	std::remove_if
 	(
@@ -152,6 +152,17 @@ void Player::Update()
 	),
 	projectiles.end()
 	);
+
+	//// 탄의 관통 횟수가 전부 소모되었으면 삭제
+	//projectiles.erase(
+	//	std::remove_if
+	//	(
+	//		projectiles.begin(),
+	//		projectiles.end(),
+	//		[](unique_ptr<Projectile>& pr) { return pr->hasPenetration(); }
+	//	),
+	//	projectiles.end()
+	//);
 
 	// 탄이 일정거리 이상 벗어났으면 삭제
 	projectiles.erase(

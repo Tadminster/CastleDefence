@@ -9,6 +9,7 @@ protected:
 	float		projectileSpeed;
 	float		range;
 	float		critical;
+	int			penetration;
 
 	float		timeSinceLastTime;
 	float		lastShotTime;

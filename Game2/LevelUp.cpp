@@ -178,7 +178,7 @@ void LevelUp::Render()
 			DWRITE->RenderText(
 				items[0]->GetItemName(),
 				textBox_itemName[0],
-				25.0f,
+				26.0f,
 				L"Neo둥근모",
 				Color(0.8, 0.8, 0.8, 1),
 				DWRITE_FONT_WEIGHT_BOLD,
@@ -188,7 +188,7 @@ void LevelUp::Render()
 			DWRITE->RenderText(
 				items[1]->GetItemName(),
 				textBox_itemName[1],
-				25.0f,
+				26.0f,
 				L"Neo둥근모",
 				Color(0.8, 0.8, 0.8, 1),
 				DWRITE_FONT_WEIGHT_BOLD,
@@ -198,7 +198,7 @@ void LevelUp::Render()
 			DWRITE->RenderText(
 				items[2]->GetItemName(),
 				textBox_itemName[2],
-				25.0f,
+				26.0f,
 				L"Neo둥근모",
 				Color(0.8, 0.8, 0.8, 1),
 				DWRITE_FONT_WEIGHT_BOLD,
@@ -211,7 +211,7 @@ void LevelUp::Render()
 			DWRITE->RenderText(
 				items[0]->GetItemexplain(),
 				textBox_itemExplain[0],
-				20.0f,
+				21.0f,
 				L"Neo둥근모",
 				Color(0.8, 0.8, 0.8, 1),
 				DWRITE_FONT_WEIGHT_BOLD,
@@ -221,7 +221,7 @@ void LevelUp::Render()
 			DWRITE->RenderText(
 				items[1]->GetItemexplain(),
 				textBox_itemExplain[1],
-				20.0f,
+				21.0f,
 				L"Neo둥근모",
 				Color(0.8, 0.8, 0.8, 1),
 				DWRITE_FONT_WEIGHT_BOLD,
@@ -231,7 +231,7 @@ void LevelUp::Render()
 			DWRITE->RenderText(
 				items[2]->GetItemexplain(),
 				textBox_itemExplain[2],
-				20.0f,
+				21.0f,
 				L"Neo둥근모",
 				Color(0.8, 0.8, 0.8, 1),
 				DWRITE_FONT_WEIGHT_BOLD,
@@ -320,7 +320,7 @@ bool LevelUp::GetRandomItem()
 		skin_item[i]->SetParentRT(*btn_col[i]);
 		skin_item[i]->scale.x = 64;
 		skin_item[i]->scale.y = 64;
-		skin_item[i]->SetLocalPosY(100);
+		skin_item[i]->SetLocalPosY(140);
 	}
 
 

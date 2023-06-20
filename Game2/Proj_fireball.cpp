@@ -8,12 +8,21 @@ Proj_fireball::Proj_fireball(
 	float speed,
 	float range,
 	float damage,
-	int   penetration)
+	int   penetration,
+	float explosionRange)
 {
+	this->tag = DamageType::EXPLOSION;
+
 	this->collider = new ObRect();
 	this->collider->SetWorldPos(spawnPos);
 	this->collider->scale = Vector2(16, 16);
 	this->collider->isFilled = false;
+
+	this->collider_range = new ObCircle();
+	this->collider_range->SetParentRT(*this->collider);
+	this->collider_range->scale.x = explosionRange;
+	this->collider_range->scale.y = explosionRange;
+	this->collider_range->isFilled = false;
 
 	this->skin = new ObImage(L"proj_fireball.png");
 	this->skin->SetParentRT(*this->collider);
@@ -39,12 +48,14 @@ void Proj_fireball::Update()
 	ImGui::Text("dir.x = %f", dir.x);
 	ImGui::Text("dir.y = %f", dir.y);
 
-	skin->frame.x++;
-
+	this->skin->frame.x++;
 	Projectile::Update();
+	this->collider_range->Update();
 }
 
 void Proj_fireball::Render()
 {
 	Projectile::Render();
+	if (DEBUG_MODE)
+		this->collider_range->Render();
 }

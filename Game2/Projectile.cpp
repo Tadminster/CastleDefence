@@ -11,6 +11,7 @@ Projectile::Projectile
     int   penetration
 ) :
     collider(new ObRect()),
+    collider_range(new ObCircle()),
     skin(nullptr),
     dir(dir),
     speed(speed),
@@ -25,6 +26,8 @@ Projectile::Projectile
     collider->scale.y = 10;
     collider->isFilled = false;
     collider->SetWorldPos(spawnPos);
+
+    //collider_range->SetParentRT(*collider);
 
     //skin->SetParentRT(*collider);
 }
@@ -62,12 +65,26 @@ bool Projectile::hasCollideWithMonster()
             // 이전에 충돌한적이 있는지 비교
             for (auto& crashed : crash)
                 if (crashed == enemy) return false;
-
-            cout << "new collide" << endl;
+            
+            // 없으면 새 충돌벡터에 추가
             this->crash.emplace_back(enemy);
+            // 남은 관통횟수 -1
             this->penetration--;
-            cout << penetration << endl;
 
+            if (this->tag == DamageType::EXPLOSION)
+            {
+                for (auto& InRangeCheck : GM->monster->getEnemy())
+                {
+                    if (InRangeCheck->getCollider()->Intersect(this->collider_range))
+                    {
+                        if (InRangeCheck == enemy) continue;
+                        // 몬스터 데미지 액션
+                        InRangeCheck->actionsWhenDamaged(Vector4(-damage * 0.5, shove, 0, 0));
+                    }
+                }
+            }
+
+            // 몬스터 데미지 액션
             enemy->actionsWhenDamaged(Vector4(-damage, shove, 0, 0));
             
             // 남은 관통력 반환

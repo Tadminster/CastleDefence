@@ -26,7 +26,7 @@ ThrowingAxe::ThrowingAxe()
     //this->explain = L"도끼를 던져 적에게 피해를 줍니다.\n\n공격력: 15 \n공격속도: 0.7 \n사정거리: 300";
 
     std::wstringstream ss;
-    ss << L"화살을 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
+    ss << L"도끼를 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
         L"\n공격 속도: " << this->attackSpeed <<
         L"\n사정거리: " << this->range;
     this->explain = ss.str();
@@ -34,11 +34,11 @@ ThrowingAxe::ThrowingAxe()
 
 void ThrowingAxe::Update()
 {
-    this->damage = 15.0f + level * 3;
+    this->damage = 15.0f + level * 4;
     this->attackSpeed = 0.7f + level * 0.1;
 
     std::wstringstream ss;
-    ss << L"화살을 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
+    ss << L"도끼를 날려 적에게 피해를 줍니다.\n\n공격력: " << this->damage <<
         L"\n공격 속도: " << this->attackSpeed <<
         L"\n사정거리: " << this->range;
     this->explain = ss.str();

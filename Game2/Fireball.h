@@ -2,6 +2,7 @@
 class Fireball : public Weapon
 {
 private:
+	float explosionRange;
 
 public:
 	Fireball();

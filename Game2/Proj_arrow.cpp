@@ -10,6 +10,8 @@ Proj_arrow::Proj_arrow(
 	float damage,
 	int   penetration)
 {
+	this->tag = DamageType::NORMAL;
+
 	this->collider = new ObRect();
 	this->collider->SetWorldPos(spawnPos);
 	this->collider->scale = Vector2(16, 16);

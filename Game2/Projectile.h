@@ -1,8 +1,15 @@
 ﻿#pragma once
+enum class DamageType
+{
+    NORMAL,
+    EXPLOSION
+};
+
 class Projectile
 {
 public:
     class ObRect*   collider;
+    class ObCircle* collider_range;
     class ObImage*  skin;
 
     Vector2         dir;                    // 방향
@@ -12,6 +19,8 @@ public:
     float           range;                  // 사정거리
     float           shove;                  // 밀쳐내기 계수
     float           traveledDistance;       // 이동거리
+
+    DamageType      tag;
 
     vector<class Monster*> crash;
 

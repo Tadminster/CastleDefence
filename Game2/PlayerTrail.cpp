@@ -3,7 +3,7 @@
 
 PlayerTrail::PlayerTrail()
 {
-    trailTimer = 0.1f;
+    trailTimer = 0.05f;
     trialTime = 0.0f;
 
     playerTrail.resize(3);
@@ -29,7 +29,7 @@ void PlayerTrail::Init()
         (*it)->scale = GM->player->getSkinScale()->scale;
         (*it)->maxFrame.x = GM->player->getSkinScale()->maxFrame.x;
         (*it)->maxFrame.y = GM->player->getSkinScale()->maxFrame.y;
-        (*it)->color.w = 0.4;
+        (*it)->color.w = 0.3;
     }
 }
 
@@ -43,13 +43,13 @@ void PlayerTrail::Update()
     {
         for (auto it = playerTrail.begin(); it != playerTrail.end(); it++)
         {
-            (*it)->color.w -= 0.05f;
+            (*it)->color.w -= 0.1f;
         }
 
         playerTrail.front()->SetWorldPos(GM->player->getCollider()->GetWorldPos());
         playerTrail.front()->frame.x = GM->player->getSkinScale()->frame.x;
         playerTrail.front()->frame.y = GM->player->getSkinScale()->frame.y;
-        playerTrail.front()->color.w = 0.4f;
+        playerTrail.front()->color.w = 0.3f;
 
         //playerTrail.front()->rotation = player->rotation;
         playerTrail.push_back(playerTrail.front());

@@ -81,6 +81,7 @@
     <ClInclude Include="SharpEdge.h">
       <Filter>Items\Passive</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerTrail.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="SharpEdge.cpp">
       <Filter>Items\Passive</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerTrail.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="window.ini" />

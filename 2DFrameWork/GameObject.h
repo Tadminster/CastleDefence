@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 class ObLine;
 enum class SPACE
 {
 	WORLD,
-	SCREEN, // °¡¿îµ¥°¡ 0,0ÀÎ
+	SCREEN, // ê°€ìš´ë°ê°€ 0,0ì¸
 };
 enum class COLLIDER
 {
@@ -42,8 +42,8 @@ protected:
 public:
 	Vector2		pivot;
 	Vector2		scale;
-	Vector3	rotation;
-	Vector3	rotation2;
+	Vector3		rotation;
+	Vector3		rotation2;
 	bool		hasAxis;
 	bool        isVisible;
 	bool        isFilled;
@@ -66,24 +66,24 @@ public:
 
 	//getter setter
 public:
-	//À§Ä¡ ¹Ş¾Æ¿À±â
+	//ìœ„ì¹˜ ë°›ì•„ì˜¤ê¸°
 	Vector2 GetLocalPos()	{ return position;}
 	Vector2 GetWorldPos()	{ return Vector2(RT._41, RT._42); }
 	Vector2 GetWorldPivot() { return Vector2(W._41, W._42); }
-	//À§Ä¡¸¦ °íÁ¤ÇÒ¶§ =
+	//ìœ„ì¹˜ë¥¼ ê³ ì •í• ë•Œ =
 	void	SetLocalPos(Vector2 location)	{ position = location; }
 	void	SetLocalPosX(float lcationX)	{ position.x = lcationX; }
 	void	SetLocalPosY(float lcationY)	{ position.y = lcationY; }
 	void	SetWorldPos(Vector2 worldPos);
 	void	SetWorldPosX(float worldPosX);
 	void	SetWorldPosY(float worldPosY);
-	//ÀÌµ¿½ÃÅ³¶§ +=
+	//ì´ë™ì‹œí‚¬ë•Œ +=
 	void	MoveLocalPos(Vector2 Velocity)	{ position += Velocity; }
 	void	MoveWorldPos(Vector2 Velocity);
-	//¿ùµå±âÁØ ¹æÇâ
+	//ì›”ë“œê¸°ì¤€ ë°©í–¥
 	Vector2 GetRight()	{ return Vector2(RT._11, RT._12); }
 	Vector2 GetUp()		{ return Vector2(RT._21, RT._22); }
-	//ºÎ¸ğÇà·Ä ¸¸µé±â
+	//ë¶€ëª¨í–‰ë ¬ ë§Œë“¤ê¸°
 	void	SetParentRT(GameObject& src)	{ P = &src.RT; }
 	void	SetParentT(GameObject& src)	{ P = &src.T; }
 };

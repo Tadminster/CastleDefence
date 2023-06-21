@@ -5,6 +5,7 @@
 #include "Bow.h"
 #include "ThrowingAxe.h"
 #include "Projectile.h"
+#include "PlayerTrail.h"
 #include "Player.h"
 
 Player::Player()
@@ -17,6 +18,8 @@ Player::Player()
 	
 	skin_idle = new ObImage(L"player_idle_left.png");
 	skin_run = new ObImage(L"player_run_left.png");
+
+	playerTrail = new PlayerTrail();
 }
 
 Player::~Player()
@@ -42,8 +45,10 @@ void Player::Init()
 	hp = maxHp;
 	damage = 1.0f;		
 	def = 0;		
-	moveSpeed = 150;
 	attSpeed = 1.0f;
+
+	moveSpeed = 150;
+	dashRange = 600;
 
 	// COLLISION
 	collider->scale = Vector2(30.0f, 60.f);
@@ -77,6 +82,7 @@ void Player::Init()
 		skin_run->maxFrame.x = 4;
 	}
 
+	playerTrail->Init();
 	//equip.emplace_back(new Fireball());
 	//equip.emplace_back(new ThrowingAxe());
 }
@@ -87,6 +93,8 @@ void Player::Update()
 	ImGui::Text("bullets : %i\n", this->projectiles.size());
 	ImGui::Text("col_weapon : %f\n", this->collider_muzzle->GetRight().x);
 	ImGui::Text("col_weapon : %f\n", this->collider_muzzle->GetRight().y);
+
+	playerTrail->Update();
 
 	// 플레이어 상태에 따른 작동
 	if (playerStatus == PlayerStatus::NORMAL)
@@ -139,6 +147,21 @@ void Player::Update()
 		if (TIMER->GetTick(frameTick, 0.1f))
 				skin_run->frame.x += 1;
 	}
+	else if (state == ImgState::DASH)
+	{
+		if (dir == Direction::L)
+		{
+			collider->MoveWorldPos(LEFT * dashRange * DELTA);
+		}
+		else if (dir == Direction::R)
+		{
+			collider->MoveWorldPos(RIGHT * dashRange * DELTA);
+		}
+		dashRange -= 2.0f;
+
+		if (dashRange < 0)
+			state = ImgState::IDLE;
+	}
 
 
 
@@ -190,6 +213,12 @@ void Player::Render()
 		skin_idle->Render();
 	else if (state == ImgState::RUN)
 		skin_run->Render();
+	else if (state == ImgState::DASH)
+	{
+		skin_run->Render();
+		playerTrail->Render();
+	}
+
 
 	for (auto& projectiles : projectiles)
 		projectiles->Render();
@@ -197,6 +226,12 @@ void Player::Render()
 
 void Player::Control()
 {	
+	if (INPUT->KeyDown(VK_SPACE))
+	{
+		dashRange = 600;
+		state = ImgState::DASH;
+	}
+
 	if (INPUT->KeyUp('W') || INPUT->KeyUp('A') || INPUT->KeyUp('S') || INPUT->KeyUp('D'))
 		state = ImgState::IDLE;
 

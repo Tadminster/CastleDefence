@@ -2,7 +2,8 @@
 enum class ImgState
 {
 	IDLE,
-	RUN
+	RUN,
+	DASH
 };
 
 enum class Direction
@@ -21,17 +22,23 @@ enum class PlayerStatus
 class Player
 {
 private:
+	// collider
 	ObRect*			collider;
 	ObRect*			collider_muzzle;
 	ObRect*			area;
 
+	// skin
 	ObImage*		skin_idle;
 	ObImage*		skin_run;
+
+	class PlayerTrail*	playerTrail;
 
 	// state
 	ImgState		state;
 	Direction		dir;
 	PlayerStatus	playerStatus;
+
+	// trail
 
 	vector<unique_ptr<class Projectile>>	projectiles;
 
@@ -39,6 +46,7 @@ private:
 	
 	float	hp;			// 체력
 	float	maxHp;		// 최대체력
+	float	dashRange;
 
 
 public:
@@ -66,6 +74,7 @@ public:
 	ObRect*			getCollider()		{ return this->collider; }
 	ObRect*			getColliderWeapon()	{ return this->collider_muzzle; }
 	ObRect*			getArea()			{ return this->area; }
+	ObImage*		getSkinScale()		{ return this->skin_run;}
 	float			getHp()				{ return this->hp; }
 	float			getMaxHp()			{ return this->maxHp; }
 	float			getDamage()			{ return this->damage; }

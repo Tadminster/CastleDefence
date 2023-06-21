@@ -8,8 +8,14 @@ enum class ImgState
 
 enum class Direction
 {
-	L,
-	R
+	PLAYER_DIR_UP,
+	PLAYER_DIR_DOWN,
+	PLAYER_DIR_LEFT,
+	PLAYER_DIR_LEFT_UP,
+	PLAYER_DIR_LEFT_DOWN,
+	PLAYER_DIR_RIGHT_UP,
+	PLAYER_DIR_RIGHT_DOWN,
+	PLAYER_DIR_RIGHT
 };
 
 enum class PlayerStatus
@@ -28,8 +34,9 @@ private:
 	ObRect*			area;
 
 	// skin
-	ObImage*		skin_idle;
-	ObImage*		skin_run;
+	//ObImage*		skin_idle;
+	//ObImage*		skin_run;
+	ObImage*		skin;
 
 	class PlayerTrail*	playerTrail;
 
@@ -55,9 +62,9 @@ public:
 	int				level;
 	float			exp;
 
-	float	damage;		// 공격력
-	float	attSpeed;	// 공격속도
-	float	def;		// 방어력
+	float	damage;			// 공격력
+	float	attSpeed;		// 공격속도
+	float	def;			// 방어력
 	float	moveSpeed;		// 이동속도
 
 
@@ -74,7 +81,7 @@ public:
 	ObRect*			getCollider()		{ return this->collider; }
 	ObRect*			getColliderWeapon()	{ return this->collider_muzzle; }
 	ObRect*			getArea()			{ return this->area; }
-	ObImage*		getSkinScale()		{ return this->skin_run;}
+	ObImage*		getSkin()			{ return this->skin;}
 	float			getHp()				{ return this->hp; }
 	float			getMaxHp()			{ return this->maxHp; }
 	float			getDamage()			{ return this->damage; }

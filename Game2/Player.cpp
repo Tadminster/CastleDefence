@@ -16,19 +16,22 @@ Player::Player()
 	area = new ObRect();
 	area->SetParentRT(*collider);
 	
-	skin_idle = new ObImage(L"player_idle_left.png");
-	skin_run = new ObImage(L"player_run_left.png");
+	skin = new ObImage(L"player_mage.png");
+	//skin_idle = new ObImage(L"player_idle_left.png");
+	//skin_run = new ObImage(L"player_run_left.png");
 
 	playerTrail = new PlayerTrail();
 }
 
 Player::~Player()
 {
+	delete skin;
+	TEXTURE->DeleteTexture(L"player_mage.png");
 
-	delete skin_idle;
-	delete skin_run;
-	TEXTURE->DeleteTexture(L"player_idel_left.png");
-	TEXTURE->DeleteTexture(L"player_run_left.png");
+	//delete skin_idle;
+	//delete skin_run;
+	//TEXTURE->DeleteTexture(L"player_idel_left.png");
+	//TEXTURE->DeleteTexture(L"player_run_left.png");
 
 	delete collider;
 }
@@ -37,7 +40,7 @@ void Player::Init()
 {
 	collider->SetWorldPos(Vector2(500, 500));
 	state = ImgState::IDLE;
-	dir = Direction::R;
+	dir = Direction::PLAYER_DIR_DOWN;
 	
 	level = 0;
 	exp = 0;
@@ -48,7 +51,7 @@ void Player::Init()
 	attSpeed = 1.0f;
 
 	moveSpeed = 150;
-	dashRange = 1000;
+	dashRange = 200;
 
 	// COLLISION
 	collider->scale = Vector2(30.0f, 60.f);
@@ -70,16 +73,22 @@ void Player::Init()
 
 	// SKIN
 	{
+		skin->SetParentRT(*this->collider);
+		skin->scale.x = skin->imageSize.x / 4.0f * 3.5;
+		skin->scale.y = skin->imageSize.y / 8.0f * 3.5;
+		skin->maxFrame.x = 4;
+		skin->maxFrame.y = 8;
+
 		// IDLE
-		skin_idle->SetParentRT(*this->collider);
-		skin_idle->scale.x = skin_idle->imageSize.x;
-		skin_idle->scale.y = skin_idle->imageSize.y;
+		//skin_idle->SetParentRT(*this->collider);
+		//skin_idle->scale.x = skin_idle->imageSize.x;
+		//skin_idle->scale.y = skin_idle->imageSize.y;
 
 		// RUN
-		skin_run->SetParentRT(*this->collider);
-		skin_run->scale.x = skin_run->imageSize.x / 4.0f;
-		skin_run->scale.y = skin_run->imageSize.y;
-		skin_run->maxFrame.x = 4;
+		//skin_run->SetParentRT(*this->collider);
+		//skin_run->scale.x = skin_run->imageSize.x / 4.0f;
+		//skin_run->scale.y = skin_run->imageSize.y;
+		//skin_run->maxFrame.x = 4;
 	}
 
 	playerTrail->Init();
@@ -99,10 +108,13 @@ void Player::Update()
 	// 플레이어 상태에 따른 작동
 	if (playerStatus == PlayerStatus::NORMAL)
 	{
-		if (skin_run || skin_run->color.x != 0.5)
-			skin_run->color = Vector4(0.5, 0.5, 0.5, 0.5);
-		if (skin_idle || skin_idle->color.x != 0.5)
-			skin_idle->color = Vector4(0.5, 0.5, 0.5, 0.5);
+		if (skin || skin->color.x != 0.5)
+			skin->color = Vector4(0.5, 0.5, 0.5, 0.5);
+
+		//if (skin_run || skin_run->color.x != 0.5)
+		//	skin_run->color = Vector4(0.5, 0.5, 0.5, 0.5);
+		//if (skin_idle || skin_idle->color.x != 0.5)
+		//	skin_idle->color = Vector4(0.5, 0.5, 0.5, 0.5);
 	}
 	else if (playerStatus == PlayerStatus::DAMAGED)
 	{
@@ -124,40 +136,97 @@ void Player::Update()
 	Vector2 mouse_point(INPUT->GetWorldMousePos() - this->collider_muzzle->GetWorldPos());
 	collider_muzzle->rotation.z = atan2f(mouse_point.y, mouse_point.x);
 
-	// 방향과 상태에 따른 설정
-	if (dir == Direction::L)
+	// 방향에 따른 스킨 y축 설정
+	if (dir == Direction::PLAYER_DIR_DOWN)
 	{
-		skin_idle->reverseLR = false;
-		skin_run->reverseLR = false;
-		skin_run->SetLocalPosX(-10);
+		skin->frame.y = 0;
 	}
-	else if (dir == Direction::R)
+	else if (dir == Direction::PLAYER_DIR_RIGHT_DOWN)
 	{
-		skin_idle->reverseLR = true;
-		skin_run->reverseLR = true;
-		skin_run->SetLocalPosX(10);
+		skin->frame.y = 1;
+	}
+	else if (dir == Direction::PLAYER_DIR_RIGHT)
+	{
+		skin->frame.y = 2;
+	}
+	else if (dir == Direction::PLAYER_DIR_RIGHT_UP)
+	{
+		skin->frame.y = 3;
+	}
+	else if (dir == Direction::PLAYER_DIR_UP)
+	{
+		skin->frame.y = 4;
+	}
+	else if (dir == Direction::PLAYER_DIR_LEFT_UP)
+	{
+		skin->frame.y = 5;
+	}
+	else if (dir == Direction::PLAYER_DIR_LEFT)
+	{
+		skin->frame.y = 6;
+		//skin_idle->reverseLR = false;
+		//skin_run->reverseLR = false;
+		//skin_run->SetLocalPosX(-10);
+	}
+	else if (dir == Direction::PLAYER_DIR_LEFT_DOWN)
+	{
+		skin->frame.y = 7;
+		//skin_idle->reverseLR = false;
+		//skin_run->reverseLR = false;
+		//skin_run->SetLocalPosX(-10);
 	}
 
 	if (state == ImgState::IDLE)
 	{
+		skin->frame.x = 0;
 	}
 	else if (state == ImgState::RUN)
 	{
 		static float frameTick = 0.0f;
 		if (TIMER->GetTick(frameTick, 0.1f))
-				skin_run->frame.x += 1;
+				skin->frame.x += 1;
+				//skin_run->frame.x += 1;
 	}
 	else if (state == ImgState::DASH)
 	{
-		if (dir == Direction::L)
+		if (dir == Direction::PLAYER_DIR_UP)
 		{
-			collider->MoveWorldPos(LEFT * dashRange * DELTA);
+			collider->MoveWorldPos(UP * dashRange * 5 * DELTA);
 		}
-		else if (dir == Direction::R)
+		else if (dir == Direction::PLAYER_DIR_DOWN)
 		{
-			collider->MoveWorldPos(RIGHT * dashRange * DELTA);
+			collider->MoveWorldPos(DOWN * dashRange * 5 * DELTA);
 		}
-		dashRange -= 1.5f;
+		else if (dir == Direction::PLAYER_DIR_LEFT)
+		{
+			collider->MoveWorldPos(LEFT * dashRange * 5 * DELTA);
+		}
+		else if (dir == Direction::PLAYER_DIR_LEFT_UP)
+		{
+			collider->MoveWorldPos(UP * dashRange * 4 * DELTA);
+			collider->MoveWorldPos(LEFT * dashRange * 4 * DELTA);
+		}
+		else if (dir == Direction::PLAYER_DIR_LEFT_DOWN)
+		{
+			collider->MoveWorldPos(DOWN * dashRange * 4 * DELTA);
+			collider->MoveWorldPos(LEFT * dashRange * 4 * DELTA);
+		}
+		else if (dir == Direction::PLAYER_DIR_RIGHT)
+		{
+			collider->MoveWorldPos(RIGHT * dashRange * 5 * DELTA);
+		}
+		else if (dir == Direction::PLAYER_DIR_RIGHT_UP)
+		{
+			collider->MoveWorldPos(UP * dashRange * 4 * DELTA);
+			collider->MoveWorldPos(RIGHT * dashRange * 4 * DELTA);
+		}
+		else if (dir == Direction::PLAYER_DIR_RIGHT_DOWN)
+		{
+			collider->MoveWorldPos(DOWN * dashRange * 4 * DELTA);
+			collider->MoveWorldPos(RIGHT * dashRange * 4 * DELTA);
+		}
+
+		dashRange -= 600.0f * DELTA;
 
 		if (dashRange < 0)
 			state = ImgState::IDLE;
@@ -192,8 +261,9 @@ void Player::Update()
 	this->collider->Update();
 	this->collider_muzzle->Update();
 	this->area->Update();
-	this->skin_idle->Update();
-	this->skin_run->Update();
+	this->skin->Update();
+	//this->skin_idle->Update();
+	//this->skin_run->Update();
 
 	// 탄 업데이트
 	for (auto& projectiles : projectiles)
@@ -210,12 +280,15 @@ void Player::Render()
 	}
 
 	if (state == ImgState::IDLE)
-		skin_idle->Render();
+		skin->Render();
+		//skin_idle->Render();
 	else if (state == ImgState::RUN)
-		skin_run->Render();
+		skin->Render();
+		//skin_run->Render();
 	else if (state == ImgState::DASH)
 	{
-		skin_run->Render();
+		skin->Render();
+		//skin_run->Render();
 		playerTrail->Render();
 	}
 
@@ -228,8 +301,7 @@ void Player::Control()
 {	
 
 
-	if (INPUT->KeyUp('W') || INPUT->KeyUp('A') || INPUT->KeyUp('S') || INPUT->KeyUp('D'))
-		state = ImgState::IDLE;
+
 
 	// 방향
 	//if (INPUT->KeyDown(VK_LEFT))
@@ -240,39 +312,71 @@ void Player::Control()
 	// 이동
 	if (state != ImgState::DASH)
 	{
-		if (INPUT->KeyPress('W'))
+		if (INPUT->KeyUp('W') || INPUT->KeyUp('A') || INPUT->KeyUp('S') || INPUT->KeyUp('D'))
+			state = ImgState::IDLE;
+
+		if (INPUT->KeyPress('W') && INPUT->KeyPress('A'))
 		{
+			state = ImgState::RUN;
+			dir = Direction::PLAYER_DIR_LEFT_UP;
+			collider->MoveWorldPos(UP * moveSpeed * DELTA);
+			collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
+		}
+		else if (INPUT->KeyPress('W') && INPUT->KeyPress('D'))
+		{
+			state = ImgState::RUN;
+			dir = Direction::PLAYER_DIR_RIGHT_UP;
+			collider->MoveWorldPos(UP * moveSpeed * DELTA);
+			collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
+		}
+		else if (INPUT->KeyPress('S') && INPUT->KeyPress('A'))
+		{
+			state = ImgState::RUN;
+			dir = Direction::PLAYER_DIR_LEFT_DOWN;
+			collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
+			collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
+		}
+		else if (INPUT->KeyPress('S') && INPUT->KeyPress('D'))
+		{
+			state = ImgState::RUN;
+			dir = Direction::PLAYER_DIR_RIGHT_DOWN;
+			collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
+			collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
+		}
+		else if (INPUT->KeyPress('W'))
+		{
+			dir = Direction::PLAYER_DIR_UP;
 			state = ImgState::RUN;
 			collider->MoveWorldPos(UP * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('S'))
 		{
 			state = ImgState::RUN;
+			dir = Direction::PLAYER_DIR_DOWN;
 			collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
 		}
-
-		if (INPUT->KeyPress('A'))
+		else if (INPUT->KeyPress('A'))
 		{
-			dir = Direction::L;
 			state = ImgState::RUN;
+			dir = Direction::PLAYER_DIR_LEFT;
 			collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('D'))
 		{
-
-			dir = Direction::R;
 			state = ImgState::RUN;
+			dir = Direction::PLAYER_DIR_RIGHT;
 			collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
+		}
+
+		// 대시
+		if (INPUT->KeyDown(VK_SPACE))
+		{
+			dashRange = 200;
+			state = ImgState::DASH;
 		}
 	}
 
 
-	// 대시
-	if (INPUT->KeyDown(VK_SPACE))
-	{
-		dashRange = 1000;
-		state = ImgState::DASH;
-	}
 }
 
 void Player::actionsWhenDamaged(int value)
@@ -284,8 +388,9 @@ void Player::actionsWhenDamaged(int value)
 	// 데미지 받은 시간 기록
 	timeOfDamage = TIMER->GetWorldTime();
 	// 스킨 컬러 변경
-	skin_run->color = Vector4(0.9, 0.5, 0.5, 0.5);
-	skin_idle->color = Vector4(0.9, 0.5, 0.5, 0.5);
+	skin->color = Vector4(0.9, 0.5, 0.5, 0.5);
+	//skin_run->color = Vector4(0.9, 0.5, 0.5, 0.5);
+	//skin_idle->color = Vector4(0.9, 0.5, 0.5, 0.5);
 	// 데미지 차감
 	int damage = max(value - def, 0);
 	// 체력 감소

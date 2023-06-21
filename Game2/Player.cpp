@@ -48,7 +48,7 @@ void Player::Init()
 	attSpeed = 1.0f;
 
 	moveSpeed = 150;
-	dashRange = 600;
+	dashRange = 1000;
 
 	// COLLISION
 	collider->scale = Vector2(30.0f, 60.f);
@@ -157,7 +157,7 @@ void Player::Update()
 		{
 			collider->MoveWorldPos(RIGHT * dashRange * DELTA);
 		}
-		dashRange -= 2.0f;
+		dashRange -= 1.5f;
 
 		if (dashRange < 0)
 			state = ImgState::IDLE;
@@ -226,11 +226,7 @@ void Player::Render()
 
 void Player::Control()
 {	
-	if (INPUT->KeyDown(VK_SPACE))
-	{
-		dashRange = 600;
-		state = ImgState::DASH;
-	}
+
 
 	if (INPUT->KeyUp('W') || INPUT->KeyUp('A') || INPUT->KeyUp('S') || INPUT->KeyUp('D'))
 		state = ImgState::IDLE;
@@ -242,29 +238,40 @@ void Player::Control()
 	//	dir = PlayerDir::R;
 
 	// 이동
-	if (INPUT->KeyPress('W'))
+	if (state != ImgState::DASH)
 	{
-		state = ImgState::RUN;
-		collider->MoveWorldPos(UP * moveSpeed * DELTA);
-	}
-	else if (INPUT->KeyPress('S'))
-	{
-		state = ImgState::RUN;
-		collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
+		if (INPUT->KeyPress('W'))
+		{
+			state = ImgState::RUN;
+			collider->MoveWorldPos(UP * moveSpeed * DELTA);
+		}
+		else if (INPUT->KeyPress('S'))
+		{
+			state = ImgState::RUN;
+			collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
+		}
+
+		if (INPUT->KeyPress('A'))
+		{
+			dir = Direction::L;
+			state = ImgState::RUN;
+			collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
+		}
+		else if (INPUT->KeyPress('D'))
+		{
+
+			dir = Direction::R;
+			state = ImgState::RUN;
+			collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
+		}
 	}
 
-	if (INPUT->KeyPress('A'))
-	{
-		dir = Direction::L;
-		state = ImgState::RUN;
-		collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
-	}
-	else if (INPUT->KeyPress('D'))
-	{
 
-		dir = Direction::R;
-		state = ImgState::RUN;
-		collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
+	// 대시
+	if (INPUT->KeyDown(VK_SPACE))
+	{
+		dashRange = 1000;
+		state = ImgState::DASH;
 	}
 }
 

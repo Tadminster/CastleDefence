@@ -11,36 +11,33 @@
 Player::Player()
 {
 	collider = new ObRect();
-	collider_muzzle = new ObRect();
-	collider_muzzle->SetParentRT(*collider);
+	muzzle = new ObRect();
 	area = new ObRect();
-	area->SetParentRT(*collider);
 	
-	skin = new ObImage(L"player_mage.png");
-	//skin_idle = new ObImage(L"player_idle_left.png");
-	//skin_run = new ObImage(L"player_run_left.png");
+	skin_walk = new ObImage(L"player_walk.png");
+	skin_roll = new ObImage(L"player_roll.png");
 
 	playerTrail = new PlayerTrail();
 }
 
 Player::~Player()
 {
-	delete skin;
-	TEXTURE->DeleteTexture(L"player_mage.png");
-
-	//delete skin_idle;
-	//delete skin_run;
-	//TEXTURE->DeleteTexture(L"player_idel_left.png");
-	//TEXTURE->DeleteTexture(L"player_run_left.png");
-
 	delete collider;
+	delete muzzle;
+	delete area;
+	delete skin_walk;
+	delete skin_roll;
+	delete playerTrail;
+	TEXTURE->DeleteTexture(L"player_walk.png");
+	TEXTURE->DeleteTexture(L"player_roll.png");
 }
 
 void Player::Init()
 {
 	collider->SetWorldPos(Vector2(500, 500));
-	state = ImgState::IDLE;
-	dir = Direction::PLAYER_DIR_DOWN;
+	img_state = IMG_STATE::IDLE;
+	player_dir_keyboard = PLAYER_DIRECTION::DIR_DOWN;
+	player_dir_mouse = PLAYER_DIRECTION::DIR_DOWN;
 	
 	level = 0;
 	exp = 0;
@@ -60,67 +57,85 @@ void Player::Init()
 	collider->hasAxis = false;
 
 	// MUZZLE
-	collider_muzzle->scale.x = 30.0f;
-	collider_muzzle->scale.y = 3.0;
-	collider_muzzle->pivot = OFFSET_L;
-	collider_muzzle->isFilled = false;
+	muzzle->SetParentRT(*collider);
+	muzzle->scale.x = 30.0f;
+	muzzle->scale.y = 3.0;
+	muzzle->pivot = OFFSET_L;
+	muzzle->isFilled = false;
 
 	// AREA
+	area->SetParentRT(*collider);
 	area->scale = Vector2(1500.0f, 1500.0f);
 	area->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
 	area->isFilled = false;
 	area->hasAxis = false;
 
 	// SKIN
-	{
-		skin->SetParentRT(*this->collider);
-		skin->scale.x = skin->imageSize.x / 4.0f * 3.5;
-		skin->scale.y = skin->imageSize.y / 8.0f * 3.5;
-		skin->maxFrame.x = 4;
-		skin->maxFrame.y = 8;
+	{	// WALK
+		skin_walk->SetParentRT(*this->collider);
+		skin_walk->scale.x = skin_walk->imageSize.x / skin_walk->maxFrame.x / 2;
+		skin_walk->scale.y = skin_walk->imageSize.y / skin_walk->maxFrame.y / 2;
+		skin_walk->maxFrame.x = 6;
+		skin_walk->maxFrame.y = 8;
+		skin_walk->ChangeAnim(ANIMSTATE::LOOP, 0.1);
+	}
 
-		// IDLE
-		//skin_idle->SetParentRT(*this->collider);
-		//skin_idle->scale.x = skin_idle->imageSize.x;
-		//skin_idle->scale.y = skin_idle->imageSize.y;
-
-		// RUN
-		//skin_run->SetParentRT(*this->collider);
-		//skin_run->scale.x = skin_run->imageSize.x / 4.0f;
-		//skin_run->scale.y = skin_run->imageSize.y;
-		//skin_run->maxFrame.x = 4;
+	{	// ROLL
+		skin_roll->SetParentRT(*this->collider);
+		skin_roll->scale.x = skin_roll->imageSize.x / skin_roll->maxFrame.x / 2;
+		skin_roll->scale.y = skin_roll->imageSize.y / skin_roll->maxFrame.y / 2;
+		skin_roll->maxFrame.x = 6;
+		skin_roll->maxFrame.y = 8;
+		skin_roll->ChangeAnim(ANIMSTATE::LOOP, 0.08);
 	}
 
 	playerTrail->Init();
-	//equip.emplace_back(new Fireball());
-	//equip.emplace_back(new ThrowingAxe());
 }
 
 void Player::Update()
 {
 	ImGui::Text("weapons : %i\n", this->equip.size());
 	ImGui::Text("bullets : %i\n", this->projectiles.size());
-	ImGui::Text("col_weapon : %f\n", this->collider_muzzle->GetRight().x);
-	ImGui::Text("col_weapon : %f\n", this->collider_muzzle->GetRight().y);
+	ImGui::Text("col_weapon : %f\n", this->muzzle->GetRight().x);
+	ImGui::Text("col_weapon : %f\n", this->muzzle->GetRight().y);
+	
+	// 마우스 방향 계산
+	Vector2 mouseDir = INPUT->GetWorldMousePos() - collider->GetWorldPos();
+	int  mouseDirIndex = round((Utility::DirToRadian(mouseDir) + PI) / (45.0f * ToRadian));
+	//ImGui::Text("mouse : %f\n", mouseDirIndex);
+
+	if (mouseDirIndex == 0 || mouseDirIndex == 8)
+		player_dir_mouse = PLAYER_DIRECTION::DIR_LEFT;
+	else if (mouseDirIndex == 1)
+		player_dir_mouse = PLAYER_DIRECTION::DIR_DOWN_LEFT;
+	else if (mouseDirIndex == 2)
+		player_dir_mouse = PLAYER_DIRECTION::DIR_DOWN;
+	else if (mouseDirIndex == 3)
+		player_dir_mouse = PLAYER_DIRECTION::DIR_DOWN_RIGHT;
+	else if (mouseDirIndex == 4)
+		player_dir_mouse = PLAYER_DIRECTION::DIR_RIGHT;
+	else if (mouseDirIndex == 5)
+		player_dir_mouse = PLAYER_DIRECTION::DIR_UP_RIGHT;
+	else if (mouseDirIndex == 6)
+		player_dir_mouse = PLAYER_DIRECTION::DIR_UP;
+	else if (mouseDirIndex == 7)
+		player_dir_mouse = PLAYER_DIRECTION::DIR_UP_LEFT;
+
+
 
 	playerTrail->Update();
 
 	// 플레이어 상태에 따른 작동
-	if (playerStatus == PlayerStatus::NORMAL)
+	if (player_status == PLAYER_STATUS::NORMAL)
 	{
-		if (skin || skin->color.x != 0.5)
-			skin->color = Vector4(0.5, 0.5, 0.5, 0.5);
-
-		//if (skin_run || skin_run->color.x != 0.5)
-		//	skin_run->color = Vector4(0.5, 0.5, 0.5, 0.5);
-		//if (skin_idle || skin_idle->color.x != 0.5)
-		//	skin_idle->color = Vector4(0.5, 0.5, 0.5, 0.5);
+		if (skin_walk || skin_walk->color.x != 0.5)
+			skin_walk->color = Vector4(0.5, 0.5, 0.5, 0.5);
 	}
-	else if (playerStatus == PlayerStatus::DAMAGED)
+	else if (player_status == PLAYER_STATUS::DAMAGED)
 	{
 		if (timeOfDamage + 0.4f < TIMER->GetWorldTime())
 		{
-			playerStatus = PlayerStatus::NORMAL;
+			player_status = PLAYER_STATUS::NORMAL;
 		}
 	}
 
@@ -133,94 +148,100 @@ void Player::Update()
 	this->Control();
 
 	// 조준선 마우스 방향으로
-	Vector2 mouse_point(INPUT->GetWorldMousePos() - this->collider_muzzle->GetWorldPos());
-	collider_muzzle->rotation.z = atan2f(mouse_point.y, mouse_point.x);
+	Vector2 mouse_point(INPUT->GetWorldMousePos() - this->muzzle->GetWorldPos());
+	muzzle->rotation.z = atan2f(mouse_point.y, mouse_point.x);
 
 	// 방향에 따른 스킨 y축 설정
-	if (dir == Direction::PLAYER_DIR_DOWN)
 	{
-		skin->frame.y = 0;
-	}
-	else if (dir == Direction::PLAYER_DIR_RIGHT_DOWN)
-	{
-		skin->frame.y = 1;
-	}
-	else if (dir == Direction::PLAYER_DIR_RIGHT)
-	{
-		skin->frame.y = 2;
-	}
-	else if (dir == Direction::PLAYER_DIR_RIGHT_UP)
-	{
-		skin->frame.y = 3;
-	}
-	else if (dir == Direction::PLAYER_DIR_UP)
-	{
-		skin->frame.y = 4;
-	}
-	else if (dir == Direction::PLAYER_DIR_LEFT_UP)
-	{
-		skin->frame.y = 5;
-	}
-	else if (dir == Direction::PLAYER_DIR_LEFT)
-	{
-		skin->frame.y = 6;
-		//skin_idle->reverseLR = false;
-		//skin_run->reverseLR = false;
-		//skin_run->SetLocalPosX(-10);
-	}
-	else if (dir == Direction::PLAYER_DIR_LEFT_DOWN)
-	{
-		skin->frame.y = 7;
-		//skin_idle->reverseLR = false;
-		//skin_run->reverseLR = false;
-		//skin_run->SetLocalPosX(-10);
+		// KEYBOARD
+		switch (player_dir_keyboard)
+		{
+		case PLAYER_DIRECTION::DIR_RIGHT: skin_roll->frame.y = 0;
+			break;
+		case PLAYER_DIRECTION::DIR_UP: skin_roll->frame.y = 1;
+			break;
+		case PLAYER_DIRECTION::DIR_LEFT:skin_roll->frame.y = 2;
+			break;
+		case PLAYER_DIRECTION::DIR_DOWN: skin_roll->frame.y = 3;
+			break;
+		case PLAYER_DIRECTION::DIR_DOWN_RIGHT:skin_roll->frame.y = 4;
+			break;
+		case PLAYER_DIRECTION::DIR_DOWN_LEFT:skin_roll->frame.y = 5;
+			break;
+		case PLAYER_DIRECTION::DIR_UP_LEFT: skin_roll->frame.y = 6;
+			break;
+		case PLAYER_DIRECTION::DIR_UP_RIGHT:skin_roll->frame.y = 7;
+			break;
+		default:
+			break;
+		}
+
+		// MOUSE
+		switch (player_dir_mouse)
+		{
+		case PLAYER_DIRECTION::DIR_RIGHT: skin_walk->frame.y = 0;
+			break;
+		case PLAYER_DIRECTION::DIR_UP: skin_walk->frame.y = 1;
+			break;
+		case PLAYER_DIRECTION::DIR_LEFT:skin_walk->frame.y = 2;
+			break;
+		case PLAYER_DIRECTION::DIR_DOWN: skin_walk->frame.y = 3;
+			break;
+		case PLAYER_DIRECTION::DIR_DOWN_RIGHT:skin_walk->frame.y = 4;
+			break;
+		case PLAYER_DIRECTION::DIR_DOWN_LEFT:skin_walk->frame.y = 5;
+			break;
+		case PLAYER_DIRECTION::DIR_UP_LEFT: skin_walk->frame.y = 6;
+			break;
+		case PLAYER_DIRECTION::DIR_UP_RIGHT:skin_walk->frame.y = 7;
+			break;
+		default:
+			break;
+		}
 	}
 
-	if (state == ImgState::IDLE)
+	// 정지시
+	if (img_state == IMG_STATE::IDLE)
 	{
-		skin->frame.x = 0;
+		skin_walk->frame.x = 0;
 	}
-	else if (state == ImgState::RUN)
+	else if (img_state == IMG_STATE::RUN)
 	{
-		static float frameTick = 0.0f;
-		if (TIMER->GetTick(frameTick, 0.1f))
-				skin->frame.x += 1;
-				//skin_run->frame.x += 1;
 	}
-	else if (state == ImgState::DASH)
+	else if (img_state == IMG_STATE::DASH)
 	{
-		if (dir == Direction::PLAYER_DIR_UP)
+		if (player_dir_keyboard == PLAYER_DIRECTION::DIR_UP)
 		{
 			collider->MoveWorldPos(UP * dashRange * 5 * DELTA);
 		}
-		else if (dir == Direction::PLAYER_DIR_DOWN)
+		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_DOWN)
 		{
 			collider->MoveWorldPos(DOWN * dashRange * 5 * DELTA);
 		}
-		else if (dir == Direction::PLAYER_DIR_LEFT)
+		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_LEFT)
 		{
 			collider->MoveWorldPos(LEFT * dashRange * 5 * DELTA);
 		}
-		else if (dir == Direction::PLAYER_DIR_LEFT_UP)
+		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_UP_LEFT)
 		{
 			collider->MoveWorldPos(UP * dashRange * 4 * DELTA);
 			collider->MoveWorldPos(LEFT * dashRange * 4 * DELTA);
 		}
-		else if (dir == Direction::PLAYER_DIR_LEFT_DOWN)
+		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_DOWN_LEFT)
 		{
 			collider->MoveWorldPos(DOWN * dashRange * 4 * DELTA);
 			collider->MoveWorldPos(LEFT * dashRange * 4 * DELTA);
 		}
-		else if (dir == Direction::PLAYER_DIR_RIGHT)
+		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_RIGHT)
 		{
 			collider->MoveWorldPos(RIGHT * dashRange * 5 * DELTA);
 		}
-		else if (dir == Direction::PLAYER_DIR_RIGHT_UP)
+		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_UP_RIGHT)
 		{
 			collider->MoveWorldPos(UP * dashRange * 4 * DELTA);
 			collider->MoveWorldPos(RIGHT * dashRange * 4 * DELTA);
 		}
-		else if (dir == Direction::PLAYER_DIR_RIGHT_DOWN)
+		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_DOWN_RIGHT)
 		{
 			collider->MoveWorldPos(DOWN * dashRange * 4 * DELTA);
 			collider->MoveWorldPos(RIGHT * dashRange * 4 * DELTA);
@@ -229,7 +250,7 @@ void Player::Update()
 		dashRange -= 600.0f * DELTA;
 
 		if (dashRange < 0)
-			state = ImgState::IDLE;
+			img_state = IMG_STATE::IDLE;
 	}
 
 
@@ -259,11 +280,10 @@ void Player::Update()
 
 	// 업데이트
 	this->collider->Update();
-	this->collider_muzzle->Update();
+	this->muzzle->Update();
 	this->area->Update();
-	this->skin->Update();
-	//this->skin_idle->Update();
-	//this->skin_run->Update();
+	this->skin_walk->Update();
+	this->skin_roll->Update();
 
 	// 탄 업데이트
 	for (auto& projectiles : projectiles)
@@ -274,22 +294,19 @@ void Player::Render()
 {
 	if (DEBUG_MODE)
 	{
-		this->collider_muzzle->Render();
+		this->muzzle->Render();
 		this->collider->Render();
 		this->area->Render();
 	}
 
-	if (state == ImgState::IDLE)
-		skin->Render();
-		//skin_idle->Render();
-	else if (state == ImgState::RUN)
-		skin->Render();
-		//skin_run->Render();
-	else if (state == ImgState::DASH)
+	if (img_state == IMG_STATE::IDLE)
+		skin_walk->Render();
+	else if (img_state == IMG_STATE::RUN)
+		skin_walk->Render();
+	else if (img_state == IMG_STATE::DASH)
 	{
-		skin->Render();
-		//skin_run->Render();
 		playerTrail->Render();
+		skin_roll->Render();
 	}
 
 
@@ -300,71 +317,62 @@ void Player::Render()
 void Player::Control()
 {	
 
-
-
-
-	// 방향
-	//if (INPUT->KeyDown(VK_LEFT))
-	//	dir = PlayerDir::L;
-	//else if (INPUT->KeyDown(VK_RIGHT))
-	//	dir = PlayerDir::R;
-
 	// 이동
-	if (state != ImgState::DASH)
+	if (img_state != IMG_STATE::DASH)
 	{
 		if (INPUT->KeyUp('W') || INPUT->KeyUp('A') || INPUT->KeyUp('S') || INPUT->KeyUp('D'))
-			state = ImgState::IDLE;
+			img_state = IMG_STATE::IDLE;
 
 		if (INPUT->KeyPress('W') && INPUT->KeyPress('A'))
 		{
-			state = ImgState::RUN;
-			dir = Direction::PLAYER_DIR_LEFT_UP;
+			img_state = IMG_STATE::RUN;
+			player_dir_keyboard = PLAYER_DIRECTION::DIR_UP_LEFT;
 			collider->MoveWorldPos(UP * moveSpeed * DELTA);
 			collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('W') && INPUT->KeyPress('D'))
 		{
-			state = ImgState::RUN;
-			dir = Direction::PLAYER_DIR_RIGHT_UP;
+			img_state = IMG_STATE::RUN;
+			player_dir_keyboard = PLAYER_DIRECTION::DIR_UP_RIGHT;
 			collider->MoveWorldPos(UP * moveSpeed * DELTA);
 			collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('S') && INPUT->KeyPress('A'))
 		{
-			state = ImgState::RUN;
-			dir = Direction::PLAYER_DIR_LEFT_DOWN;
+			img_state = IMG_STATE::RUN;
+			player_dir_keyboard = PLAYER_DIRECTION::DIR_DOWN_LEFT;
 			collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
 			collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('S') && INPUT->KeyPress('D'))
 		{
-			state = ImgState::RUN;
-			dir = Direction::PLAYER_DIR_RIGHT_DOWN;
+			img_state = IMG_STATE::RUN;
+			player_dir_keyboard = PLAYER_DIRECTION::DIR_DOWN_RIGHT;
 			collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
 			collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('W'))
 		{
-			dir = Direction::PLAYER_DIR_UP;
-			state = ImgState::RUN;
+			player_dir_keyboard = PLAYER_DIRECTION::DIR_UP;
+			img_state = IMG_STATE::RUN;
 			collider->MoveWorldPos(UP * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('S'))
 		{
-			state = ImgState::RUN;
-			dir = Direction::PLAYER_DIR_DOWN;
+			img_state = IMG_STATE::RUN;
+			player_dir_keyboard = PLAYER_DIRECTION::DIR_DOWN;
 			collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('A'))
 		{
-			state = ImgState::RUN;
-			dir = Direction::PLAYER_DIR_LEFT;
+			img_state = IMG_STATE::RUN;
+			player_dir_keyboard = PLAYER_DIRECTION::DIR_LEFT;
 			collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('D'))
 		{
-			state = ImgState::RUN;
-			dir = Direction::PLAYER_DIR_RIGHT;
+			img_state = IMG_STATE::RUN;
+			player_dir_keyboard = PLAYER_DIRECTION::DIR_RIGHT;
 			collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
 		}
 
@@ -372,7 +380,7 @@ void Player::Control()
 		if (INPUT->KeyDown(VK_SPACE))
 		{
 			dashRange = 200;
-			state = ImgState::DASH;
+			img_state = IMG_STATE::DASH;
 		}
 	}
 
@@ -384,13 +392,11 @@ void Player::actionsWhenDamaged(int value)
 	cout << "충돌" << endl;
 
 	// 상태를 데미지 받음으로 변경
-	playerStatus = PlayerStatus::DAMAGED;
+	player_status = PLAYER_STATUS::DAMAGED;
 	// 데미지 받은 시간 기록
 	timeOfDamage = TIMER->GetWorldTime();
 	// 스킨 컬러 변경
-	skin->color = Vector4(0.9, 0.5, 0.5, 0.5);
-	//skin_run->color = Vector4(0.9, 0.5, 0.5, 0.5);
-	//skin_idle->color = Vector4(0.9, 0.5, 0.5, 0.5);
+	skin_walk->color = Vector4(0.9, 0.5, 0.5, 0.5);
 	// 데미지 차감
 	int damage = max(value - def, 0);
 	// 체력 감소

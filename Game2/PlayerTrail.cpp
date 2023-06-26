@@ -7,11 +7,9 @@ PlayerTrail::PlayerTrail()
     trialTime = 0.0f;
 
     playerTrail.resize(3);
-    //for (int i = 0; i < 30; i++)
     for (auto it = playerTrail.begin(); it != playerTrail.end(); it++)
     {
-        (*it) = new ObImage(L"player_mage.png");
-        //(*it) = new ObImage(L"player_run_left.png");
+        (*it) = new ObImage(L"player_roll.png");
     }
 }
 
@@ -27,16 +25,12 @@ void PlayerTrail::Init()
 {
     for (auto it = playerTrail.begin(); it != playerTrail.end(); it++)
     {
-        (*it)->scale = GM->player->getSkin()->scale;
-        (*it)->maxFrame.x = GM->player->getSkin()->maxFrame.x;
-        (*it)->maxFrame.y = GM->player->getSkin()->maxFrame.y;
+        (*it)->scale = GM->player->getSkinRoll()->scale;
+        (*it)->maxFrame.x = GM->player->getSkinRoll()->maxFrame.x;
+        (*it)->maxFrame.y = GM->player->getSkinRoll()->maxFrame.y;
         (*it)->color.w = 0.3;
     }
 }
-
-//void PlayerTrail::Release()
-//{
-//}
 
 void PlayerTrail::Update()
 {
@@ -48,11 +42,10 @@ void PlayerTrail::Update()
         }
 
         playerTrail.front()->SetWorldPos(GM->player->getCollider()->GetWorldPos());
-        playerTrail.front()->frame.x = GM->player->getSkin()->frame.x;
-        playerTrail.front()->frame.y = GM->player->getSkin()->frame.y;
+        playerTrail.front()->frame.x = GM->player->getSkinRoll()->frame.x;
+        playerTrail.front()->frame.y = GM->player->getSkinRoll()->frame.y;
         playerTrail.front()->color.w = 0.3f;
 
-        //playerTrail.front()->rotation = player->rotation;
         playerTrail.push_back(playerTrail.front());
         playerTrail.pop_front();
     }
@@ -63,10 +56,6 @@ void PlayerTrail::Update()
         (*it)->Update();
     }
 }
-
-//void PlayerTrail::LateUpdate()
-//{
-//}
 
 void PlayerTrail::Render()
 {
@@ -88,7 +77,7 @@ void PlayerTrail::Resize(int value)
     playerTrail.resize(value);
     for (auto it = playerTrail.begin(); it != playerTrail.end(); it++)
     {
-        (*it) = new ObImage(L"player_run_left.png");
+        (*it) = new ObImage(L"player_roll.png");
         (*it)->scale.x = 100.0f;
         (*it)->scale.y = 100.0f;
     }

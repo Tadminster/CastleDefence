@@ -59,7 +59,7 @@ bool Projectile::hasCollideWithMonster()
     // 모든 몬스터를 순회
     for (auto& enemy : GM->monster->getEnemy())
     {
-        // 몬스터가 화살과 충돌했으면
+        // 몬스터가 발사체와 충돌했으면
         if (enemy->getCollider()->Intersect(this->collider))
         {
             // 이전에 충돌한적이 있는지 비교
@@ -71,10 +71,13 @@ bool Projectile::hasCollideWithMonster()
             // 남은 관통횟수 -1
             this->penetration--;
 
+            // 발사체가 폭발형 타입인지 확인
             if (this->tag == DamageType::EXPLOSION)
             {
+                
                 for (auto& InRangeCheck : GM->monster->getEnemy())
                 {
+                    // 몬스터가 폭발 범위 안에 들었는지 확인
                     if (InRangeCheck->getCollider()->Intersect(this->collider_range))
                     {
                         if (InRangeCheck == enemy) continue;
@@ -83,6 +86,8 @@ bool Projectile::hasCollideWithMonster()
                     }
                 }
             }
+            // 충돌 이펙트
+            AfterEffect();
 
             // 몬스터 데미지 액션
             enemy->actionsWhenDamaged(Vector4(-damage, shove, 0, 0));
@@ -94,4 +99,8 @@ bool Projectile::hasCollideWithMonster()
     }
 
     return false;
+}
+
+void Projectile::AfterEffect()
+{
 }

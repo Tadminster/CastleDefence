@@ -86,7 +86,7 @@ void Player::Init()
 		skin_roll->scale.y = skin_roll->imageSize.y / skin_roll->maxFrame.y / 2;
 		skin_roll->maxFrame.x = 6;
 		skin_roll->maxFrame.y = 8;
-		skin_roll->ChangeAnim(ANIMSTATE::LOOP, 0.08);
+		skin_roll->ChangeAnim(ANIMSTATE::ONCE, 0.08);
 	}
 
 	playerTrail->Init();
@@ -96,8 +96,6 @@ void Player::Update()
 {
 	ImGui::Text("weapons : %i\n", this->equip.size());
 	ImGui::Text("bullets : %i\n", this->projectiles.size());
-	ImGui::Text("col_weapon : %f\n", this->muzzle->GetRight().x);
-	ImGui::Text("col_weapon : %f\n", this->muzzle->GetRight().y);
 	
 	// 마우스 방향 계산
 	Vector2 mouseDir = INPUT->GetWorldMousePos() - collider->GetWorldPos();
@@ -381,6 +379,7 @@ void Player::Control()
 		{
 			dashRange = 200;
 			img_state = IMG_STATE::DASH;
+			skin_roll->frame.x = 0;
 		}
 	}
 
@@ -389,8 +388,6 @@ void Player::Control()
 
 void Player::actionsWhenDamaged(int value)
 {
-	cout << "충돌" << endl;
-
 	// 상태를 데미지 받음으로 변경
 	player_status = PLAYER_STATUS::DAMAGED;
 	// 데미지 받은 시간 기록

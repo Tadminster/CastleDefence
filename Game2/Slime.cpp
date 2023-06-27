@@ -5,7 +5,6 @@ Slime::Slime()
 {
 	this->collider = new ObRect();
 	this->skin_run = new ObImage(L"Slime.png");
-	this->skin_run->SetParentRT(*this->collider);
 
 	hp = 15;
 	speed = 40;
@@ -27,31 +26,25 @@ void Slime::Init()
 	this->collider->isFilled = false;
 	this->collider->scale = Vector2(30, 30);
 
-
+	this->skin_run->SetParentRT(*this->collider);
 	this->skin_run->scale = Vector2(75, 75);
 	this->skin_run->maxFrame.x = 6;
 	this->skin_run->maxFrame.y = 4;
+	this->skin_run->ChangeAnim(ANIMSTATE::LOOP, 0.2f);
 }
 
 void Slime::Update()
 {
-	Monster::Update();
+	// 점프모션에만 이동
+	if (skin_run->frame.x > 1) Monster::Update();
 
-	if (this->dir == MonsterDir::L)
+	switch (this->dir)
 	{
-		this->skin_run->frame.y = 1;
-	}
-	else if (this->dir == MonsterDir::R)
-	{
-		this->skin_run->frame.y = 2;
-	}
-	else if (this->dir == MonsterDir::U)
-	{
-		this->skin_run->frame.y = 0;
-	}
-	else if (this->dir == MonsterDir::D)
-	{
-		this->skin_run->frame.y = 3;
+	case MonsterDir::U: this->skin_run->frame.y = 0; break;
+	case MonsterDir::L: this->skin_run->frame.y = 1; break;
+	case MonsterDir::R: this->skin_run->frame.y = 2; break;
+	case MonsterDir::D: this->skin_run->frame.y = 3; break;
+	default: break;
 	}
 }
 
@@ -60,14 +53,4 @@ void Slime::Render()
 	if (DEBUG_MODE)
 		this->collider->Render();
 	this->skin_run->Render();
-	
-	static float frameTick = 0.0f;
-	if (TIMER->GetTick(frameTick, 0.4f))
-	{
-		skin_run->frame.x ++;
-
-		if (skin_run->frame.x % skin_run->maxFrame.x == 0)
-			skin_run->frame.x = 1;
-	}
-	//Monster::Render();
 }

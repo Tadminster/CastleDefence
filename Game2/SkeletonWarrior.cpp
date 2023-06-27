@@ -6,6 +6,11 @@ SkeletonWarrior::SkeletonWarrior()
 	this->collider = new ObRect();
 	this->skin_run = new ObImage(L"SkeletonWarrior.png");
 
+	status = MONSTER_STATUS::NORMAL;
+	action = MONSTER_ACTION::IDLE;
+	dir = MONSTER_DIRECTION::D;
+	type = MONSTER_TYPE::MINION;
+
 	hp = 60;
 	speed = 60;
 	exp = 15;

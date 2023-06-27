@@ -17,7 +17,13 @@ enum class MONSTER_DIRECTION
 	U, D, L, R
 };
 
-
+enum class MONSTER_TYPE
+{
+	MINION,
+	ELITE,
+	CHAMPION,
+	BOSS
+};
 
 class Monster
 {
@@ -27,16 +33,18 @@ protected:
 	MONSTER_STATUS		status;
 	MONSTER_ACTION		action;
 	MONSTER_DIRECTION	dir;
+	MONSTER_TYPE		type;
 
 	int		hp;						// 체력
 	float	damage;					// 공격력
 	float	defence;				// 방어력
+	float	attackSpeed;			// 공격속도
 	float	speed;					// 이동속도
 
 	int		exp;					// 몬스터 킬 시 얻게되는 경험치
 	float	knockBackFactor;		// 넉백에 사용되는 계수
 
-	float timeOfDamage;				// 데미지 받은 시간 기록
+	float	timeOfDamage;			// 데미지 받은 시간 기록
 
 public:
 	// defalut
@@ -48,9 +56,11 @@ public:
 	virtual void Render();
 
 	// get
-	virtual ObRect* getCollider() { return collider;}
-	int				getExp() { return exp; }
-	float			getDamage() { return damage; }
+	virtual ObRect* getCollider()	{ return collider;}
+	int				getExp()		{ return exp; }
+	float			getDamage()		{ return damage; }
+	MONSTER_TYPE	getType()		{ return type; }
+
 
 	// set
 	void			setHP(int value);
@@ -60,8 +70,10 @@ public:
 	void			setStatus(int type);
 
 	// etc
-	virtual void	Trace();
+	virtual void	trace();
+	virtual void	runAway();
 	virtual void	knockBack();
+	virtual void	attack();
 	/* 몬스터가 데미지 받았을 때 액션
 	* PARAM Vector4.x = Damage, 
 	* PARAM Vector4.y = knockBackFactor */

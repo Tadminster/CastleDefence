@@ -45,7 +45,7 @@ void Player::Init()
 	hp = maxHp;
 	damage = 1.0f;		
 	def = 0;		
-	attSpeed = 1.0f;
+	attackSpeed = 1.0f;
 
 	moveSpeed = 150;
 	dashRange = 200;
@@ -251,15 +251,13 @@ void Player::Update()
 			action = PLAYER_ACTION::IDLE;
 	}
 
-
-
-	 //탄이 몬스터와 충돌하면
+	//탄이 몬스터와 충돌하면
 	projectiles.erase(
 	std::remove_if
 	(
 		projectiles.begin(),
 		projectiles.end(),
-		[](unique_ptr<Projectile>& pr) { return pr->hasCollideWithMonster(); }
+		[](Projectile* pr) { return pr->hasCollideWithMonster(); }
 	),
 	projectiles.end()
 	);
@@ -270,7 +268,7 @@ void Player::Update()
 	(
 		projectiles.begin(),
 		projectiles.end(),
-		[](unique_ptr<Projectile>& pr) { return pr->hasTraveledTooFar(); }
+		[](Projectile* pr) { return pr->hasTraveledTooFar(); }
 	),
 	projectiles.end()
 	);

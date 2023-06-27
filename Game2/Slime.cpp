@@ -6,6 +6,11 @@ Slime::Slime()
 	this->collider = new ObRect();
 	this->skin_run = new ObImage(L"Slime.png");
 
+	status = MONSTER_STATUS::NORMAL;
+	action = MONSTER_ACTION::IDLE;
+	dir = MONSTER_DIRECTION::D;
+	type = MONSTER_TYPE::MINION;
+
 	hp = 15;
 	speed = 40;
 	exp = 1;
@@ -39,6 +44,11 @@ void Slime::Update()
 {
 	// 점프모션에만 이동
 	if (skin_run->frame.x > 1) Monster::Update();
+	else 
+	{
+		collider->Update();
+		skin_run->Update();
+	}
 
 	switch (this->dir)
 	{

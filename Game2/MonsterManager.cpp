@@ -1,4 +1,5 @@
 ﻿#include "stdafx.h"
+#include "Projectile.h"
 #include "Monster.h"
 #include "Slime.h"
 #include "KingSlime.h"
@@ -51,8 +52,23 @@ void MonsterManager::Update()
 	// 유닛끼리 충돌 처리
 	collisionsBetweenUnits();
 
+	//탄이 플레이어와 충돌하면
+	//projectiles.erase(
+	//std::remove_if
+	//(
+	//	projectiles.begin(),
+	//	projectiles.end(),
+	//	[](unique_ptr<Projectile>& pr) { return pr->hasCollideWithMonster(); }
+	//),
+	//projectiles.end()
+	//);
+
+	// 적 업데이트
 	for (auto& enemy : this->enemy)
 		enemy->Update();
+	// 탄 업데이트
+	for (auto& projectiles : projectiles)
+		projectiles->Update();
 }
 
 void MonsterManager::LateUpdate()
@@ -63,8 +79,12 @@ void MonsterManager::LateUpdate()
 
 void MonsterManager::Render()
 {
+	// 적 랜더
 	for (auto& enemy : this->enemy)
 		enemy->Render();
+	// 탄 랜더
+	for (auto& projectiles : projectiles)
+		projectiles->Render();
 }
 
 void MonsterManager::collisionsBetweenUnits()
@@ -103,8 +123,35 @@ void MonsterManager::collisionsBetweenUnits()
 				enemyDir.Normalize();
 				OtherEnemyDir.Normalize();
 
-				enemy->getCollider()->MoveWorldPos(enemyDir * 500 * DELTA);
-				OtherEnemy->getCollider()->MoveWorldPos(OtherEnemyDir * 500 * DELTA);
+				// 서로 (미니언||엘리트) 라면
+				if ((enemy->getType() == MONSTER_TYPE::MINION || enemy->getType() == MONSTER_TYPE::ELITE) &&
+					(OtherEnemy->getType() == MONSTER_TYPE::MINION || OtherEnemy->getType() == MONSTER_TYPE::ELITE))
+				{
+					enemy->getCollider()->MoveWorldPos(enemyDir * 500 * DELTA);
+					OtherEnemy->getCollider()->MoveWorldPos(OtherEnemyDir * 500 * DELTA);
+				}
+				// A가 (미니언||엘리트)이고, B가 (챔피언||보스) 라면
+				else if ((enemy->getType() == MONSTER_TYPE::MINION || enemy->getType() == MONSTER_TYPE::ELITE) &&
+					(OtherEnemy->getType() == MONSTER_TYPE::CHAMPION || OtherEnemy->getType() == MONSTER_TYPE::BOSS))
+				{
+					enemy->getCollider()->MoveWorldPos(enemyDir * 1000 * DELTA);
+					OtherEnemy->getCollider()->MoveWorldPos(OtherEnemyDir * 50 * DELTA);
+				}
+				// A가 (챔피언||보스)이고, B가 (미니언||엘리트) 라면
+				else if ((enemy->getType() == MONSTER_TYPE::CHAMPION || enemy->getType() == MONSTER_TYPE::BOSS) &&
+					(OtherEnemy->getType() == MONSTER_TYPE::MINION || OtherEnemy->getType() == MONSTER_TYPE::ELITE))
+				{
+					enemy->getCollider()->MoveWorldPos(enemyDir * 50 * DELTA);
+					OtherEnemy->getCollider()->MoveWorldPos(OtherEnemyDir * 1000 * DELTA);
+				}
+				// 서로 (챔피언||보스) 라면
+				else if ((enemy->getType() == MONSTER_TYPE::CHAMPION || enemy->getType() == MONSTER_TYPE::BOSS) &&
+						(OtherEnemy->getType() == MONSTER_TYPE::CHAMPION || OtherEnemy->getType() == MONSTER_TYPE::BOSS))
+				{
+					enemy->getCollider()->MoveWorldPos(enemyDir * 500 * DELTA);
+					OtherEnemy->getCollider()->MoveWorldPos(OtherEnemyDir * 500 * DELTA);
+				}
+
 			}
 		}
 	}

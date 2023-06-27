@@ -15,27 +15,8 @@ void Monster::Init()
 
 void Monster::Update()
 {
-	// 몬스터 상태에 따른 작동
-	if (status == MONSTER_STATUS::NORMAL)
-	{
-		Trace();
-
-		if (skin_run || skin_run->color.x != 0.5)
-			skin_run->color = Vector4(0.5, 0.5, 0.5, 0.5);
-	}
-	else if (status == MONSTER_STATUS::DAMAGED)
-	{
-		knockBack();
-
-		if (timeOfDamage + 0.05f < TIMER->GetWorldTime())
-		{
-			knockBackFactor = 0;
-			status = MONSTER_STATUS::NORMAL;
-		}
-	}
-
 	// 몬스터 방향 설정
-	{ 	
+	{
 		Vector2 targetPos = GM->player->getPos();
 		float diffX = targetPos.x - collider->GetWorldPos().x;
 		float diffY = targetPos.y - collider->GetWorldPos().y;
@@ -66,6 +47,30 @@ void Monster::Update()
 		if (this->skin_run)
 			this->skin_run->Update();
 	}
+
+	// 몬스터 상태에 따른 작동
+	if (status == MONSTER_STATUS::NORMAL)
+	{
+		// 컬러 정상화
+		if (skin_run || skin_run->color.x != 0.5)
+			skin_run->color = Vector4(0.5, 0.5, 0.5, 0.5);
+
+		// 다가가기
+		trace();
+	}
+	else if (status == MONSTER_STATUS::DAMAGED)
+	{
+		// 미니언이나 엘리트 일경우 넉백
+		if (type == MONSTER_TYPE::MINION || type == MONSTER_TYPE::ELITE)
+			knockBack();
+
+		// 0.05초 후에 노말 상태로
+		if (timeOfDamage + 0.05f < TIMER->GetWorldTime())
+		{
+			knockBackFactor = 0;
+			status = MONSTER_STATUS::NORMAL;
+		}
+	}
 }
 
 void Monster::Render()
@@ -77,12 +82,21 @@ void Monster::Render()
 		this->skin_run->Render();
 }
 
-void Monster::Trace()
+void Monster::trace()
 {
 	// 플레이어가 있는 방향
 	Vector2 dirVec = (GM->player->getPos() - collider->GetWorldPos());
 	dirVec.Normalize();
 	this->collider->MoveWorldPos(dirVec * speed * DELTA);
+}
+
+void Monster::runAway()
+{
+	// 플레이어가 있는 방향
+	Vector2 dirVec = (collider->GetWorldPos() -  GM->player->getPos());
+	dirVec.Normalize();
+	this->collider->MoveWorldPos(dirVec * speed * DELTA);
+
 }
 
 void Monster::knockBack()
@@ -91,6 +105,10 @@ void Monster::knockBack()
 	Vector2 knockBackDir = this->collider->GetWorldPos() - GM->player->getPos();
 	knockBackDir.Normalize();
 	this->collider->MoveWorldPos(knockBackDir * knockBackFactor * DELTA);
+}
+
+void Monster::attack()
+{
 }
 
 void Monster::setHP(int value)

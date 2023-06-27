@@ -18,7 +18,7 @@ Glove::Glove()
 
 void Glove::Update()
 {
-	GM->player->attSpeed += 0.15;
+	GM->player->attackSpeed += 0.15;
 
 	value = 15 * (level + 1);
 	std::wstringstream ss;

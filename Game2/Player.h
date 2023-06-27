@@ -47,7 +47,7 @@ private:
 
 	// trail
 
-	vector<unique_ptr<class Projectile>>	projectiles;
+	vector<class Projectile*>	projectiles;
 
 	float	timeOfDamage;				// 데미지 받은 시간 기록
 	
@@ -63,7 +63,7 @@ public:
 	float			exp;
 
 	float	damage;			// 공격력
-	float	attSpeed;		// 공격속도
+	float	attackSpeed;	// 공격속도
 	float	def;			// 방어력
 	float	moveSpeed;		// 이동속도
 
@@ -86,14 +86,14 @@ public:
 	float			getHp()				{ return this->hp; }
 	float			getMaxHp()			{ return this->maxHp; }
 	float			getDamage()			{ return this->damage; }
-	float			getAttSpeed()		{ return this->attSpeed; }
+	float			getAttSpeed()		{ return this->attackSpeed; }
 	float			getMoveSpeed()		{ return this->moveSpeed; }
 	virtual Vector2 getPos()			{ return this->collider->GetWorldPos(); }
-	vector<unique_ptr<class Projectile>>& getProjectiles() {return projectiles;}
+	vector<class Projectile*>& getProjectiles() {return projectiles;}
 	PLAYER_STATUS	getPlayerStatus()	{ return status; }
 
 	// set
-	void			addAttSpeed(float value)	{ this->attSpeed + value; }
+	void			addAttSpeed(float value)	{ this->attackSpeed + value; }
 	void			addMoveSpeed(float value)	{ this->moveSpeed + value; }
 
 

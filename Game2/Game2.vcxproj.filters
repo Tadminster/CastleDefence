@@ -3,23 +3,20 @@
   <ItemGroup>
     <ClInclude Include="Main.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Player.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Slime.h">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClInclude>
     <ClInclude Include="KingSlime.h">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClInclude>
     <ClInclude Include="MegaSlime.h">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClInclude>
     <ClInclude Include="KingMegaSlime.h">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Items\Projectile</Filter>
@@ -81,35 +78,35 @@
     <ClInclude Include="SharpEdge.h">
       <Filter>Items\Passive</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerTrail.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="SkeletonWarrior.h">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClInclude>
     <ClInclude Include="SkeletoneMage.h">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTrail.h">
+      <Filter>Object\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Player.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="Slime.cpp">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClCompile>
     <ClCompile Include="KingSlime.cpp">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClCompile>
     <ClCompile Include="MegaSlime.cpp">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClCompile>
     <ClCompile Include="KingMegaSlime.cpp">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClCompile>
     <ClCompile Include="Projectile.cpp">
       <Filter>Items\Projectile</Filter>
@@ -171,14 +168,17 @@
     <ClCompile Include="SharpEdge.cpp">
       <Filter>Items\Passive</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerTrail.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="SkeletonWarrior.cpp">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
     </ClCompile>
     <ClCompile Include="SkeletoneMage.cpp">
-      <Filter>Object\Enemy</Filter>
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTrail.cpp">
+      <Filter>Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,9 +190,6 @@
   <ItemGroup>
     <Filter Include="Object">
       <UniqueIdentifier>{4989fc3e-d711-4391-b9f5-e91339f980b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\Enemy">
-      <UniqueIdentifier>{c6b02eb3-412b-4213-9d4d-4cb772866178}</UniqueIdentifier>
     </Filter>
     <Filter Include="Items">
       <UniqueIdentifier>{6532cc5f-2fc8-49d7-b17b-465b0a0dcdc1}</UniqueIdentifier>
@@ -208,6 +205,12 @@
     </Filter>
     <Filter Include="System">
       <UniqueIdentifier>{0df84137-1437-4345-9f77-bf76847d81dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Monster">
+      <UniqueIdentifier>{c6b02eb3-412b-4213-9d4d-4cb772866178}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player">
+      <UniqueIdentifier>{db0b7085-cbc6-45b0-9acf-98eb6d3cbc20}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

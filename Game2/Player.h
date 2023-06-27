@@ -1,9 +1,15 @@
 ﻿#pragma once
-enum class IMG_STATE
+enum class PLAYER_ACTION
 {
 	IDLE,
 	RUN,
 	DASH
+};
+
+enum class PLAYER_STATUS
+{
+	NORMAL,
+	DAMAGED
 };
 
 enum class PLAYER_DIRECTION
@@ -16,12 +22,6 @@ enum class PLAYER_DIRECTION
 	DIR_RIGHT,
 	DIR_UP_RIGHT,
 	DIR_DOWN_RIGHT
-};
-
-enum class PLAYER_STATUS
-{
-	NORMAL,
-	DAMAGED
 };
 
 
@@ -40,10 +40,10 @@ private:
 	class PlayerTrail*	playerTrail;
 
 	// state
-	IMG_STATE			img_state;
-	PLAYER_DIRECTION	player_dir_keyboard;
-	PLAYER_DIRECTION	player_dir_mouse;
-	PLAYER_STATUS		player_status;
+	PLAYER_ACTION		action;
+	PLAYER_STATUS		status;
+	PLAYER_DIRECTION	dir_keyboard;
+	PLAYER_DIRECTION	dir_mouse;
 
 	// trail
 
@@ -90,7 +90,7 @@ public:
 	float			getMoveSpeed()		{ return this->moveSpeed; }
 	virtual Vector2 getPos()			{ return this->collider->GetWorldPos(); }
 	vector<unique_ptr<class Projectile>>& getProjectiles() {return projectiles;}
-	PLAYER_STATUS	getPlayerStatus()	{ return player_status; }
+	PLAYER_STATUS	getPlayerStatus()	{ return status; }
 
 	// set
 	void			addAttSpeed(float value)	{ this->attSpeed + value; }

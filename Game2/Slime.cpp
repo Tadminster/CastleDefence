@@ -42,10 +42,10 @@ void Slime::Update()
 
 	switch (this->dir)
 	{
-	case MonsterDir::U: this->skin_run->frame.y = 0; break;
-	case MonsterDir::L: this->skin_run->frame.y = 1; break;
-	case MonsterDir::R: this->skin_run->frame.y = 2; break;
-	case MonsterDir::D: this->skin_run->frame.y = 3; break;
+	case MONSTER_DIRECTION::U: this->skin_run->frame.y = 0; break;
+	case MONSTER_DIRECTION::L: this->skin_run->frame.y = 1; break;
+	case MONSTER_DIRECTION::R: this->skin_run->frame.y = 2; break;
+	case MONSTER_DIRECTION::D: this->skin_run->frame.y = 3; break;
 	default: break;
 	}
 }

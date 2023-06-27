@@ -6,11 +6,11 @@ SkeletoneMage::SkeletoneMage()
 	this->collider = new ObRect();
 	this->skin_run = new ObImage(L"SkeletonMage.png");
 
-	hp = 60;
-	speed = 60;
-	exp = 15;
-	damage = 15;
-	defence = 3;
+	hp = 200;
+	speed = 50;
+	exp = 100;
+	damage = 20;
+	defence = 2;
 }
 
 SkeletoneMage::~SkeletoneMage()
@@ -28,27 +28,27 @@ void SkeletoneMage::Init()
 	this->collider->scale = Vector2(40, 40);
 
 	this->skin_run->SetParentRT(*this->collider);
-	this->skin_run->maxFrame.x = 6;
-	this->skin_run->maxFrame.y = 8;
-	this->skin_run->scale.x = skin_run->imageSize.x / skin_run->maxFrame.x * 3.6;
-	this->skin_run->scale.y = skin_run->imageSize.y / skin_run->maxFrame.y * 3.6;
+	this->skin_run->maxFrame.x = 4;
+	this->skin_run->maxFrame.y = 4;
+	this->skin_run->scale.x = skin_run->imageSize.x / skin_run->maxFrame.x * 4;
+	this->skin_run->scale.y = skin_run->imageSize.y / skin_run->maxFrame.y * 4;
 	this->skin_run->ChangeAnim(ANIMSTATE::LOOP, 0.2f);
 }
 
 void SkeletoneMage::Update()
 {
-	// 점프모션에만 이동
 	Vector2 target = GM->player->getCollider()->GetWorldPos();
 	float distance = (target - this->collider->GetWorldPos()).Length();
 	ImGui::Text("distance %f\n", distance);
-	Monster::Update();
+	if (distance > 300)
+		Monster::Update();
 
 	switch (this->dir)
 	{
-	case MonsterDir::U: this->skin_run->frame.y = 0; break;
-	case MonsterDir::D: this->skin_run->frame.y = 1; break;
-	case MonsterDir::R: this->skin_run->frame.y = 2; break;
-	case MonsterDir::L: this->skin_run->frame.y = 3; break;
+	case MONSTER_DIRECTION::U: this->skin_run->frame.y = 0; break;
+	case MONSTER_DIRECTION::D: this->skin_run->frame.y = 1; break;
+	case MONSTER_DIRECTION::R: this->skin_run->frame.y = 2; break;
+	case MONSTER_DIRECTION::L: this->skin_run->frame.y = 3; break;
 	default: break;
 	}
 }

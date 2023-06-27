@@ -1,22 +1,32 @@
 ﻿#pragma once
-enum class MonsterDir
+enum class MONSTER_ACTION
 {
-	U, D, L, R
+	IDLE,
+	RUN,
+	DASH
 };
 
-enum class MonsterStatus
+enum class MONSTER_STATUS
 {
 	NORMAL,
 	DAMAGED
 };
 
+enum class MONSTER_DIRECTION
+{
+	U, D, L, R
+};
+
+
+
 class Monster
 {
 protected:
-	class ObRect* collider;
-	class ObImage* skin_run;
-	MonsterDir dir;
-	MonsterStatus status;
+	class ObRect*		collider;
+	class ObImage*		skin_run;
+	MONSTER_STATUS		status;
+	MONSTER_ACTION		action;
+	MONSTER_DIRECTION	dir;
 
 	int		hp;						// 체력
 	float	damage;					// 공격력

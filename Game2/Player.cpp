@@ -35,9 +35,9 @@ Player::~Player()
 void Player::Init()
 {
 	collider->SetWorldPos(Vector2(500, 500));
-	img_state = IMG_STATE::IDLE;
-	player_dir_keyboard = PLAYER_DIRECTION::DIR_DOWN;
-	player_dir_mouse = PLAYER_DIRECTION::DIR_DOWN;
+	action = PLAYER_ACTION::IDLE;
+	dir_keyboard = PLAYER_DIRECTION::DIR_DOWN;
+	dir_mouse = PLAYER_DIRECTION::DIR_DOWN;
 	
 	level = 0;
 	exp = 0;
@@ -103,37 +103,37 @@ void Player::Update()
 	//ImGui::Text("mouse : %f\n", mouseDirIndex);
 
 	if (mouseDirIndex == 0 || mouseDirIndex == 8)
-		player_dir_mouse = PLAYER_DIRECTION::DIR_LEFT;
+		dir_mouse = PLAYER_DIRECTION::DIR_LEFT;
 	else if (mouseDirIndex == 1)
-		player_dir_mouse = PLAYER_DIRECTION::DIR_DOWN_LEFT;
+		dir_mouse = PLAYER_DIRECTION::DIR_DOWN_LEFT;
 	else if (mouseDirIndex == 2)
-		player_dir_mouse = PLAYER_DIRECTION::DIR_DOWN;
+		dir_mouse = PLAYER_DIRECTION::DIR_DOWN;
 	else if (mouseDirIndex == 3)
-		player_dir_mouse = PLAYER_DIRECTION::DIR_DOWN_RIGHT;
+		dir_mouse = PLAYER_DIRECTION::DIR_DOWN_RIGHT;
 	else if (mouseDirIndex == 4)
-		player_dir_mouse = PLAYER_DIRECTION::DIR_RIGHT;
+		dir_mouse = PLAYER_DIRECTION::DIR_RIGHT;
 	else if (mouseDirIndex == 5)
-		player_dir_mouse = PLAYER_DIRECTION::DIR_UP_RIGHT;
+		dir_mouse = PLAYER_DIRECTION::DIR_UP_RIGHT;
 	else if (mouseDirIndex == 6)
-		player_dir_mouse = PLAYER_DIRECTION::DIR_UP;
+		dir_mouse = PLAYER_DIRECTION::DIR_UP;
 	else if (mouseDirIndex == 7)
-		player_dir_mouse = PLAYER_DIRECTION::DIR_UP_LEFT;
+		dir_mouse = PLAYER_DIRECTION::DIR_UP_LEFT;
 
 
 
 	playerTrail->Update();
 
 	// 플레이어 상태에 따른 작동
-	if (player_status == PLAYER_STATUS::NORMAL)
+	if (status == PLAYER_STATUS::NORMAL)
 	{
 		if (skin_walk || skin_walk->color.x != 0.5)
 			skin_walk->color = Vector4(0.5, 0.5, 0.5, 0.5);
 	}
-	else if (player_status == PLAYER_STATUS::DAMAGED)
+	else if (status == PLAYER_STATUS::DAMAGED)
 	{
 		if (timeOfDamage + 0.4f < TIMER->GetWorldTime())
 		{
-			player_status = PLAYER_STATUS::NORMAL;
+			status = PLAYER_STATUS::NORMAL;
 		}
 	}
 
@@ -152,7 +152,7 @@ void Player::Update()
 	// 방향에 따른 스킨 y축 설정
 	{
 		// KEYBOARD
-		switch (player_dir_keyboard)
+		switch (dir_keyboard)
 		{
 		case PLAYER_DIRECTION::DIR_RIGHT: skin_roll->frame.y = 0;
 			break;
@@ -175,7 +175,7 @@ void Player::Update()
 		}
 
 		// MOUSE
-		switch (player_dir_mouse)
+		switch (dir_mouse)
 		{
 		case PLAYER_DIRECTION::DIR_RIGHT: skin_walk->frame.y = 0;
 			break;
@@ -199,47 +199,47 @@ void Player::Update()
 	}
 
 	// 정지시
-	if (img_state == IMG_STATE::IDLE)
+	if (action == PLAYER_ACTION::IDLE)
 	{
 		skin_walk->frame.x = 0;
 	}
-	else if (img_state == IMG_STATE::RUN)
+	else if (action == PLAYER_ACTION::RUN)
 	{
 	}
-	else if (img_state == IMG_STATE::DASH)
+	else if (action == PLAYER_ACTION::DASH)
 	{
-		if (player_dir_keyboard == PLAYER_DIRECTION::DIR_UP)
+		if (dir_keyboard == PLAYER_DIRECTION::DIR_UP)
 		{
 			collider->MoveWorldPos(UP * dashRange * 5 * DELTA);
 		}
-		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_DOWN)
+		else if (dir_keyboard == PLAYER_DIRECTION::DIR_DOWN)
 		{
 			collider->MoveWorldPos(DOWN * dashRange * 5 * DELTA);
 		}
-		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_LEFT)
+		else if (dir_keyboard == PLAYER_DIRECTION::DIR_LEFT)
 		{
 			collider->MoveWorldPos(LEFT * dashRange * 5 * DELTA);
 		}
-		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_UP_LEFT)
+		else if (dir_keyboard == PLAYER_DIRECTION::DIR_UP_LEFT)
 		{
 			collider->MoveWorldPos(UP * dashRange * 4 * DELTA);
 			collider->MoveWorldPos(LEFT * dashRange * 4 * DELTA);
 		}
-		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_DOWN_LEFT)
+		else if (dir_keyboard == PLAYER_DIRECTION::DIR_DOWN_LEFT)
 		{
 			collider->MoveWorldPos(DOWN * dashRange * 4 * DELTA);
 			collider->MoveWorldPos(LEFT * dashRange * 4 * DELTA);
 		}
-		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_RIGHT)
+		else if (dir_keyboard == PLAYER_DIRECTION::DIR_RIGHT)
 		{
 			collider->MoveWorldPos(RIGHT * dashRange * 5 * DELTA);
 		}
-		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_UP_RIGHT)
+		else if (dir_keyboard == PLAYER_DIRECTION::DIR_UP_RIGHT)
 		{
 			collider->MoveWorldPos(UP * dashRange * 4 * DELTA);
 			collider->MoveWorldPos(RIGHT * dashRange * 4 * DELTA);
 		}
-		else if (player_dir_keyboard == PLAYER_DIRECTION::DIR_DOWN_RIGHT)
+		else if (dir_keyboard == PLAYER_DIRECTION::DIR_DOWN_RIGHT)
 		{
 			collider->MoveWorldPos(DOWN * dashRange * 4 * DELTA);
 			collider->MoveWorldPos(RIGHT * dashRange * 4 * DELTA);
@@ -248,7 +248,7 @@ void Player::Update()
 		dashRange -= 600.0f * DELTA;
 
 		if (dashRange < 0)
-			img_state = IMG_STATE::IDLE;
+			action = PLAYER_ACTION::IDLE;
 	}
 
 
@@ -297,11 +297,11 @@ void Player::Render()
 		this->area->Render();
 	}
 
-	if (img_state == IMG_STATE::IDLE)
+	if (action == PLAYER_ACTION::IDLE)
 		skin_walk->Render();
-	else if (img_state == IMG_STATE::RUN)
+	else if (action == PLAYER_ACTION::RUN)
 		skin_walk->Render();
-	else if (img_state == IMG_STATE::DASH)
+	else if (action == PLAYER_ACTION::DASH)
 	{
 		playerTrail->Render();
 		skin_roll->Render();
@@ -316,61 +316,61 @@ void Player::Control()
 {	
 
 	// 이동
-	if (img_state != IMG_STATE::DASH)
+	if (action != PLAYER_ACTION::DASH)
 	{
 		if (INPUT->KeyUp('W') || INPUT->KeyUp('A') || INPUT->KeyUp('S') || INPUT->KeyUp('D'))
-			img_state = IMG_STATE::IDLE;
+			action = PLAYER_ACTION::IDLE;
 
 		if (INPUT->KeyPress('W') && INPUT->KeyPress('A'))
 		{
-			img_state = IMG_STATE::RUN;
-			player_dir_keyboard = PLAYER_DIRECTION::DIR_UP_LEFT;
+			action = PLAYER_ACTION::RUN;
+			dir_keyboard = PLAYER_DIRECTION::DIR_UP_LEFT;
 			collider->MoveWorldPos(UP * moveSpeed * DELTA);
 			collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('W') && INPUT->KeyPress('D'))
 		{
-			img_state = IMG_STATE::RUN;
-			player_dir_keyboard = PLAYER_DIRECTION::DIR_UP_RIGHT;
+			action = PLAYER_ACTION::RUN;
+			dir_keyboard = PLAYER_DIRECTION::DIR_UP_RIGHT;
 			collider->MoveWorldPos(UP * moveSpeed * DELTA);
 			collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('S') && INPUT->KeyPress('A'))
 		{
-			img_state = IMG_STATE::RUN;
-			player_dir_keyboard = PLAYER_DIRECTION::DIR_DOWN_LEFT;
+			action = PLAYER_ACTION::RUN;
+			dir_keyboard = PLAYER_DIRECTION::DIR_DOWN_LEFT;
 			collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
 			collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('S') && INPUT->KeyPress('D'))
 		{
-			img_state = IMG_STATE::RUN;
-			player_dir_keyboard = PLAYER_DIRECTION::DIR_DOWN_RIGHT;
+			action = PLAYER_ACTION::RUN;
+			dir_keyboard = PLAYER_DIRECTION::DIR_DOWN_RIGHT;
 			collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
 			collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('W'))
 		{
-			player_dir_keyboard = PLAYER_DIRECTION::DIR_UP;
-			img_state = IMG_STATE::RUN;
+			dir_keyboard = PLAYER_DIRECTION::DIR_UP;
+			action = PLAYER_ACTION::RUN;
 			collider->MoveWorldPos(UP * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('S'))
 		{
-			img_state = IMG_STATE::RUN;
-			player_dir_keyboard = PLAYER_DIRECTION::DIR_DOWN;
+			action = PLAYER_ACTION::RUN;
+			dir_keyboard = PLAYER_DIRECTION::DIR_DOWN;
 			collider->MoveWorldPos(DOWN * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('A'))
 		{
-			img_state = IMG_STATE::RUN;
-			player_dir_keyboard = PLAYER_DIRECTION::DIR_LEFT;
+			action = PLAYER_ACTION::RUN;
+			dir_keyboard = PLAYER_DIRECTION::DIR_LEFT;
 			collider->MoveWorldPos(LEFT * moveSpeed * DELTA);
 		}
 		else if (INPUT->KeyPress('D'))
 		{
-			img_state = IMG_STATE::RUN;
-			player_dir_keyboard = PLAYER_DIRECTION::DIR_RIGHT;
+			action = PLAYER_ACTION::RUN;
+			dir_keyboard = PLAYER_DIRECTION::DIR_RIGHT;
 			collider->MoveWorldPos(RIGHT * moveSpeed * DELTA);
 		}
 
@@ -378,7 +378,7 @@ void Player::Control()
 		if (INPUT->KeyDown(VK_SPACE))
 		{
 			dashRange = 200;
-			img_state = IMG_STATE::DASH;
+			action = PLAYER_ACTION::DASH;
 			skin_roll->frame.x = 0;
 		}
 	}
@@ -389,7 +389,7 @@ void Player::Control()
 void Player::actionsWhenDamaged(int value)
 {
 	// 상태를 데미지 받음으로 변경
-	player_status = PLAYER_STATUS::DAMAGED;
+	status = PLAYER_STATUS::DAMAGED;
 	// 데미지 받은 시간 기록
 	timeOfDamage = TIMER->GetWorldTime();
 	// 스킨 컬러 변경

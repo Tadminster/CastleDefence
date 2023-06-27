@@ -4,8 +4,8 @@
 Monster::Monster() :
 	collider(new ObRect()), 
 	skin_run(nullptr),
-	dir(MonsterDir::D),
-	status(MonsterStatus::NORMAL),
+	dir(MONSTER_DIRECTION::D),
+	status(MONSTER_STATUS::NORMAL),
 	hp(1), speed(10), damage(1), exp(1), timeOfDamage(0)
 	{}
 
@@ -16,21 +16,21 @@ void Monster::Init()
 void Monster::Update()
 {
 	// 몬스터 상태에 따른 작동
-	if (status == MonsterStatus::NORMAL)
+	if (status == MONSTER_STATUS::NORMAL)
 	{
 		Trace();
 
 		if (skin_run || skin_run->color.x != 0.5)
 			skin_run->color = Vector4(0.5, 0.5, 0.5, 0.5);
 	}
-	else if (status == MonsterStatus::DAMAGED)
+	else if (status == MONSTER_STATUS::DAMAGED)
 	{
 		knockBack();
 
 		if (timeOfDamage + 0.05f < TIMER->GetWorldTime())
 		{
 			knockBackFactor = 0;
-			status = MonsterStatus::NORMAL;
+			status = MONSTER_STATUS::NORMAL;
 		}
 	}
 
@@ -49,17 +49,17 @@ void Monster::Update()
 		if (diffX * 3 < diffY)
 		{
 			if (dirY == -1)
-				this->dir = MonsterDir::U;
+				this->dir = MONSTER_DIRECTION::U;
 			else if (dirY == 1)
-				this->dir = MonsterDir::D;
+				this->dir = MONSTER_DIRECTION::D;
 		}
 		else if (targetPos.x < collider->GetWorldPos().x)
 		{
-			this->dir = MonsterDir::L;
+			this->dir = MONSTER_DIRECTION::L;
 		}
 		else if (targetPos.x > collider->GetWorldPos().x)
 		{
-			this->dir = MonsterDir::R;
+			this->dir = MONSTER_DIRECTION::R;
 		}
 
 		this->collider->Update();
@@ -101,16 +101,16 @@ void Monster::setHP(int value)
 void Monster::setStatus(int type)
 {
 	if (type == 0)
-		status = MonsterStatus::NORMAL;
+		status = MONSTER_STATUS::NORMAL;
 	else if (type == 1)
-		status = MonsterStatus::DAMAGED;
+		status = MONSTER_STATUS::DAMAGED;
 }
 
 
 void Monster::actionsWhenDamaged(Vector4 value)
 {
 	// 상태를 데미지 받음으로 변경
-	status = MonsterStatus::DAMAGED;
+	status = MONSTER_STATUS::DAMAGED;
 	// 데미지 받은 시간 기록
 	timeOfDamage = TIMER->GetWorldTime();
 	// 스킨 컬러 변경

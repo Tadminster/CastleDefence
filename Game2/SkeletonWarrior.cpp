@@ -30,22 +30,21 @@ void SkeletonWarrior::Init()
 	this->skin_run->SetParentRT(*this->collider);
 	this->skin_run->maxFrame.x = 5;
 	this->skin_run->maxFrame.y = 12;
-	this->skin_run->scale.x = skin_run->imageSize.x / skin_run->maxFrame.x * 3.6;
-	this->skin_run->scale.y = skin_run->imageSize.y / skin_run->maxFrame.y * 3.6;
+	this->skin_run->scale.x = skin_run->imageSize.x / skin_run->maxFrame.x * 3.2;
+	this->skin_run->scale.y = skin_run->imageSize.y / skin_run->maxFrame.y * 3.2;
 	this->skin_run->ChangeAnim(ANIMSTATE::LOOP, 0.2f);
 }
 
 void SkeletonWarrior::Update()
 {
-	// 점프모션에만 이동
 	Monster::Update();
 
 	switch (this->dir)
 	{
-	case MonsterDir::U: this->skin_run->frame.y = 0; break;
-	case MonsterDir::D: this->skin_run->frame.y = 1; break;
-	case MonsterDir::R: this->skin_run->frame.y = 2; break;
-	case MonsterDir::L: this->skin_run->frame.y = 3; break;
+	case MONSTER_DIRECTION::U: this->skin_run->frame.y = 0; break;
+	case MONSTER_DIRECTION::D: this->skin_run->frame.y = 1; break;
+	case MONSTER_DIRECTION::R: this->skin_run->frame.y = 2; break;
+	case MONSTER_DIRECTION::L: this->skin_run->frame.y = 3; break;
 	default: break;
 	}
 }

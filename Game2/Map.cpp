@@ -84,31 +84,16 @@ void Map::Relocation()
 {
 	for (auto& col_bg : col_background)
 	{
-		//ImGui::Text("bg[%i] pos_X = %f\n", i, col_bg->GetWorldPos().x);
-		//ImGui::Text("bg[%i] pos_Y = %f\n", i, col_bg->GetWorldPos().y);
-		if (col_bg->Intersect(GM->player->getArea()))
-		{
-			//i++;
-			continue;
-
-		}
+		if (col_bg->Intersect(GM->player->getArea())) continue;
 
 		float dirX = GM->player->getPos().x - col_bg->GetWorldPos().x;
 		float dirY = GM->player->getPos().y - col_bg->GetWorldPos().y;
-		//ImGui::Text("bg[%i] dir_X = %i\n", i, dirX);
-		//ImGui::Text("bg[%i] dir_Y = %i\n", i, dirY);
 
 		float diffX = abs(GM->player->getPos().x - col_bg->GetWorldPos().x);
 		float diffY = abs(GM->player->getPos().y - col_bg->GetWorldPos().y);
 
 		dirX = dirX > 0 ? 1 : -1;
 		dirY = dirY > 0 ? 1 : -1;
-
-		//ImGui::Text("bg[%i] diff_X = %f\n", i, diffX);
-		//ImGui::Text("bg[%i] diff_Y = %f\n", i, diffY);
-		//ImGui::Text("bg[%i] dir_X = %i\n", i, dirX);
-		//ImGui::Text("bg[%i] dir_Y = %i\n\n", i, dirY);
-		//i++;
 
 		if (diffX > diffY)
 			col_bg->MoveWorldPos(RIGHT * dirX * col_bg->scale.x * 2);

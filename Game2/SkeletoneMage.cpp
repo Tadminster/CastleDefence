@@ -1,6 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Projectile.h"
-#include "Proj_arrow.h"
+#include "Proj_enemyBullet.h"
 #include "SkeletoneMage.h"
 
 SkeletoneMage::SkeletoneMage()
@@ -164,7 +164,7 @@ void SkeletoneMage::attack()
 		dir.Normalize();
 
 		// 탄생성
-		Proj_arrow* arrow = new Proj_arrow
+		Proj_enemyBullet* bullet = new Proj_enemyBullet
 		(
 			collider->GetWorldPos(),
 			dir,
@@ -175,7 +175,7 @@ void SkeletoneMage::attack()
 		);
 
 		//벡터에 탄 push
-		GM->monster->getProjectiles().emplace_back(arrow);
+		GM->monster->getProjectiles().emplace_back(bullet);
 
 		// 공속계산
 		lastShotTime = currentTime;

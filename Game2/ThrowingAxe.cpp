@@ -13,7 +13,7 @@ ThrowingAxe::ThrowingAxe()
     this->timeSinceLastTime = 0;
 
     this->damage = 15.0f;
-    this->attackSpeed = 0.7f;
+    this->attackSpeed = 0.5f;
     this->critical = 0.1;
     this->penetration = 1;
     this->range = 300.0f;

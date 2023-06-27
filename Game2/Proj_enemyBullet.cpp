@@ -1,8 +1,8 @@
 ﻿#include "stdafx.h"
 #include "Projectile.h"
-#include "Proj_arrow.h"
+#include "Proj_enemyBullet.h"
 
-Proj_arrow::Proj_arrow(
+Proj_enemyBullet::Proj_enemyBullet(
 	Vector2 spawnPos,
 	Vector2 dir,
 	float speed,
@@ -17,15 +17,14 @@ Proj_arrow::Proj_arrow(
 	this->collider->scale = Vector2(16, 16);
 	this->collider->isFilled = false;
 
-	this->skin = new ObImage(L"proj_arrowShort.png");
+	this->skin = new ObImage(L"Bullet.png");
 	this->skin->SetParentRT(*this->collider);
-	this->skin->maxFrame.x = 2;
-	this->skin->maxFrame.y = 2;
-	this->skin->frame.y = 1;
-	this->skin->scale.x = 32;
-	this->skin->scale.y = 32;
+	this->skin->maxFrame.x = 30;
+	this->skin->maxFrame.y = 1;
+	this->skin->scale.x = this->skin->imageSize.x / this->skin->maxFrame.x * 2;
+	this->skin->scale.y = this->skin->imageSize.y / this->skin->maxFrame.y * 2;
+	this->skin->ChangeAnim(ANIMSTATE::LOOP, 0.1f);
 	this->skin->rotation.z = atanf(dir.y / dir.x);
-	this->skin->ChangeAnim(ANIMSTATE::LOOP, 0.05f);
 	if (dir.x < 0) this->skin->reverseLR = true;
 
 	this->dir = dir;
@@ -37,12 +36,12 @@ Proj_arrow::Proj_arrow(
 	this->shove = 350;
 }
 
-void Proj_arrow::Update()
+void Proj_enemyBullet::Update()
 {
 	Projectile::Update();
 }
 
-void Proj_arrow::Render()
+void Proj_enemyBullet::Render()
 {
 	Projectile::Render();
 }

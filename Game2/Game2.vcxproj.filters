@@ -90,6 +90,9 @@
     <ClInclude Include="PlayerTrail.h">
       <Filter>Object\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Proj_enemyBullet.h">
+      <Filter>Items\Projectile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -179,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="PlayerTrail.cpp">
       <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Proj_enemyBullet.cpp">
+      <Filter>Items\Projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

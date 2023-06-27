@@ -13,7 +13,7 @@ Fireball::Fireball()
     this->timeSinceLastTime = 0;
 
 	this->damage = 10.0f;
-	this->attackSpeed = 0.8f;
+	this->attackSpeed = 0.6f;
 	this->critical = 0.1;
     this->penetration = 1;
     this->range = 400.0f;

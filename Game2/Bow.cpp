@@ -13,11 +13,11 @@ Bow::Bow()
     this->timeSinceLastTime = 0;
 
     this->damage = 7.0f;
-    this->attackSpeed = 1.0f;
+    this->attackSpeed = 0.7f;
     this->critical = 0.1;
     this->penetration = 2;
     this->range = 650.0f;
-    this->projectileSpeed = 600.f;
+    this->projectileSpeed = 500.f;
 
     this->level = 0;
     this->maxLevel = 10;

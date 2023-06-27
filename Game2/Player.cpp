@@ -290,7 +290,7 @@ void Player::Update()
 
 void Player::Render()
 {
-	if (DEBUG_MODE)
+	if (GM->DEBUG_MODE)
 	{
 		this->muzzle->Render();
 		this->collider->Render();

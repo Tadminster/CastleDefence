@@ -10,6 +10,7 @@ KingSlime::KingSlime()
 	speed = 60;
 	exp = 10;
 	damage = 10;
+	defence = 1;
 }
 
 KingSlime::~KingSlime()
@@ -17,7 +18,7 @@ KingSlime::~KingSlime()
 	delete collider;
 	delete skin_run;
 
-	TEXTURE->DeleteTexture(L"KingSlime.png");
+	TEXTURE->DeleteTexture(L"KingSlimeGreen.png");
 }
 
 void KingSlime::Init()
@@ -28,7 +29,7 @@ void KingSlime::Init()
 
 
 	this->skin_run->SetParentRT(*this->collider);
-	this->skin_run->scale = Vector2(85, 85);
+	this->skin_run->scale = Vector2(75, 75);
 	this->skin_run->maxFrame.x = 6;
 	this->skin_run->maxFrame.y = 4;
 	this->skin_run->ChangeAnim(ANIMSTATE::LOOP, 0.2f);
@@ -51,7 +52,7 @@ void KingSlime::Update()
 
 void KingSlime::Render()
 {
-	if (DEBUG_MODE)
+	if (GM->DEBUG_MODE)
 		this->collider->Render();
 	this->skin_run->Render();
 }

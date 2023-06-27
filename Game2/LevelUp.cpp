@@ -146,7 +146,7 @@ void LevelUp::LateUpdate()
 void LevelUp::Render()
 {
 	skin_window->Render();
-	if (DEBUG_MODE)
+	if (GM->DEBUG_MODE)
 	{
 		for (auto& col : btn_col)
 			col->Render();

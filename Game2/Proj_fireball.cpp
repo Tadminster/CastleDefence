@@ -52,7 +52,7 @@ void Proj_fireball::Update()
 void Proj_fireball::Render()
 {
 	Projectile::Render();
-	if (DEBUG_MODE)
+	if (GM->DEBUG_MODE)
 		this->collider_range->Render();
 }
 

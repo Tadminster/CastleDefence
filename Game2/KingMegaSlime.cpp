@@ -10,6 +10,7 @@ KingMegaSlime::KingMegaSlime()
 	speed = 60;
 	exp = 15;
 	damage = 10;
+	defence = 2;
 }
 
 KingMegaSlime::~KingMegaSlime()
@@ -17,18 +18,18 @@ KingMegaSlime::~KingMegaSlime()
 	delete collider;
 	delete skin_run;
 
-	TEXTURE->DeleteTexture(L"KingMegaSlime.png");
+	TEXTURE->DeleteTexture(L"KingSlimeBlue.png");
 }
 
 void KingMegaSlime::Init()
 {
 	this->collider->SetWorldPos(Vector2(RANDOM->Int(-1000, 1000), RANDOM->Int(-1000, 1000)));
 	this->collider->isFilled = false;
-	this->collider->scale = Vector2(55, 55);
+	this->collider->scale = Vector2(60, 60);
 
 
 	this->skin_run->SetParentRT(*this->collider);
-	this->skin_run->scale = Vector2(90, 90);
+	this->skin_run->scale = Vector2(85, 85);
 	this->skin_run->maxFrame.x = 6;
 	this->skin_run->maxFrame.y = 4;
 	this->skin_run->ChangeAnim(ANIMSTATE::LOOP, 0.2f);
@@ -51,7 +52,7 @@ void KingMegaSlime::Update()
 
 void KingMegaSlime::Render()
 {
-	if (DEBUG_MODE)
+	if (GM->DEBUG_MODE)
 		this->collider->Render();
 	this->skin_run->Render();
 }

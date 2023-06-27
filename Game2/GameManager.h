@@ -4,10 +4,12 @@
 class GameManager : public Singleton<GameManager>
 {
 public:
-	class ItemList* itemList;
-	class LevelUp* levelUp;
-	class Player* player;
-	class MonsterManager* monster;
+	bool	DEBUG_MODE = false;
+
+	class	ItemList* itemList;
+	class	LevelUp* levelUp;
+	class	Player* player;
+	class	MonsterManager* monster;
 
 	bool lvUp = false;
 	int kill = 0;

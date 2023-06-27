@@ -4,6 +4,7 @@
 #include "KingSlime.h"
 #include "MegaSlime.h"
 #include "KingMegaSlime.h"
+#include "SkeletonWarrior.h"
 #include "MonsterManager.h"
 
 void MonsterManager::Init()
@@ -166,8 +167,10 @@ void MonsterManager::Pool()
 	static float magaSlimeSpawnTime = 0.0f;
 	static float kingSlimeSpawnTime = 0.0f;
 	static float kingMegaSlimeSpawnTime = 0.0f;
+	static float SkeletonWarriorSpawnTime = 0.0f;
+	
 
-	if (TIMER->GetTick(slimeSpawnTime, 3.0f))
+	if (TIMER->GetTick(slimeSpawnTime, 2.0f))
 	{
 		Slime* slime = new Slime();
 		slime->Init();
@@ -177,7 +180,7 @@ void MonsterManager::Pool()
 
 	if (TIMER->GetWorldTime() > 7.0f)
 	{
-		if (TIMER->GetTick(magaSlimeSpawnTime, 4.0f))
+		if (TIMER->GetTick(magaSlimeSpawnTime, 3.0f))
 		{
 			MegaSlime* megaSlime = new MegaSlime();
 			megaSlime->Init();
@@ -186,9 +189,9 @@ void MonsterManager::Pool()
 		}
 	}
 
-	if (TIMER->GetWorldTime() > 15.0f)
+	if (TIMER->GetWorldTime() > 20.0f)
 	{
-		if (TIMER->GetTick(kingSlimeSpawnTime, 5.0f))
+		if (TIMER->GetTick(kingSlimeSpawnTime, 4.0f))
 		{
 			KingSlime* kingSlime = new KingSlime();
 			kingSlime->Init();
@@ -197,7 +200,7 @@ void MonsterManager::Pool()
 		}
 	}
 
-	if (TIMER->GetWorldTime() > 20.0f)
+	if (TIMER->GetWorldTime() > 35.0f)
 	{
 		if (TIMER->GetTick(kingMegaSlimeSpawnTime, 5.0f))
 		{
@@ -207,4 +210,27 @@ void MonsterManager::Pool()
 			GM->monster->AddEnemy(kingMegaSlime);
 		}
 	}
+
+	//if (TIMER->GetWorldTime() > 50.0f)
+
+	if (TIMER->GetWorldTime() > 50.0f)
+	{
+		if (TIMER->GetTick(SkeletonWarriorSpawnTime, 4.0f))
+		{
+			SkeletonWarrior* skeletonWarrior = new SkeletonWarrior();
+			skeletonWarrior->Init();
+
+			GM->monster->AddEnemy(skeletonWarrior);
+		}
+	}
+	else if (TIMER->GetWorldTime() > 5.0f)
+	{
+		if (TIMER->GetTick(SkeletonWarriorSpawnTime, 10.0f))
+		{
+			SkeletonWarrior* skeletonWarrior = new SkeletonWarrior();
+			skeletonWarrior->Init();
+
+			GM->monster->AddEnemy(skeletonWarrior);
+		}
+	} 
 }

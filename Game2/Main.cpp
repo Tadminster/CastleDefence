@@ -35,7 +35,7 @@ void Main::Release()
 void Main::Update()
 {
 	// DEBUG TEXT OUTPUT
-	if (DEBUG_MODE)
+	if (GM->DEBUG_MODE)
 	{
 		ImGui::Text(u8"[ 마우스_X ] %f\n", INPUT->GetWorldMousePos().x);
 		ImGui::Text(u8"[ 마우스_Y ] %f\n", INPUT->GetWorldMousePos().y);

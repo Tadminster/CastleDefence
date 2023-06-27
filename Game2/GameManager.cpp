@@ -29,6 +29,8 @@ void GameManager::Update()
 {
 	ImGui::Text("effects : %i\n", afterEffectManager.size());
 
+	if (INPUT->KeyDown('0')) DEBUG_MODE = !DEBUG_MODE;
+
 	if (player->level == 0)
 	{
 		player->exp += 1;

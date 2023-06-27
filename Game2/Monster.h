@@ -20,6 +20,7 @@ protected:
 
 	int		hp;						// 체력
 	float	damage;					// 공격력
+	float	defence;				// 방어력
 	float	speed;					// 이동속도
 
 	int		exp;					// 몬스터 킬 시 얻게되는 경험치

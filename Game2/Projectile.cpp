@@ -50,7 +50,7 @@ void Projectile::Render()
 {
     skin->Render();
 
-    if (DEBUG_MODE)
+    if (GM->DEBUG_MODE)
         collider->Render();
 }
 

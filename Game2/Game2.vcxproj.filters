@@ -84,6 +84,9 @@
     <ClInclude Include="PlayerTrail.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="SkeletonWarrior.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -167,6 +170,9 @@
     </ClCompile>
     <ClCompile Include="PlayerTrail.cpp">
       <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonWarrior.cpp">
+      <Filter>Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,7 @@ MegaSlime::MegaSlime()
 	speed = 50;
 	exp = 5;
 	damage = 5;
+	defence = 0;
 }
 
 MegaSlime::~MegaSlime()
@@ -17,7 +18,7 @@ MegaSlime::~MegaSlime()
 	delete collider;
 	delete skin_run;
 
-	TEXTURE->DeleteTexture(L"MegaSlime.png");
+	TEXTURE->DeleteTexture(L"MegaSlimeBlue.png");
 }
 
 void MegaSlime::Init()
@@ -27,7 +28,7 @@ void MegaSlime::Init()
 	this->collider->scale = Vector2(40, 40);
 
 	this->skin_run->SetParentRT(*this->collider);
-	this->skin_run->scale = Vector2(80, 80);
+	this->skin_run->scale = Vector2(65, 65);
 	this->skin_run->maxFrame.x = 6;
 	this->skin_run->maxFrame.y = 4;
 	this->skin_run->ChangeAnim(ANIMSTATE::LOOP, 0.2f);
@@ -50,7 +51,7 @@ void MegaSlime::Update()
 
 void MegaSlime::Render()
 {
-	if (DEBUG_MODE)
+	if (GM->DEBUG_MODE)
 		this->collider->Render();
 	this->skin_run->Render();
 }

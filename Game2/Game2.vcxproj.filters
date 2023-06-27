@@ -87,6 +87,9 @@
     <ClInclude Include="SkeletonWarrior.h">
       <Filter>Object\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="SkeletoneMage.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -172,6 +175,9 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="SkeletonWarrior.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletoneMage.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>

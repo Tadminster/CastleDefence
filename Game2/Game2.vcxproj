@@ -44,6 +44,7 @@
     <ClInclude Include="Proj_arrow.h" />
     <ClInclude Include="Proj_axe.h" />
     <ClInclude Include="Proj_fireball.h" />
+    <ClInclude Include="SkeletoneMage.h" />
     <ClInclude Include="SkeletonWarrior.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="stdafx.h" />
@@ -76,6 +77,7 @@
     <ClCompile Include="Proj_arrow.cpp" />
     <ClCompile Include="Proj_axe.cpp" />
     <ClCompile Include="Proj_fireball.cpp" />
+    <ClCompile Include="SkeletoneMage.cpp" />
     <ClCompile Include="SkeletonWarrior.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="ThrowingAxe.cpp" />

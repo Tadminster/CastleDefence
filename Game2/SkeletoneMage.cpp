@@ -1,10 +1,10 @@
 ﻿#include "stdafx.h"
-#include "SkeletonWarrior.h"
+#include "SkeletoneMage.h"
 
-SkeletonWarrior::SkeletonWarrior()
+SkeletoneMage::SkeletoneMage()
 {
 	this->collider = new ObRect();
-	this->skin_run = new ObImage(L"SkeletonWarrior.png");
+	this->skin_run = new ObImage(L"SkeletonMage.png");
 
 	hp = 60;
 	speed = 60;
@@ -13,31 +13,34 @@ SkeletonWarrior::SkeletonWarrior()
 	defence = 3;
 }
 
-SkeletonWarrior::~SkeletonWarrior()
+SkeletoneMage::~SkeletoneMage()
 {
 	delete collider;
 	delete skin_run;
 
-	TEXTURE->DeleteTexture(L"SkeletonWarrior.png");
+	TEXTURE->DeleteTexture(L"SkeletonMage.png");
 }
 
-void SkeletonWarrior::Init()
+void SkeletoneMage::Init()
 {
 	this->collider->SetWorldPos(Vector2(RANDOM->Int(-1000, 1000), RANDOM->Int(-1000, 1000)));
 	this->collider->isFilled = false;
 	this->collider->scale = Vector2(40, 40);
 
 	this->skin_run->SetParentRT(*this->collider);
-	this->skin_run->maxFrame.x = 5;
-	this->skin_run->maxFrame.y = 12;
+	this->skin_run->maxFrame.x = 6;
+	this->skin_run->maxFrame.y = 8;
 	this->skin_run->scale.x = skin_run->imageSize.x / skin_run->maxFrame.x * 3.6;
 	this->skin_run->scale.y = skin_run->imageSize.y / skin_run->maxFrame.y * 3.6;
 	this->skin_run->ChangeAnim(ANIMSTATE::LOOP, 0.2f);
 }
 
-void SkeletonWarrior::Update()
+void SkeletoneMage::Update()
 {
 	// 점프모션에만 이동
+	Vector2 target = GM->player->getCollider()->GetWorldPos();
+	float distance = (target - this->collider->GetWorldPos()).Length();
+	ImGui::Text("distance %f\n", distance);
 	Monster::Update();
 
 	switch (this->dir)
@@ -50,9 +53,11 @@ void SkeletonWarrior::Update()
 	}
 }
 
-void SkeletonWarrior::Render()
+void SkeletoneMage::Render()
 {
 	if (GM->DEBUG_MODE)
 		this->collider->Render();
 	this->skin_run->Render();
 }
+
+

@@ -1,16 +1,12 @@
 ﻿#pragma once
-#include "Monster.h"
-
-class SkeletonWarrior : public Monster
+class SkeletoneMage : public Monster
 {
 public:
-	SkeletonWarrior();
-	~SkeletonWarrior();
+	SkeletoneMage();
+	~SkeletoneMage();
 
 	void Init() override;
 	void Update() override;
 	void Render() override;
 };
-
-
 

@@ -28,9 +28,10 @@ void MegaSlime::Init()
 	this->collider->scale = Vector2(40, 40);
 
 	this->skin_run->SetParentRT(*this->collider);
-	this->skin_run->scale = Vector2(65, 65);
 	this->skin_run->maxFrame.x = 6;
 	this->skin_run->maxFrame.y = 4;
+	this->skin_run->scale.x = skin_run->imageSize.x / skin_run->maxFrame.x * 4;
+	this->skin_run->scale.y = skin_run->imageSize.y / skin_run->maxFrame.y * 4;
 	this->skin_run->ChangeAnim(ANIMSTATE::LOOP, 0.2f);
 }
 

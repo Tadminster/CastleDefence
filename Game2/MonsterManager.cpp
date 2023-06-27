@@ -5,6 +5,7 @@
 #include "MegaSlime.h"
 #include "KingMegaSlime.h"
 #include "SkeletonWarrior.h"
+#include "SkeletoneMage.h"
 #include "MonsterManager.h"
 
 void MonsterManager::Init()
@@ -16,6 +17,10 @@ void MonsterManager::Init()
 		slime[i]->Init();
 		GM->monster->AddEnemy(slime[i]);
 	}
+
+	SkeletoneMage* skelMage = new SkeletoneMage();
+	skelMage->Init();
+	GM->monster->AddEnemy(skelMage);
 }
 
 void MonsterManager::Release()

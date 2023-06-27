@@ -25,12 +25,13 @@ void Slime::Init()
 {
 	this->collider->SetWorldPos(Vector2(RANDOM->Int(-1000, 1000), RANDOM->Int(-1000, 1000)));
 	this->collider->isFilled = false;
-	this->collider->scale = Vector2(35, 35);
+	this->collider->scale = Vector2(30, 30);
 
 	this->skin_run->SetParentRT(*this->collider);
-	this->skin_run->scale = Vector2(60, 60);
 	this->skin_run->maxFrame.x = 6;
 	this->skin_run->maxFrame.y = 4;
+	this->skin_run->scale.x = skin_run->imageSize.x / skin_run->maxFrame.x * 4;
+	this->skin_run->scale.y = skin_run->imageSize.y / skin_run->maxFrame.y * 4;
 	this->skin_run->ChangeAnim(ANIMSTATE::LOOP, 0.2f);
 }
 

@@ -9,5 +9,6 @@ public:
 
 	void Update() override;
 	void Render() override;
+	void AfterEffect() override;
 };
 

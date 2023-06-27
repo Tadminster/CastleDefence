@@ -44,10 +44,6 @@ Proj_fireball::Proj_fireball(
 
 void Proj_fireball::Update()
 {
-	ImGui::Text("rotation.z = %f", skin->rotation.z);
-	ImGui::Text("dir.x = %f", dir.x);
-	ImGui::Text("dir.y = %f", dir.y);
-
 	this->skin->frame.x++;
 	Projectile::Update();
 	this->collider_range->Update();
@@ -58,4 +54,18 @@ void Proj_fireball::Render()
 	Projectile::Render();
 	if (DEBUG_MODE)
 		this->collider_range->Render();
+}
+
+void Proj_fireball::AfterEffect()
+{
+	ObImage* afterImg = new ObImage(L"fireball_explosion.png");
+	afterImg->SetWorldPos(collider->GetWorldPos());
+	afterImg->maxFrame.x = 7;
+	afterImg->maxFrame.y = 1;
+	afterImg->scale.x = collider_range->scale.x;
+	afterImg->scale.y = collider_range->scale.y;
+	afterImg->ChangeAnim(ANIMSTATE::ONCE, 0.1f);
+	afterImg->color.w = 0.4f;
+
+	GM->afterEffectManager.emplace_back(afterImg);
 }

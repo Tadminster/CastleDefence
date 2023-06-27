@@ -1,24 +1,24 @@
 ﻿#pragma once
-enum class ImgState
+enum class IMG_STATE
 {
 	IDLE,
 	RUN,
 	DASH
 };
 
-enum class Direction
+enum class PLAYER_DIRECTION
 {
-	PLAYER_DIR_UP,
-	PLAYER_DIR_DOWN,
-	PLAYER_DIR_LEFT,
-	PLAYER_DIR_LEFT_UP,
-	PLAYER_DIR_LEFT_DOWN,
-	PLAYER_DIR_RIGHT_UP,
-	PLAYER_DIR_RIGHT_DOWN,
-	PLAYER_DIR_RIGHT
+	DIR_UP,
+	DIR_DOWN,
+	DIR_LEFT,
+	DIR_UP_LEFT,
+	DIR_DOWN_LEFT,
+	DIR_RIGHT,
+	DIR_UP_RIGHT,
+	DIR_DOWN_RIGHT
 };
 
-enum class PlayerStatus
+enum class PLAYER_STATUS
 {
 	NORMAL,
 	DAMAGED
@@ -29,21 +29,21 @@ class Player
 {
 private:
 	// collider
-	ObRect*			collider;
-	ObRect*			collider_muzzle;
-	ObRect*			area;
+	ObRect*				collider;
+	ObRect*				muzzle;
+	ObRect*				area;
 
 	// skin
-	//ObImage*		skin_idle;
-	//ObImage*		skin_run;
-	ObImage*		skin;
+	ObImage*			skin_walk;
+	ObImage*			skin_roll;
 
 	class PlayerTrail*	playerTrail;
 
 	// state
-	ImgState		state;
-	Direction		dir;
-	PlayerStatus	playerStatus;
+	IMG_STATE			img_state;
+	PLAYER_DIRECTION	player_dir_keyboard;
+	PLAYER_DIRECTION	player_dir_mouse;
+	PLAYER_STATUS		player_status;
 
 	// trail
 
@@ -79,9 +79,10 @@ public:
 
 	// get
 	ObRect*			getCollider()		{ return this->collider; }
-	ObRect*			getColliderWeapon()	{ return this->collider_muzzle; }
+	ObRect*			getColliderWeapon()	{ return this->muzzle; }
 	ObRect*			getArea()			{ return this->area; }
-	ObImage*		getSkin()			{ return this->skin;}
+	ObImage*		getSkinWalk()		{ return this->skin_walk;}
+	ObImage*		getSkinRoll()		{ return this->skin_roll;}
 	float			getHp()				{ return this->hp; }
 	float			getMaxHp()			{ return this->maxHp; }
 	float			getDamage()			{ return this->damage; }
@@ -89,7 +90,7 @@ public:
 	float			getMoveSpeed()		{ return this->moveSpeed; }
 	virtual Vector2 getPos()			{ return this->collider->GetWorldPos(); }
 	vector<unique_ptr<class Projectile>>& getProjectiles() {return projectiles;}
-	PlayerStatus	getPlayerStatus()	{ return playerStatus; }
+	PLAYER_STATUS	getPlayerStatus()	{ return player_status; }
 
 	// set
 	void			addAttSpeed(float value)	{ this->attSpeed + value; }

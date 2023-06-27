@@ -19,6 +19,7 @@ public:
 						246, 298, 351, 405, 460, 
 						9999999};	// 51~55
 	
+	vector<unique_ptr<class ObImage>>	afterEffectManager;
 	
 public:
 	~GameManager();

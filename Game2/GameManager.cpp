@@ -27,6 +27,8 @@ void GameManager::Init()
 
 void GameManager::Update()
 {
+	ImGui::Text("effects : %i\n", afterEffectManager.size());
+
 	if (player->level == 0)
 	{
 		player->exp += 1;
@@ -66,10 +68,27 @@ void GameManager::Update()
 			app.deltaScale = 1;
 		}
 	}
+
+	// 수명이 다한 이펙트 삭제
+	afterEffectManager.erase(
+	std::remove_if
+	(
+		afterEffectManager.begin(),
+		afterEffectManager.end(),
+		[](unique_ptr<ObImage>& effect) { return effect->frame.x + 1 == effect->maxFrame.x; }
+	),
+	afterEffectManager.end()
+	);
+
+	for (auto& afterEffect : afterEffectManager)
+		afterEffect->Update();
 }
 
 void GameManager::Render()
 {
+	for (auto& afterEffect : afterEffectManager)
+		afterEffect->Render();
+
 	if (lvUp)
 	{
 		levelUp->Render();

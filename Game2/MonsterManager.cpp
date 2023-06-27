@@ -68,7 +68,7 @@ void MonsterManager::collisionsBetweenUnits()
 		// 플레이어와 몬스터 충돌
 		if (enemy->getCollider()->Intersect(GM->player->getCollider()))
 		{
-			if (GM->player->getPlayerStatus() == PlayerStatus::NORMAL)
+			if (GM->player->getPlayerStatus() == PLAYER_STATUS::NORMAL)
 				GM->player->actionsWhenDamaged(enemy->getDamage());
 
 			Vector2 enemyDir = enemy->getCollider()->GetWorldPos() - GM->player->getCollider()->GetWorldPos();

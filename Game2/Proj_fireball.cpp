@@ -11,49 +11,49 @@ Proj_fireball::Proj_fireball(
 	int   penetration,
 	float explosionRange)
 {
-	this->tag = DamageType::EXPLOSION;
+	tag = DamageType::EXPLOSION;
 
-	this->collider = new ObRect();
-	this->collider->SetWorldPos(spawnPos);
-	this->collider->scale = Vector2(16, 16);
-	this->collider->isFilled = false;
+	collider = new ObRect();
+	collider->SetWorldPos(spawnPos);
+	collider->scale = Vector2(16, 16);
+	collider->isFilled = false;
 
-	this->collider_range = new ObCircle();
-	this->collider_range->SetParentRT(*this->collider);
-	this->collider_range->scale.x = explosionRange;
-	this->collider_range->scale.y = explosionRange;
-	this->collider_range->isFilled = false;
+	collider_range = new ObCircle();
+	collider_range->SetParentRT(*collider);
+	collider_range->scale.x = explosionRange;
+	collider_range->scale.y = explosionRange;
+	collider_range->isFilled = false;
 
-	this->skin = new ObImage(L"proj_fireball.png");
-	this->skin->SetParentRT(*this->collider);
-	this->skin->maxFrame.x = 5;
-	this->skin->maxFrame.y = 1;
-	this->skin->scale.x = 32;
-	this->skin->scale.y = 24;
-	this->skin->rotation.z = atanf(dir.y / dir.x);
-	if (dir.x < 0) this->skin->reverseLR = true;
+	skin = new ObImage(L"proj_fireball.png");
+	skin->SetParentRT(*collider);
+	skin->maxFrame.x = 5;
+	skin->maxFrame.y = 1;
+	skin->scale.x = 32;
+	skin->scale.y = 24;
+	skin->rotation.z = atanf(dir.y / dir.x);
+	skin->ChangeAnim(ANIMSTATE::LOOP, 0.05f);
+	if (dir.x < 0) skin->reverseLR = true;
 
 	this->dir = dir;
 	this->speed = speed;
 	this->range = range;
 	this->damage = damage;
 	this->penetration = penetration;
-	this->traveledDistance = 0.f;
-	this->shove = 350;
+	traveledDistance = 0.f;
+	shove = 350;
 }
 
 void Proj_fireball::Update()
 {
-	this->skin->frame.x++;
 	Projectile::Update();
-	this->collider_range->Update();
+	collider_range->Update();
 }
 
 void Proj_fireball::Render()
 {
 	Projectile::Render();
 	if (GM->DEBUG_MODE)
-		this->collider_range->Render();
+		collider_range->Render();
 }
 
 void Proj_fireball::AfterEffect()

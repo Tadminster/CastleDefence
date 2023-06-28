@@ -10,31 +10,31 @@ Proj_arrow::Proj_arrow(
 	float damage,
 	int   penetration)
 {
-	this->tag = DamageType::NORMAL;
+	tag = DamageType::NORMAL;
 
-	this->collider = new ObRect();
-	this->collider->SetWorldPos(spawnPos);
-	this->collider->scale = Vector2(16, 16);
-	this->collider->isFilled = false;
+	collider = new ObRect();
+	collider->SetWorldPos(spawnPos);
+	collider->scale = Vector2(16, 16);
+	collider->isFilled = false;
 
-	this->skin = new ObImage(L"proj_arrowShort.png");
-	this->skin->SetParentRT(*this->collider);
-	this->skin->maxFrame.x = 2;
-	this->skin->maxFrame.y = 2;
-	this->skin->frame.y = 1;
-	this->skin->scale.x = 32;
-	this->skin->scale.y = 32;
-	this->skin->rotation.z = atanf(dir.y / dir.x);
-	this->skin->ChangeAnim(ANIMSTATE::LOOP, 0.05f);
-	if (dir.x < 0) this->skin->reverseLR = true;
+	skin = new ObImage(L"proj_arrowShort.png");
+	skin->SetParentRT(*collider);
+	skin->maxFrame.x = 2;
+	skin->maxFrame.y = 2;
+	skin->frame.y = 1;
+	skin->scale.x = 32;
+	skin->scale.y = 32;
+	skin->rotation.z = atanf(dir.y / dir.x);
+	skin->ChangeAnim(ANIMSTATE::LOOP, 0.05f);
+	if (dir.x < 0) skin->reverseLR = true;
 
 	this->dir = dir;
 	this->speed = speed;
 	this->range = range;
 	this->damage = damage;
 	this->penetration = penetration;
-	this->traveledDistance = 0.f;
-	this->shove = 350;
+	traveledDistance = 0.f;
+	shove = 350;
 }
 
 void Proj_arrow::Update()

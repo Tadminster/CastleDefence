@@ -14,9 +14,10 @@ Slime::Slime()
 
 	hp = 15;
 	speed = 40;
-	exp = 1;
 	damage = 5;
 	defence = 0;
+
+	exp = 1;
 }
 
 Slime::~Slime()
@@ -36,8 +37,8 @@ void Slime::Init()
 	collider->scale = Vector2(30, 30);
 
 	skin_run->SetParentRT(*collider);
-	skin_run->SetLocalPosY(-10);
 	skin_run->pivot = OFFSET_B;
+	skin_run->SetLocalPosY(-10);
 	skin_run->maxFrame.x = 7;
 	skin_run->maxFrame.y = 4;
 	skin_run->scale.x = skin_run->imageSize.x / skin_run->maxFrame.x * 4;
@@ -85,8 +86,7 @@ void Slime::Update()
 		break;
 	}
 
-	Monster::Update();
-
+	setDirection();
 	switch (dir)
 	{
 	case MONSTER_DIRECTION::U:
@@ -107,6 +107,8 @@ void Slime::Update()
 		break;
 	default: break;
 	}
+
+	Monster::Update();
 }
 
 void Slime::Render()

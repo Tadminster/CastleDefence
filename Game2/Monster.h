@@ -56,6 +56,9 @@ public:
 	virtual void Update();
 	virtual void Render();
 
+	// 몬스터 방향설정
+	void			setDirection();
+
 	// get
 	virtual ObRect* getCollider()	{ return collider;}
 	int				getExp()		{ return exp; }

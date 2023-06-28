@@ -57,6 +57,7 @@ private:
 	float	maxHp;		// 최대체력
 	float	dashRange;
 
+	float   rolltime;
 
 public:
 	vector<class Weapon*>		equip;

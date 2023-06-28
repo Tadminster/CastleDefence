@@ -16,40 +16,6 @@ void Monster::Init()
 
 void Monster::Update()
 {
-	// 몬스터 방향 설정
-	{
-		Vector2 targetPos = GM->player->getPos();
-		float diffX = targetPos.x - collider->GetWorldPos().x;
-		float diffY = targetPos.y - collider->GetWorldPos().y;
-
-		float dirX = diffX > 0 ? 1 : -1;
-		float dirY = diffY > 0 ? 1 : -1;
-
-		diffX = abs(diffX);
-		diffY = abs(diffY);
-
-		if (diffX * 3 < diffY)
-		{
-			if (dirY == -1)
-				this->dir = MONSTER_DIRECTION::U;
-			else if (dirY == 1)
-				this->dir = MONSTER_DIRECTION::D;
-		}
-		else if (targetPos.x < collider->GetWorldPos().x)
-		{
-			this->dir = MONSTER_DIRECTION::L;
-		}
-		else if (targetPos.x > collider->GetWorldPos().x)
-		{
-			this->dir = MONSTER_DIRECTION::R;
-		}
-
-		this->collider->Update();
-		this->skin_run->Update();
-		if (this->skin_runShadow)
-		this->skin_runShadow->Update();
-	}
-
 	// 몬스터 상태에 따른 작동
 	if (status == MONSTER_STATUS::NORMAL)
 	{
@@ -74,6 +40,14 @@ void Monster::Update()
 			status = MONSTER_STATUS::NORMAL;
 		}
 	}
+
+	// 업데이트
+	{
+		this->collider->Update();
+		this->skin_run->Update();
+		if (this->skin_runShadow)
+			this->skin_runShadow->Update();
+	}
 }
 
 void Monster::Render()
@@ -85,6 +59,35 @@ void Monster::Render()
 		this->skin_run->Render();
 	if (this->skin_runShadow)
 		this->skin_runShadow->Render();
+}
+
+void Monster::setDirection()
+{
+	Vector2 targetPos = GM->player->getPos();
+	float diffX = targetPos.x - collider->GetWorldPos().x;
+	float diffY = targetPos.y - collider->GetWorldPos().y;
+
+	float dirX = diffX > 0 ? 1 : -1;
+	float dirY = diffY > 0 ? 1 : -1;
+
+	diffX = abs(diffX);
+	diffY = abs(diffY);
+
+	if (diffX * 3 < diffY)
+	{
+		if (dirY == -1)
+			this->dir = MONSTER_DIRECTION::U;
+		else if (dirY == 1)
+			this->dir = MONSTER_DIRECTION::D;
+	}
+	else if (targetPos.x < collider->GetWorldPos().x)
+	{
+		this->dir = MONSTER_DIRECTION::L;
+	}
+	else if (targetPos.x > collider->GetWorldPos().x)
+	{
+		this->dir = MONSTER_DIRECTION::R;
+	}
 }
 
 void Monster::trace()

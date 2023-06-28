@@ -273,7 +273,7 @@ void Player::Update()
 		}
 	}
 
-	// 정지시
+	// 액션
 	if (action == PLAYER_ACTION::IDLE)
 	{
 		skin_walk->frame.x = 0;
@@ -284,41 +284,34 @@ void Player::Update()
 	}
 	else if (action == PLAYER_ACTION::DASH)
 	{
-		if (dir_keyboard == PLAYER_DIRECTION::DIR_UP)
+		switch (dir_keyboard)
 		{
-			collider->MoveWorldPos(UP * dashRange * 5 * DELTA);
-		}
-		else if (dir_keyboard == PLAYER_DIRECTION::DIR_DOWN)
-		{
-			collider->MoveWorldPos(DOWN * dashRange * 5 * DELTA);
-		}
-		else if (dir_keyboard == PLAYER_DIRECTION::DIR_LEFT)
-		{
-			collider->MoveWorldPos(LEFT * dashRange * 5 * DELTA);
-		}
-		else if (dir_keyboard == PLAYER_DIRECTION::DIR_UP_LEFT)
-		{
-			collider->MoveWorldPos(UP * dashRange * 4 * DELTA);
-			collider->MoveWorldPos(LEFT * dashRange * 4 * DELTA);
-		}
-		else if (dir_keyboard == PLAYER_DIRECTION::DIR_DOWN_LEFT)
-		{
-			collider->MoveWorldPos(DOWN * dashRange * 4 * DELTA);
-			collider->MoveWorldPos(LEFT * dashRange * 4 * DELTA);
-		}
-		else if (dir_keyboard == PLAYER_DIRECTION::DIR_RIGHT)
-		{
-			collider->MoveWorldPos(RIGHT * dashRange * 5 * DELTA);
-		}
-		else if (dir_keyboard == PLAYER_DIRECTION::DIR_UP_RIGHT)
-		{
-			collider->MoveWorldPos(UP * dashRange * 4 * DELTA);
-			collider->MoveWorldPos(RIGHT * dashRange * 4 * DELTA);
-		}
-		else if (dir_keyboard == PLAYER_DIRECTION::DIR_DOWN_RIGHT)
-		{
-			collider->MoveWorldPos(DOWN * dashRange * 4 * DELTA);
-			collider->MoveWorldPos(RIGHT * dashRange * 4 * DELTA);
+		case PLAYER_DIRECTION::DIR_UP:
+			collider->MoveWorldPos(UP * DELTA * dashRange * 5);
+			break;
+		case PLAYER_DIRECTION::DIR_DOWN:
+			collider->MoveWorldPos(DOWN * DELTA * dashRange * 5);
+			break;
+		case PLAYER_DIRECTION::DIR_LEFT:
+			collider->MoveWorldPos(LEFT * DELTA * dashRange * 5);
+			break;
+		case PLAYER_DIRECTION::DIR_UP_LEFT:
+			collider->MoveWorldPos(UP_LEFT * DELTA * dashRange * 4);
+			break;
+		case PLAYER_DIRECTION::DIR_DOWN_LEFT:
+			collider->MoveWorldPos(DOWN_LEFT * DELTA * dashRange * 4);
+			break;
+		case PLAYER_DIRECTION::DIR_RIGHT:
+			collider->MoveWorldPos(RIGHT * DELTA * dashRange * 5);
+			break;
+		case PLAYER_DIRECTION::DIR_UP_RIGHT:
+			collider->MoveWorldPos(UP_RIGHT * DELTA * dashRange * 4);
+			break;
+		case PLAYER_DIRECTION::DIR_DOWN_RIGHT:
+			collider->MoveWorldPos(DOWN_RIGHT * DELTA * dashRange * 4);
+			break;
+		default:
+			break;
 		}
 
 		dashRange -= 600.0f * DELTA;
@@ -465,6 +458,8 @@ void Player::Control()
 			action = PLAYER_ACTION::DASH;
 			skin_roll->frame.x = 0;
 			skin_rollShadow->frame.x = 0;
+
+			rolltime = 0.0f;
 		}
 	}
 

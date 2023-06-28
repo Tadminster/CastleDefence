@@ -4,6 +4,7 @@
 Monster::Monster() :
 	collider(new ObRect()), 
 	skin_run(nullptr),
+	skin_runShadow(nullptr),
 	dir(MONSTER_DIRECTION::D),
 	status(MONSTER_STATUS::NORMAL),
 	hp(1), speed(10), damage(1), exp(1), timeOfDamage(0)
@@ -44,8 +45,9 @@ void Monster::Update()
 		}
 
 		this->collider->Update();
-		if (this->skin_run)
-			this->skin_run->Update();
+		this->skin_run->Update();
+		if (this->skin_runShadow)
+		this->skin_runShadow->Update();
 	}
 
 	// 몬스터 상태에 따른 작동
@@ -81,6 +83,8 @@ void Monster::Render()
 
 	if (this->skin_run)
 		this->skin_run->Render();
+	if (this->skin_runShadow)
+		this->skin_runShadow->Render();
 }
 
 void Monster::trace()

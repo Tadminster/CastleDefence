@@ -30,6 +30,7 @@ class Monster
 protected:
 	class ObRect*		collider;
 	class ObImage*		skin_run;
+	class ObImage*		skin_runShadow;
 	MONSTER_STATUS		status;
 	MONSTER_ACTION		action;
 	MONSTER_DIRECTION	dir;

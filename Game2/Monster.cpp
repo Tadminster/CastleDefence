@@ -56,7 +56,8 @@ void Monster::Update()
 			skin_run->color = Vector4(0.5, 0.5, 0.5, 0.5);
 
 		// 다가가기
-		trace();
+		if (action == MONSTER_ACTION::RUN)
+			trace();
 	}
 	else if (status == MONSTER_STATUS::DAMAGED)
 	{

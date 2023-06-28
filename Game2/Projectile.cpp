@@ -101,6 +101,22 @@ bool Projectile::hasCollideWithMonster()
     return false;
 }
 
+bool Projectile::hasCollideWithPlayer()
+{
+    if (collider->Intersect(GM->player->getCollider()))
+    {
+        // 충돌 이펙트
+        AfterEffect();
+
+        // 플레이어 데미지 액션
+        GM->player->actionsWhenDamaged(-damage);
+
+        return true;
+    }
+
+    return false;
+}
+
 void Projectile::AfterEffect()
 {
 }

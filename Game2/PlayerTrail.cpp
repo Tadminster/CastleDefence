@@ -25,6 +25,7 @@ void PlayerTrail::Init()
 {
     for (auto it = playerTrail.begin(); it != playerTrail.end(); it++)
     {
+        (*it)->pivot = OFFSET_B;
         (*it)->scale = GM->player->getSkinRoll()->scale;
         (*it)->maxFrame.x = GM->player->getSkinRoll()->maxFrame.x;
         (*it)->maxFrame.y = GM->player->getSkinRoll()->maxFrame.y;
@@ -49,7 +50,6 @@ void PlayerTrail::Update()
         playerTrail.push_back(playerTrail.front());
         playerTrail.pop_front();
     }
-
 
     for (auto it = playerTrail.begin(); it != playerTrail.end(); it++)
     {
@@ -78,7 +78,10 @@ void PlayerTrail::Resize(int value)
     for (auto it = playerTrail.begin(); it != playerTrail.end(); it++)
     {
         (*it) = new ObImage(L"player_roll.png");
-        (*it)->scale.x = 100.0f;
-        (*it)->scale.y = 100.0f;
+        (*it)->pivot = OFFSET_B;
+        (*it)->scale = GM->player->getSkinRoll()->scale;
+        (*it)->maxFrame.x = GM->player->getSkinRoll()->maxFrame.x;
+        (*it)->maxFrame.y = GM->player->getSkinRoll()->maxFrame.y;
+        (*it)->color.w = 0.3;
     }
 }

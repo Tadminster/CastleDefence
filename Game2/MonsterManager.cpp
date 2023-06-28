@@ -53,15 +53,26 @@ void MonsterManager::Update()
 	collisionsBetweenUnits();
 
 	//탄이 플레이어와 충돌하면
-	//projectiles.erase(
-	//std::remove_if
-	//(
-	//	projectiles.begin(),
-	//	projectiles.end(),
-	//	[](unique_ptr<Projectile>& pr) { return pr->hasCollideWithMonster(); }
-	//),
-	//projectiles.end()
-	//);
+	projectiles.erase(
+	std::remove_if
+	(
+		projectiles.begin(),
+		projectiles.end(),
+		[](Projectile* pr) { return pr->hasCollideWithPlayer(); }
+	),
+	projectiles.end()
+	);
+
+	// 탄이 일정거리 이상 벗어났으면 삭제
+	projectiles.erase(
+	std::remove_if
+	(
+		projectiles.begin(),
+		projectiles.end(),
+		[](Projectile* pr) { return pr->hasTraveledTooFar(); }
+	),
+	projectiles.end()
+	);
 
 	// 적 업데이트
 	for (auto& enemy : this->enemy)
@@ -95,7 +106,7 @@ void MonsterManager::collisionsBetweenUnits()
 		if (enemy->getCollider()->Intersect(GM->player->getCollider()))
 		{
 			if (GM->player->getPlayerStatus() == PLAYER_STATUS::NORMAL)
-				GM->player->actionsWhenDamaged(enemy->getDamage());
+				GM->player->actionsWhenDamaged(-enemy->getDamage());
 
 			Vector2 enemyDir = enemy->getCollider()->GetWorldPos() - GM->player->getCollider()->GetWorldPos();
 			Vector2 OtherEnemyDir = GM->player->getCollider()->GetWorldPos() - enemy->getCollider()->GetWorldPos();
@@ -105,7 +116,6 @@ void MonsterManager::collisionsBetweenUnits()
 
 			enemy->getCollider()->MoveWorldPos(enemyDir * 200 * DELTA);
 			GM->player->getCollider()->MoveWorldPos(OtherEnemyDir * 100 * DELTA);
-
 		}
 
 		// 몬스터와 몬스터 충돌

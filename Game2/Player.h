@@ -36,6 +36,8 @@ private:
 	// skin
 	ObImage*			skin_walk;
 	ObImage*			skin_roll;
+	ObImage*			skin_walkShadow;
+	ObImage*			skin_rollShadow;
 
 	class PlayerTrail*	playerTrail;
 

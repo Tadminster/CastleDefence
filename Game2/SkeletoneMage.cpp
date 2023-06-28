@@ -92,6 +92,16 @@ void SkeletoneMage::Update()
 			this->skin_run->Update();
 	}
 
+	if (action == MONSTER_ACTION::IDLE)
+	{
+		this->skin_run->ChangeAnim(ANIMSTATE::STOP, 0.0f);
+		this->skin_run->frame.x = 0;
+	}
+	else if (action == MONSTER_ACTION::RUN)
+	{
+		this->skin_run->ChangeAnim(ANIMSTATE::LOOP, 0.2f);
+	}
+
 	// 몬스터 상태에 따른 작동
 	if (status == MONSTER_STATUS::NORMAL)
 	{
@@ -105,9 +115,22 @@ void SkeletoneMage::Update()
 		ImGui::Text("distance %f\n", distance);
 
 		// 거리가 250 보다 가까우면 도망, 500 보다 멀면 추격
-		if (distance < 250) runAway();
-		else if (distance > 500) trace();
-		else attack();
+		if (distance < 250)
+		{
+			action = MONSTER_ACTION::RUN;
+			runAway();
+		}
+		else if (distance > 500)
+		{
+			action = MONSTER_ACTION::RUN;
+			trace();
+		}
+		else
+		{
+			action = MONSTER_ACTION::IDLE;
+			attack();
+		}
+			
 
 
 	}

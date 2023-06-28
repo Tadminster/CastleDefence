@@ -43,12 +43,10 @@ void MegaSlime::Init()
 void MegaSlime::Update()
 {
 	// 점프모션에만 이동
-	if (skin_run->frame.x > 1) Monster::Update();
-	else 
-	{
-		collider->Update();
-		skin_run->Update();
-	}
+	if (skin_run->frame.x > 1) action = MONSTER_ACTION::RUN;
+	else action = MONSTER_ACTION::IDLE;
+
+	Monster::Update();
 
 	switch (this->dir)
 	{

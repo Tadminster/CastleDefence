@@ -13,9 +13,11 @@ Player::Player()
 	collider = new ObRect();
 	muzzle = new ObRect();
 	area = new ObRect();
-	
+
 	skin_walk = new ObImage(L"player_walk.png");
 	skin_roll = new ObImage(L"player_roll.png");
+	skin_walkShadow = new ObImage(L"player_walk.png");
+	skin_rollShadow = new ObImage(L"player_roll.png");
 
 	playerTrail = new PlayerTrail();
 }
@@ -38,34 +40,36 @@ void Player::Init()
 	action = PLAYER_ACTION::IDLE;
 	dir_keyboard = PLAYER_DIRECTION::DIR_DOWN;
 	dir_mouse = PLAYER_DIRECTION::DIR_DOWN;
-	
+
 	level = 0;
 	exp = 0;
 	maxHp = 50;
 	hp = maxHp;
-	damage = 1.0f;		
-	def = 0;		
+	damage = 1.0f;
+	def = 0;
 	attackSpeed = 1.0f;
 
 	moveSpeed = 150;
 	dashRange = 200;
 
 	// COLLISION
-	collider->scale = Vector2(30.0f, 60.f);
-	collider->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
 	collider->isFilled = false;
 	collider->hasAxis = false;
+	collider->pivot = OFFSET_B;
+	collider->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
+	collider->scale = Vector2(30.0f, 60.f);
 
 	// MUZZLE
 	muzzle->SetParentRT(*collider);
-	muzzle->scale.x = 30.0f;
-	muzzle->scale.y = 3.0;
-	muzzle->pivot = OFFSET_L;
 	muzzle->isFilled = false;
+	muzzle->pivot = OFFSET_L;
+	muzzle->SetLocalPosY(collider->scale.y / 2.0f);
+	muzzle->scale.x = 20.0f;
+	muzzle->scale.y = 3.0;
 
 	// AREA
 	area->SetParentRT(*collider);
-	area->scale = Vector2(1500.0f, 1500.0f);
+	area->scale = Vector2(2000.0f, 2000.0f);
 	area->color = Color(1.0f, 1.0f, 1.0f, 1.0f);
 	area->isFilled = false;
 	area->hasAxis = false;
@@ -73,6 +77,7 @@ void Player::Init()
 	// SKIN
 	{	// WALK
 		skin_walk->SetParentRT(*this->collider);
+		skin_walk->pivot = OFFSET_B;
 		skin_walk->scale.x = skin_walk->imageSize.x / skin_walk->maxFrame.x / 2;
 		skin_walk->scale.y = skin_walk->imageSize.y / skin_walk->maxFrame.y / 2;
 		skin_walk->maxFrame.x = 6;
@@ -82,6 +87,7 @@ void Player::Init()
 
 	{	// ROLL
 		skin_roll->SetParentRT(*this->collider);
+		skin_roll->pivot = OFFSET_B;
 		skin_roll->scale.x = skin_roll->imageSize.x / skin_roll->maxFrame.x / 2;
 		skin_roll->scale.y = skin_roll->imageSize.y / skin_roll->maxFrame.y / 2;
 		skin_roll->maxFrame.x = 6;
@@ -89,14 +95,51 @@ void Player::Init()
 		skin_roll->ChangeAnim(ANIMSTATE::ONCE, 0.08);
 	}
 
+	{	// WALK SHADOW
+		skin_walkShadow->SetParentRT(*this->collider);
+		skin_walkShadow->pivot = OFFSET_B;
+		skin_walkShadow->scale.x = skin_walkShadow->imageSize.x / skin_walkShadow->maxFrame.x / 2;
+		skin_walkShadow->scale.y = skin_walkShadow->imageSize.y / skin_walkShadow->maxFrame.y / 2;
+		skin_walkShadow->maxFrame.x = 6;
+		skin_walkShadow->maxFrame.y = 8;
+		skin_walkShadow->rotation.x = 80 * ToRadian;
+		skin_walkShadow->color = Vector4(0, 0, 0, 0.25);
+		skin_walkShadow->ChangeAnim(ANIMSTATE::LOOP, 0.1);
+	}
+
+	{	// ROLL SHADOW
+		skin_rollShadow->SetParentRT(*this->collider);
+		skin_rollShadow->pivot = OFFSET_B;
+		skin_rollShadow->scale.x = skin_rollShadow->imageSize.x / skin_rollShadow->maxFrame.x / 2;
+		skin_rollShadow->scale.y = skin_rollShadow->imageSize.y / skin_rollShadow->maxFrame.y / 2;
+		skin_rollShadow->maxFrame.x = 6;
+		skin_rollShadow->maxFrame.y = 8;
+		skin_rollShadow->rotation.x = 80 * ToRadian;
+		skin_rollShadow->color = Vector4(0, 0, 0, 0.25);
+		skin_rollShadow->ChangeAnim(ANIMSTATE::ONCE, 0.08);
+	}
+
 	playerTrail->Init();
 }
 
 void Player::Update()
 {
+	if (ImGui::SliderAngle("rotX", &skin_walkShadow->rotation.x))
+	{
+		skin_rollShadow->rotation.x = skin_walkShadow->rotation.x;
+	}
+	if (ImGui::SliderAngle("rotY", &skin_walkShadow->rotation.y))
+	{
+		skin_rollShadow->rotation.y = skin_walkShadow->rotation.y;
+	}
+	if (ImGui::SliderAngle("rotZ", &skin_walkShadow->rotation.z))
+	{
+		skin_rollShadow->rotation.z = skin_walkShadow->rotation.z;
+	}
+
 	ImGui::Text("weapons : %i\n", this->equip.size());
 	ImGui::Text("bullets : %i\n", this->projectiles.size());
-	
+
 	// 마우스 방향 계산
 	Vector2 mouseDir = INPUT->GetWorldMousePos() - collider->GetWorldPos();
 	int  mouseDirIndex = round((Utility::DirToRadian(mouseDir) + PI) / (45.0f * ToRadian));
@@ -154,21 +197,37 @@ void Player::Update()
 		// KEYBOARD
 		switch (dir_keyboard)
 		{
-		case PLAYER_DIRECTION::DIR_RIGHT: skin_roll->frame.y = 0;
+		case PLAYER_DIRECTION::DIR_RIGHT:
+			skin_roll->frame.y = 0;
+			skin_rollShadow->frame.y = 0;
 			break;
-		case PLAYER_DIRECTION::DIR_UP: skin_roll->frame.y = 1;
+		case PLAYER_DIRECTION::DIR_UP:
+			skin_roll->frame.y = 1;
+			skin_rollShadow->frame.y = 1;
 			break;
-		case PLAYER_DIRECTION::DIR_LEFT:skin_roll->frame.y = 2;
+		case PLAYER_DIRECTION::DIR_LEFT:
+			skin_roll->frame.y = 2;
+			skin_rollShadow->frame.y = 2;
 			break;
-		case PLAYER_DIRECTION::DIR_DOWN: skin_roll->frame.y = 3;
+		case PLAYER_DIRECTION::DIR_DOWN:
+			skin_roll->frame.y = 3;
+			skin_rollShadow->frame.y = 3;
 			break;
-		case PLAYER_DIRECTION::DIR_DOWN_RIGHT:skin_roll->frame.y = 4;
+		case PLAYER_DIRECTION::DIR_DOWN_RIGHT:
+			skin_roll->frame.y = 4;
+			skin_rollShadow->frame.y = 4;
 			break;
-		case PLAYER_DIRECTION::DIR_DOWN_LEFT:skin_roll->frame.y = 5;
+		case PLAYER_DIRECTION::DIR_DOWN_LEFT:
+			skin_roll->frame.y = 5;
+			skin_rollShadow->frame.y = 5;
 			break;
-		case PLAYER_DIRECTION::DIR_UP_LEFT: skin_roll->frame.y = 6;
+		case PLAYER_DIRECTION::DIR_UP_LEFT:
+			skin_roll->frame.y = 6;
+			skin_rollShadow->frame.y = 6;
 			break;
-		case PLAYER_DIRECTION::DIR_UP_RIGHT:skin_roll->frame.y = 7;
+		case PLAYER_DIRECTION::DIR_UP_RIGHT:
+			skin_roll->frame.y = 7;
+			skin_rollShadow->frame.y = 7;
 			break;
 		default:
 			break;
@@ -177,21 +236,37 @@ void Player::Update()
 		// MOUSE
 		switch (dir_mouse)
 		{
-		case PLAYER_DIRECTION::DIR_RIGHT: skin_walk->frame.y = 0;
+		case PLAYER_DIRECTION::DIR_RIGHT:
+			skin_walk->frame.y = 0;
+			skin_walkShadow->frame.y = 0;
 			break;
-		case PLAYER_DIRECTION::DIR_UP: skin_walk->frame.y = 1;
+		case PLAYER_DIRECTION::DIR_UP:
+			skin_walk->frame.y = 1;
+			skin_walkShadow->frame.y = 1;
 			break;
-		case PLAYER_DIRECTION::DIR_LEFT:skin_walk->frame.y = 2;
+		case PLAYER_DIRECTION::DIR_LEFT:
+			skin_walk->frame.y = 2;
+			skin_walkShadow->frame.y = 2;
 			break;
-		case PLAYER_DIRECTION::DIR_DOWN: skin_walk->frame.y = 3;
+		case PLAYER_DIRECTION::DIR_DOWN:
+			skin_walk->frame.y = 3;
+			skin_walkShadow->frame.y = 3;
 			break;
-		case PLAYER_DIRECTION::DIR_DOWN_RIGHT:skin_walk->frame.y = 4;
+		case PLAYER_DIRECTION::DIR_DOWN_RIGHT:
+			skin_walk->frame.y = 4;
+			skin_walkShadow->frame.y = 4;
 			break;
-		case PLAYER_DIRECTION::DIR_DOWN_LEFT:skin_walk->frame.y = 5;
+		case PLAYER_DIRECTION::DIR_DOWN_LEFT:
+			skin_walk->frame.y = 5;
+			skin_walkShadow->frame.y = 5;
 			break;
-		case PLAYER_DIRECTION::DIR_UP_LEFT: skin_walk->frame.y = 6;
+		case PLAYER_DIRECTION::DIR_UP_LEFT:
+			skin_walk->frame.y = 6;
+			skin_walkShadow->frame.y = 6;
 			break;
-		case PLAYER_DIRECTION::DIR_UP_RIGHT:skin_walk->frame.y = 7;
+		case PLAYER_DIRECTION::DIR_UP_RIGHT:
+			skin_walk->frame.y = 7;
+			skin_walkShadow->frame.y = 7;
 			break;
 		default:
 			break;
@@ -202,6 +277,7 @@ void Player::Update()
 	if (action == PLAYER_ACTION::IDLE)
 	{
 		skin_walk->frame.x = 0;
+		skin_walkShadow->frame.x = 0;
 	}
 	else if (action == PLAYER_ACTION::RUN)
 	{
@@ -280,6 +356,8 @@ void Player::Update()
 	this->area->Update();
 	this->skin_walk->Update();
 	this->skin_roll->Update();
+	this->skin_walkShadow->Update();
+	this->skin_rollShadow->Update();
 
 	// 탄 업데이트
 	for (auto& projectiles : projectiles)
@@ -296,11 +374,19 @@ void Player::Render()
 	}
 
 	if (action == PLAYER_ACTION::IDLE)
+	{
+		skin_walkShadow->Render();
 		skin_walk->Render();
+	}
 	else if (action == PLAYER_ACTION::RUN)
+	{
+		skin_walkShadow->Render();
 		skin_walk->Render();
+
+	}
 	else if (action == PLAYER_ACTION::DASH)
 	{
+		skin_rollShadow->Render();
 		playerTrail->Render();
 		skin_roll->Render();
 	}
@@ -311,7 +397,7 @@ void Player::Render()
 }
 
 void Player::Control()
-{	
+{
 
 	// 이동
 	if (action != PLAYER_ACTION::DASH)
@@ -378,6 +464,7 @@ void Player::Control()
 			dashRange = 200;
 			action = PLAYER_ACTION::DASH;
 			skin_roll->frame.x = 0;
+			skin_rollShadow->frame.x = 0;
 		}
 	}
 
@@ -393,7 +480,7 @@ void Player::actionsWhenDamaged(int value)
 	// 스킨 컬러 변경
 	skin_walk->color = Vector4(0.9, 0.5, 0.5, 0.5);
 	// 데미지 차감
-	int damage = max(value - def, 0);
+	int damage = min(value + def, 0);
 	// 체력 감소
-	hp = max(hp - damage, 0);
+	hp = max(hp + damage, 0);
 }

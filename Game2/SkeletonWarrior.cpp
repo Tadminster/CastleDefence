@@ -7,7 +7,7 @@ SkeletonWarrior::SkeletonWarrior()
 	this->skin_run = new ObImage(L"SkeletonWarrior.png");
 
 	status = MONSTER_STATUS::NORMAL;
-	action = MONSTER_ACTION::IDLE;
+	action = MONSTER_ACTION::RUN;
 	dir = MONSTER_DIRECTION::D;
 	type = MONSTER_TYPE::MINION;
 

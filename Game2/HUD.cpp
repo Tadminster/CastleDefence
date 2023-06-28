@@ -46,7 +46,7 @@ void HUD::Init()
 
 	box_hp->pivot = OFFSET_L;
 	box_hp->color = Vector4(0.5, 0.5, 0.5, 0.4);
-	box_hp->SetWorldPos(Vector2(-50, -45));
+	box_hp->SetWorldPos(Vector2(-50, -20));
 	box_hp->scale.x = 100;
 	box_hp->scale.y = box_hp->imageSize.y * 2;
 

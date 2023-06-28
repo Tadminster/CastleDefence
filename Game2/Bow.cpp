@@ -81,4 +81,3 @@ bool Bow::Attack()
 
     return false;
 }
-

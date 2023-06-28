@@ -82,4 +82,3 @@ bool Fireball::Attack()
 
     return false;
 }
-

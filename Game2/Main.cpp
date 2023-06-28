@@ -6,7 +6,8 @@
 
 
 Main::Main()
-{
+{ 
+	GM->Init();
 	mapManager = new Map();
 	hud = new HUD();
 }
@@ -19,13 +20,12 @@ Main::~Main()
 
 void Main::Init()
 {
-	mapManager->Init();
-	hud->Init();
-	GM->Init();
-
 	GM->levelUp->Init();
 	GM->player->Init();
 	GM->monster->Init();
+
+	mapManager->Init();
+	hud->Init();
 }
 
 void Main::Release()

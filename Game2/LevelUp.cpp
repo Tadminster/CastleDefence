@@ -332,9 +332,9 @@ bool LevelUp::GetFirstItem()
 	int ran[3];
 	while (true)
 	{
-		ran[0] = RANDOM->Int(1, 3);
-		ran[1] = RANDOM->Int(1, 3);
-		ran[2] = RANDOM->Int(1, 3);
+		ran[0] = RANDOM->Int(1, 4);
+		ran[1] = RANDOM->Int(1, 4);
+		ran[2] = RANDOM->Int(1, 4);
 
 		if (ran[0] != ran[1] && ran[1] != ran[2] && ran[0] != ran[2]) break;
 	}

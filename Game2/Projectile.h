@@ -31,12 +31,12 @@ public:
     virtual void        Update();
     virtual void        Render();
     
-    bool            hasCollideWithMonster();
-    bool            hasCollideWithPlayer();
+    virtual bool        hasCollideWithMonster();
+    bool                hasCollideWithPlayer();
     /* 탄이 이동한 거리가 range를 넘었는지 확인 */
-    bool            hasTraveledTooFar() const { return traveledDistance >= range; }
+    bool                hasTraveledTooFar() const { return traveledDistance >= range; }
     /* 탄의 관통횟수가 전부 소모되었는지 확인 */
-    bool            hasPenetration() const { return penetration <= 0; }
+    bool                hasPenetration() const { return penetration <= 0; }
 
     virtual void       AfterEffect();
 };

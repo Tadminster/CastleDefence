@@ -23,6 +23,7 @@
     <ClInclude Include="Bow.h" />
     <ClInclude Include="PlayerTrail.h" />
     <ClInclude Include="Proj_enemyBullet.h" />
+    <ClInclude Include="Proj_shuriken.h" />
     <ClInclude Include="SharpEdge.h" />
     <ClInclude Include="FilePath.h" />
     <ClInclude Include="Fireball.h" />
@@ -45,6 +46,7 @@
     <ClInclude Include="Proj_arrow.h" />
     <ClInclude Include="Proj_axe.h" />
     <ClInclude Include="Proj_fireball.h" />
+    <ClInclude Include="Shuriken.h" />
     <ClInclude Include="SkeletoneMage.h" />
     <ClInclude Include="SkeletonWarrior.h" />
     <ClInclude Include="Slime.h" />
@@ -57,6 +59,7 @@
     <ClCompile Include="Bow.cpp" />
     <ClCompile Include="PlayerTrail.cpp" />
     <ClCompile Include="Proj_enemyBullet.cpp" />
+    <ClCompile Include="Proj_shuriken.cpp" />
     <ClCompile Include="SharpEdge.cpp" />
     <ClCompile Include="FilePath.cpp" />
     <ClCompile Include="Fireball.cpp" />
@@ -79,6 +82,7 @@
     <ClCompile Include="Proj_arrow.cpp" />
     <ClCompile Include="Proj_axe.cpp" />
     <ClCompile Include="Proj_fireball.cpp" />
+    <ClCompile Include="Shuriken.cpp" />
     <ClCompile Include="SkeletoneMage.cpp" />
     <ClCompile Include="SkeletonWarrior.cpp" />
     <ClCompile Include="Slime.cpp" />

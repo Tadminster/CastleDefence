@@ -8,6 +8,7 @@ public:
 	class Bow* bow;
 	class Fireball* fireball;
 	class ThrowingAxe* throwingAxe;
+	class Shuriken* shuriken;
 
 	// 패시브장비류
 	class Boot* boot;

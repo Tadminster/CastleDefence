@@ -1,4 +1,4 @@
-#include "Framework.h"
+﻿#include "Framework.h"
 
 // Forward declare message handler from imgui_impl_win32.cpp
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -64,7 +64,7 @@ void Gui::ResizeScreen()
 void Gui::Update()
 {
 	fileID = 0;
-	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplDX11_NewFrame	();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 

@@ -25,11 +25,11 @@ Proj_shuriken::Proj_shuriken(
 
 	skin = new ObImage(L"proj_shuriken.png");
 	skin->SetParentRT(*collider);
-	skin->maxFrame.x = 1;
+	skin->maxFrame.x = 4;
 	skin->maxFrame.y = 1;
 	skin->frame.y = 1;
-	skin->scale.x = 32;
-	skin->scale.y = 32;
+	skin->scale.x = skin->imageSize.x / skin->maxFrame.x * 0.8f;
+	skin->scale.y = skin->imageSize.y / skin->maxFrame.y * 0.8f;
 	skin->rotation.z = atanf(dir.y / dir.x);
 	skin->ChangeAnim(ANIMSTATE::LOOP, 0.05f);
 	if (dir.x < 0) skin->reverseLR = true;
@@ -51,7 +51,7 @@ void Proj_shuriken::Update()
 
 void Proj_shuriken::Render()
 {
-    collider_range->Render();
+    if (GM->DEBUG_MODE) collider_range->Render();
 	Projectile::Render();
 }
 
@@ -103,24 +103,16 @@ void Proj_shuriken::findNewTarget()
     {
         // 이전에 충돌한적이 있는지 비교
         for (auto& crashed : crash)
-            if (crashed == enemy)
-            {
-                
-            }
+            if (crashed == enemy) continue;
             else
             {
                 // 거리 계산
                 Vector2 newDir = enemy->getCollider()->GetWorldPos() - this->collider->GetWorldPos();
                 float newDistance = newDir.Length();
 
-
-
                 // 계산한 거리가 더 짧으면 거리와 방향 저장
                 if (minDistance > newDistance)
                 {
-                    cout << "이전거리: " << minDistance << endl;
-                    cout << "탐색거리: " << newDistance << endl;
-
                     minDistance = newDistance;
                     nextDir = newDir;
                 }
@@ -128,11 +120,6 @@ void Proj_shuriken::findNewTarget()
 
   
     }
-
-    cout << "이전방향_x: " << dir.x << endl;
-    cout << "이전방향_y: " << dir.y << endl;
-    cout << "탐색방향_x: " << nextDir.x << endl;
-    cout << "탐색방향_y: " << nextDir.x << endl << endl;
 
     traveledDistance = 0.0f;
     dir = nextDir;

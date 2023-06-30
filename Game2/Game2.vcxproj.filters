@@ -99,6 +99,12 @@
     <ClInclude Include="Proj_shuriken.h">
       <Filter>Items\Projectile</Filter>
     </ClInclude>
+    <ClInclude Include="EnergeBall.h">
+      <Filter>Items\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Proj_energeBall.h">
+      <Filter>Items\Projectile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -196,6 +202,12 @@
       <Filter>Items\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="Proj_shuriken.cpp">
+      <Filter>Items\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="EnergeBall.cpp">
+      <Filter>Items\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Proj_energeBall.cpp">
       <Filter>Items\Projectile</Filter>
     </ClCompile>
   </ItemGroup>

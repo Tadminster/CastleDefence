@@ -9,6 +9,7 @@ public:
 	class Fireball* fireball;
 	class ThrowingAxe* throwingAxe;
 	class Shuriken* shuriken;
+	class EnergeBall* energeball;
 
 	// 패시브장비류
 	class Boot* boot;

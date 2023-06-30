@@ -21,8 +21,10 @@
   <ItemGroup>
     <ClInclude Include="Boot.h" />
     <ClInclude Include="Bow.h" />
+    <ClInclude Include="EnergeBall.h" />
     <ClInclude Include="PlayerTrail.h" />
     <ClInclude Include="Proj_enemyBullet.h" />
+    <ClInclude Include="Proj_energeBall.h" />
     <ClInclude Include="Proj_shuriken.h" />
     <ClInclude Include="SharpEdge.h" />
     <ClInclude Include="FilePath.h" />
@@ -57,8 +59,10 @@
   <ItemGroup>
     <ClCompile Include="Boot.cpp" />
     <ClCompile Include="Bow.cpp" />
+    <ClCompile Include="EnergeBall.cpp" />
     <ClCompile Include="PlayerTrail.cpp" />
     <ClCompile Include="Proj_enemyBullet.cpp" />
+    <ClCompile Include="Proj_energeBall.cpp" />
     <ClCompile Include="Proj_shuriken.cpp" />
     <ClCompile Include="SharpEdge.cpp" />
     <ClCompile Include="FilePath.cpp" />

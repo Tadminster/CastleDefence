@@ -12,6 +12,7 @@
 #include "Bow.h"
 #include "ThrowingAxe.h"
 #include "Shuriken.h"
+#include "EnergeBall.h"
 
 #include "Boot.h"
 #include "Glove.h"
@@ -25,6 +26,7 @@ ItemList::ItemList() : itemSize(0)
 	fireball = new Fireball();
 	throwingAxe = new ThrowingAxe();
 	shuriken = new Shuriken();
+	energeball = new EnergeBall();
 
 	boot = new Boot();
 	glove = new Glove();
@@ -37,10 +39,11 @@ void ItemList::Init()
 	this->itemList.insert(std::make_pair(2, fireball));
 	this->itemList.insert(std::make_pair(3, throwingAxe));
 	this->itemList.insert(std::make_pair(4, shuriken));
+	this->itemList.insert(std::make_pair(5, energeball));
 
-	this->itemList.insert(std::make_pair(5, boot));
-	this->itemList.insert(std::make_pair(6, glove));
-	this->itemList.insert(std::make_pair(7, sharpEdge));
+	this->itemList.insert(std::make_pair(6, boot));
+	this->itemList.insert(std::make_pair(7, glove));
+	this->itemList.insert(std::make_pair(8, sharpEdge));
 
     itemSize = itemList.size();
 }

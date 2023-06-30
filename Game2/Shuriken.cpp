@@ -7,13 +7,13 @@
 
 Shuriken::Shuriken()
 {
-    this->skin = new ObImage(L"shuriken.png");
+    this->skin = new ObImage(L"item_shuriken.png");
     this->tag = Tag::WEAPON;
 
     this->timeSinceLastTime = 0;
 
-    this->damage = 7.0f;
-    this->attackSpeed = 0.7f;
+    this->damage = 5.0f;
+    this->attackSpeed = 0.5f;
     this->critical = 0.1;
     this->penetration = 2;
     this->range = 500.0f;
@@ -22,14 +22,13 @@ Shuriken::Shuriken()
     this->level = 0;
     this->maxLevel = 10;
 
-    this->name = L"  표창";
-    //this->explain = L"화살을 날려 적에게 피해를 줍니다. \n\n공격력: 10 \n공격속도: 1.0 \n사정거리: 650";
+    this->name = L"   표창";
 
     std::wstringstream ss;
-    ss << L"표창을 날려 적에게 피해를 줍니다. 사거리 내 주변의 다른 적을 추적하여 공격합니다.\n\n공격력: " << this->damage <<
+    ss << L"표창을 날려 적에게 피해를 줍니다. 사거리 내 주변의 다른 적에게 튕깁니다.\n\n공격력: " << this->damage <<
         L"\n공격 속도: " << this->attackSpeed <<
         L"\n사정거리: " << this->range <<
-        L"\n추가공격: " << this->penetration - 1;
+        L"\n튕김: " << this->penetration - 1;
     this->explain = ss.str();
 }
 
@@ -39,10 +38,10 @@ void Shuriken::Update()
     this->attackSpeed = 1.0f + level * 0.2;
 
     std::wstringstream ss;
-    ss << L"표창을 날려 적에게 피해를 줍니다. 사거리 내 주변의 다른 적을 추적하여 공격합니다.\n\n공격력: " << this->damage <<
+    ss << L"표창을 날려 적에게 피해를 줍니다. 사거리 내 주변의 다른 적에게 튕깁니다.\n\n공격력: " << this->damage <<
         L"\n공격 속도: " << this->attackSpeed <<
         L"\n사정거리: " << this->range <<
-        L"\n추가공격: " << this->penetration - 1;
+        L"\n튕김: " << this->penetration - 1;
     this->explain = ss.str();
 }
 

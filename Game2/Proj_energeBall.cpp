@@ -13,7 +13,7 @@ Proj_energeBall::Proj_energeBall(
 	tag = DamageType::NORMAL;
 
 	collider = new ObRect();
-	collider->SetParentRT(*GM->player->getCollider());
+	collider->SetParentT(*GM->player->getCollider());
 	collider->SetWorldPos(spawnPos);
 	collider->SetLocalPosX(100);
 	collider->scale = Vector2(16, 16);
@@ -39,9 +39,10 @@ Proj_energeBall::Proj_energeBall(
 
 void Proj_energeBall::Update()
 {
-	//static float rotationInterval = 0.0f;
-	//if (TIMER->GetTick(rotationInterval, 0.05f))
-		collider->rotation2.z += 0.1 * ToRadian;
+	static float damageInterval = 0.0f;
+	if (TIMER->GetTick(damageInterval, 0.5f)) this->crash.clear();
+
+	collider->rotation2.z += 1  * DELTA;
 
 	collider->Update();
 	skin->Update();

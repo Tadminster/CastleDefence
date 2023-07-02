@@ -12,17 +12,17 @@ EnergeBall::EnergeBall()
 
     this->timeSinceLastTime = 0;
 
-    this->damage = 7.0f;
+    this->damage = 5.0f;
     this->attackSpeed = 0.1f;
-    this->critical = 0.1;
-    this->penetration = 2;
+    this->critical = 0.3;
+    this->penetration = 3;
     this->range = 650.0f;
     this->projectileSpeed = 500.f;
 
     this->level = 0;
     this->maxLevel = 10;
 
-    this->name = L"에너지볼";
+    this->name = L" 에너지볼";
 
     std::wstringstream ss;
     ss << L"에너지볼을 생성해 주변을 회전하며 적을 공격합니다.\n\n공격력: " << this->damage <<
@@ -35,7 +35,7 @@ EnergeBall::EnergeBall()
 void EnergeBall::Update()
 {
     this->damage = 10.0f + level * 1;
-    this->attackSpeed = 1.0f + level * 0.2;
+    this->attackSpeed = 0.3f + level * 0.2;
 
     std::wstringstream ss;
     ss << L"에너지볼을 생성해 주변을 회전하며 적을 공격합니다.\n\n공격력: " << this->damage <<
@@ -52,12 +52,11 @@ bool EnergeBall::Attack()
 
     if (elapsedTime >= this->timeSinceLastTime)
     {
-        // 총구 위치 계산
-        Vector2 muzzle = Vector2(
-            GM->player->getColliderWeapon()->GetWorldPos()
-            + GM->player->getColliderWeapon()->GetRight() * GM->player->getColliderWeapon()->scale.x);
-        // 탄각 계산(플레이어가 바라보는 방향)
-        // float rotation_z{ atan2f(shooter->get_right().y, shooter->get_right().x) };
+        cout << "currentTime " << currentTime << endl;
+        cout << "elapsedTime " << elapsedTime << endl;
+        cout << "timeSinceLastTime " << timeSinceLastTime << endl;
+        cout << "attackSpeed " << attackSpeed << endl;
+        cout << "player_attackSpeed " << GM->player->getAttSpeed() << endl << endl;
 
         // 탄생성
         Proj_energeBall* energeball = new Proj_energeBall

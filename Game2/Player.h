@@ -3,7 +3,8 @@ enum class PLAYER_ACTION
 {
 	IDLE,
 	RUN,
-	DASH
+	DASH,
+	DEATH
 };
 
 enum class PLAYER_STATUS
@@ -38,6 +39,7 @@ private:
 	ObImage*			skin_roll;
 	ObImage*			skin_walkShadow;
 	ObImage*			skin_rollShadow;
+	ObImage*			skin_death;
 
 	class PlayerTrail*	playerTrail;
 

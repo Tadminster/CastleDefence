@@ -98,7 +98,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE prevInstance, LPWSTR param, in
 {
 	app.SetAppName(L"VamsurLike");
 	app.SetInstance(instance);
-	app.InitWidthHeight(1000.f, 900.f);
+	app.InitWidthHeight(1440.f, 900.f);
 	WIN->Create();
 	Main* main = new Main();
 	int wParam = (int)WIN->Run(main);

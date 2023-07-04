@@ -378,6 +378,4 @@ void LevelUp::LvEeventHandle(int number)
 		items[number]->level++;
 		items[number]->Update();
 	}
-
-
 }

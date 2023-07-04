@@ -126,14 +126,15 @@ void Player::Init()
 	}
 
 	{
+		// DEATH
 		skin_death->SetParentRT(*this->collider);
 		skin_death->pivot = OFFSET_B;
-		skin_death->maxFrame.x = 6;
-		skin_death->maxFrame.y = 3;
-		skin_death->frame.y = 1;
+		skin_death->maxFrame.x = 12;
+		skin_death->maxFrame.y = 1;
 		skin_death->scale.x = skin_death->imageSize.x / skin_death->maxFrame.x;
 		skin_death->scale.y = skin_death->imageSize.y / skin_death->maxFrame.y;
-		skin_death->ChangeAnim(ANIMSTATE::ONCE, 0.2f);
+		skin_death->color.w = 0.3;
+		skin_death->ChangeAnim(ANIMSTATE::ONCE, 0.1f);
 	}
 
 	playerTrail->Init();
@@ -150,8 +151,16 @@ void Player::Update()
 	// 액션
 	if (action == PLAYER_ACTION::DEATH)
 	{
+		static float elapsedDeathTime = 0.0f;
+		elapsedDeathTime += DELTA;
 		// 사망처리
 		skin_death->Update();
+		TIMER->TimeStop();
+
+		if (elapsedDeathTime > 3.0f)
+		{
+			app.deltaScale = 0;
+		}
 	}
 	else
 	{

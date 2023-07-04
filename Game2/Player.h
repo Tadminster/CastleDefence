@@ -96,6 +96,7 @@ public:
 	virtual Vector2 getPos()			{ return this->collider->GetWorldPos(); }
 	vector<class Projectile*>& getProjectiles() {return projectiles;}
 	PLAYER_STATUS	getPlayerStatus()	{ return status; }
+	PLAYER_ACTION	getPlayerAction()	{ return action; }
 
 	// set
 	void			addAttSpeed(float value)	{ this->attackSpeed + value; }

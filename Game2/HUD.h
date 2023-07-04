@@ -10,12 +10,16 @@ private:
 
 	class ObImage* icon_kill;
 
+	class ObImage* window_ending;
+
+
 	RECT textBox_kill;
 	RECT textBox_level;
 	RECT textBox_time;
 	
 	string fontFile;
 	int minute, second;
+	int score;
 
 public:
 	HUD();

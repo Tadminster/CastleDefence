@@ -12,6 +12,8 @@ HUD::HUD()
 	gauge_hp = new ObImage(L"ui_gauge_hp.png");
 	icon_kill = new ObImage(L"ui_icon_kill.png");
 
+	window_ending = new ObImage(L"skin_window_death.png");
+
 	gauge_exp->SetParentRT(*box_exp);
 	gauge_hp->SetParentRT(*box_hp);
 
@@ -31,6 +33,14 @@ HUD::~HUD()
 	delete box_hp;
 	delete gauge_hp;
 	delete icon_kill;
+	delete window_ending;
+
+	TEXTURE->DeleteTexture(L"ui_box_exp.png");
+	TEXTURE->DeleteTexture(L"ui_gauge_exp.png");
+	TEXTURE->DeleteTexture(L"ui_box_hp.png");
+	TEXTURE->DeleteTexture(L"ui_gauge_hp.png");
+	TEXTURE->DeleteTexture(L"ui_icon_kill.png");
+	TEXTURE->DeleteTexture(L"skin_window_death.png");
 }
 
 void HUD::Init()
@@ -75,6 +85,10 @@ void HUD::Init()
 	textBox_time.top = Utility::WorldToScreen(Vector2(0, 400)).y;
 	textBox_time.right = textBox_time.left + 1000;
 	textBox_time.bottom = textBox_time.top + 1000;
+
+	window_ending->scale = Vector2 (800, 600);
+	window_ending->SetWorldPos (GM->player->getCollider()->GetWorldPos());
+	window_ending->color = Vector4(0, 0, 0, 0.3);
 }
 
 void HUD::Release()
@@ -83,17 +97,25 @@ void HUD::Release()
 
 void HUD::Update()
 {
-	gauge_exp->scale.x = (GM->player->exp / GM->nextExp[GM->player->level]) * app.GetWidth();
-	gauge_hp->scale.x = (GM->player->getHp() / GM->player->getMaxHp()) * 94;
+	if (GM->player->getPlayerAction() != PLAYER_ACTION::DEATH)
+	{
+		gauge_exp->scale.x = (GM->player->exp / GM->nextExp[GM->player->level]) * app.GetWidth();
+		gauge_hp->scale.x = (GM->player->getHp() / GM->player->getMaxHp()) * 94;
 
-	box_exp->Update();
-	gauge_exp->Update();
-	box_hp->Update();
-	gauge_hp->Update();
-	icon_kill->Update();
+		box_exp->Update();
+		gauge_exp->Update();
+		box_hp->Update();
+		gauge_hp->Update();
+		icon_kill->Update();
 
-	minute = TIMER->GetWorldTime() / 60;
-	second = static_cast<int>(TIMER->GetWorldTime()) % 60;
+		minute = TIMER->GetWorldTime() / 60;
+		second = static_cast<int>(TIMER->GetWorldTime()) % 60;
+	}
+	else
+	{
+
+		window_ending->Update();
+	}
 }
 
 void HUD::LateUpdate()
@@ -102,6 +124,8 @@ void HUD::LateUpdate()
 
 void HUD::Render()
 {
+	if (GM->player->getPlayerAction() != PLAYER_ACTION::DEATH)
+	{
 	box_exp->Render();
 	gauge_exp->Render();
 	box_hp->Render();
@@ -140,4 +164,10 @@ void HUD::Render()
 		DWRITE_FONT_WEIGHT_BOLD,
 		DWRITE_FONT_STYLE_NORMAL, 
 		DWRITE_FONT_STRETCH_ULTRA_EXPANDED);
+
+	}
+	else
+	{
+		window_ending->Render();
+	}
 }

@@ -8,6 +8,7 @@ public:
 	bool	isTitleEntering = true;
 
 	class   Title* title;
+	class   HUD* hud;
 	class	ItemList* itemList;
 	class	LevelUp* levelUp;
 	class	Player* player;

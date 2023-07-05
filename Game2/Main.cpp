@@ -9,13 +9,12 @@ Main::Main()
 { 
 	GM->Init();
 	mapManager = new Map();
-	hud = new HUD();
+	//hud = new HUD();
 }
 
 Main::~Main()
 {
 	mapManager->~Map();
-	hud->~HUD();
 }
 
 void Main::Init()
@@ -24,9 +23,9 @@ void Main::Init()
 	GM->levelUp->Init();
 	GM->player->Init();
 	GM->monster->Init();
+	GM->hud->Init();
 
 	mapManager->Init();
-	hud->Init();
 }
 
 void Main::Release()
@@ -73,7 +72,7 @@ void Main::Update()
 		mapManager->Update();
 
 		GM->Update();
-		hud->Update();
+		GM->hud->Update();
 		GM->player->Update();
 		GM->monster->Update();
 
@@ -107,7 +106,7 @@ void Main::Render()
 		mapManager->Render();
 		GM->player->Render();
 		GM->monster->Render();
-		hud->Render();
+		GM->hud->Render();
 		GM->Render();
 	}
 

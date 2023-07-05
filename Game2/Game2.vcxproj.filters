@@ -105,7 +105,9 @@
     <ClInclude Include="Proj_energeBall.h">
       <Filter>Items\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="Title.h" />
+    <ClInclude Include="Title.h">
+      <Filter>System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -211,7 +213,9 @@
     <ClCompile Include="Proj_energeBall.cpp">
       <Filter>Items\Projectile</Filter>
     </ClCompile>
-    <ClCompile Include="Title.cpp" />
+    <ClCompile Include="Title.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="window.ini" />

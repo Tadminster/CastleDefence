@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "Title.h"
+#include "HUD.h"
 #include "ItemList.h"
 #include "Player.h"
 #include "MonsterManager.h"
@@ -27,6 +28,7 @@ void GameManager::Init()
 	player = new Player();
 	monster = new MonsterManager();
 	levelUp = new LevelUp();
+	hud = new HUD();
 }
 
 void GameManager::Update()

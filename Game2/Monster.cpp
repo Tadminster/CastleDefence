@@ -12,6 +12,27 @@ Monster::Monster() :
 
 void Monster::Init()
 {
+	collider->pivot = OFFSET_B;
+	collider->isFilled = false;
+
+	// 소환 위치 설정
+	int spawnPosX, spawnPosY;
+	int spawnMinRange = 500;
+	while (1)
+	{
+		spawnPosX = RANDOM->Int(-1500, 1500);
+		spawnPosY = RANDOM->Int(-1500, 1500);
+
+
+		// 스폰 범위 밖이면 반복문 탈출
+		if (spawnMinRange - abs(spawnPosX) < 0 &&
+			spawnMinRange - abs(spawnPosY) < 0)
+		{
+			cout << spawnPosX << " : " << spawnPosY << endl;
+			break;
+		}
+	}
+	collider->SetWorldPos(Vector2(spawnPosX, spawnPosY));
 }
 
 void Monster::Update()

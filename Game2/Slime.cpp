@@ -31,9 +31,7 @@ Slime::~Slime()
 
 void Slime::Init()
 {
-	collider->pivot = OFFSET_B;
-	collider->SetWorldPos(Vector2(RANDOM->Int(-1000, 1000), RANDOM->Int(-1000, 1000)));
-	collider->isFilled = false;
+	Monster::Init();
 	collider->scale = Vector2(30, 30);
 
 	skin_run->SetParentRT(*collider);

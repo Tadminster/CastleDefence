@@ -35,7 +35,7 @@ void Title::Init()
 	btnStart->color = Vector4(0.5, 0.5, 0.5, 0.5);	
 	
 	btnExit->SetParentRT(*bg_title);
-	btnExit->SetLocalPosY(200);
+	btnExit->SetLocalPosY(-200);
 	btnExit->scale.x = 300;
 	btnExit->scale.y = 150;
 	btnExit->isFilled = false;
@@ -48,6 +48,8 @@ void Title::Release()
 
 void Title::Update()
 {
+	OnClick();
+
 	bg_title->Update();
 	btnStart->Update();
 	btnExit->Update();
@@ -55,7 +57,22 @@ void Title::Update()
 
 void Title::LateUpdate()
 {
-	
+	//if (btnStart->Intersect(INPUT->GetWorldMousePos()))
+	//{
+	//	cout << " 마우스 올라감" << endl;
+	//	btnStart->color = Vector4(1, 0, 0, 0.5);
+	//} 
+
+	if (btnStart->IntersectScreenMouse(INPUT->GetScreenMousePos()))
+	{
+		btnStart->color = Vector4(1, 0, 0, 0.5);
+	} else btnStart->color = Vector4(0.5, 0.5, 0.5, 0.5);
+
+	if (btnExit->IntersectScreenMouse(INPUT->GetScreenMousePos()))
+	{
+		btnExit->color = Vector4(1, 0, 0, 0.5);
+	}
+	else btnExit->color = Vector4(0.5, 0.5, 0.5, 0.5);
 }
 
 void Title::Render()
@@ -63,6 +80,21 @@ void Title::Render()
 	bg_title->Render();
 	btnStart->Render();
 	btnExit->Render();
+}
+
+void Title::OnClick()
+{
+	if (INPUT->KeyDown(VK_LBUTTON))
+	{
+		if (btnStart->IntersectScreenMouse(INPUT->GetScreenMousePos()))
+		{
+			GM->isTitleEntering = false;
+		}
+		if (btnExit->IntersectScreenMouse(INPUT->GetScreenMousePos()))
+		{
+			exit(1);
+		}
+	}
 }
 
 

@@ -17,5 +17,7 @@ public:
 	void Update();
 	void LateUpdate();//갱신
 	void Render();
+
+	void OnClick();
 };
 

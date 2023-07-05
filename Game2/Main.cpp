@@ -85,7 +85,15 @@ void Main::Update()
 
 void Main::LateUpdate()
 {
-	GM->monster->LateUpdate();
+	if (GM->isTitleEntering)
+	{
+		GM->title->LateUpdate();
+	}
+	else
+	{
+		GM->monster->LateUpdate();
+	}
+
 }
 
 void Main::Render()

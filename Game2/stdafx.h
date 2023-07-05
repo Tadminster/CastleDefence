@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "GameManager.h"
+#include "Title.h"
 #include "LevelUp.h"
 #include "MonsterManager.h"
 #include "Player.h"

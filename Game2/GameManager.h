@@ -5,7 +5,9 @@ class GameManager : public Singleton<GameManager>
 {
 public:
 	bool	DEBUG_MODE = false;
+	bool	isTitleEntering = true;
 
+	class   Title* title;
 	class	ItemList* itemList;
 	class	LevelUp* levelUp;
 	class	Player* player;

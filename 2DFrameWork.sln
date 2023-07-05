@@ -58,6 +58,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{23927E
 		Contents\Images\SkeletonWarrior.png = Contents\Images\SkeletonWarrior.png
 		Contents\Images\skin_window_lvUp.png = Contents\Images\skin_window_lvUp.png
 		Contents\Images\Slime.png = Contents\Images\Slime.png
+		Contents\Images\Title.png = Contents\Images\Title.png
 		Contents\Images\ui_box_exp.png = Contents\Images\ui_box_exp.png
 		Contents\Images\ui_box_hp.png = Contents\Images\ui_box_hp.png
 		Contents\Images\ui_gauge_exp.png = Contents\Images\ui_gauge_exp.png

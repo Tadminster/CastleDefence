@@ -54,6 +54,7 @@
     <ClInclude Include="Slime.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ThrowingAxe.h" />
+    <ClInclude Include="Title.h" />
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +92,7 @@
     <ClCompile Include="SkeletonWarrior.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="ThrowingAxe.cpp" />
+    <ClCompile Include="Title.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>

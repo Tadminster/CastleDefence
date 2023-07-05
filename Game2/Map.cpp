@@ -12,7 +12,6 @@ Map::Map()
 		col_background[i] = new ObRect();
 		std::string imgFileName = "bg_" + to_string(i+1) + ".bmp";
 		img_background[i] = new ObImage(std::wstring(imgFileName.begin(), imgFileName.end()).c_str());
-		img_background[i]->SetParentRT(*col_background[i]);
 	}
 }
 
@@ -35,7 +34,7 @@ void Map::Init()
 	{
 		Vector2 sacle(2300.f, 2300.f);
 		col_background[i]->scale = sacle;
-		col_background[i]->color = Vector4(1, 0.0, 0.0, 0.5);
+		//col_background[i]->color = Vector4(1, 0.0, 0.0, 0.5);
 		col_background[i]->isFilled = false;
 		switch (i)
 		{
@@ -44,7 +43,9 @@ void Map::Init()
 			case 2 : col_background[i]->SetWorldPos(Vector2(-sacle.x / 2, sacle.y / 2)); break;
 			case 3 : col_background[i]->SetWorldPos(Vector2(-sacle.x / 2, -sacle.y / 2)); break;
 		}
+		img_background[i]->SetParentRT(*col_background[i]);
 		img_background[i]->scale = sacle;
+		//img_background[i]->color = Vector4(0.53, 0.53, 0.53, 0.5);
 	}
 }
 

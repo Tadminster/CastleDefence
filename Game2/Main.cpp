@@ -2,11 +2,14 @@
 #include "Map.h"
 //#include "MonsterManager.h"
 #include "HUD.h"
+#include "Scene_1_title.h"
 #include "Main.h"
 
 
 Main::Main()
 { 
+	sc_1_title = new Scene_1_title();
+
 	GM->Init();
 	mapManager = new Map();
 	//hud = new HUD();
@@ -19,7 +22,8 @@ Main::~Main()
 
 void Main::Init()
 {
-	GM->title->Init();
+	sc_1_title->Init();
+	SCENE->Add
 	GM->levelUp->Init();
 	GM->player->Init();
 	GM->monster->Init();

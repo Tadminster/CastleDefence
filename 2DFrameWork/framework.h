@@ -126,4 +126,4 @@ extern Application app;//Extern Global
 #define SOUND		Sound::GetInstance()
 #define LIGHT		Light::GetInstance()->Get()
 #define DWRITE		Dwrite::GetInstance()
-//#define SCENE       SceneManager::GetInstance()
+#define SCENE       SceneManager::GetInstance()

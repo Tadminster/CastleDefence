@@ -133,7 +133,7 @@ void Player::Init()
 		skin_death->maxFrame.y = 1;
 		skin_death->scale.x = skin_death->imageSize.x / skin_death->maxFrame.x;
 		skin_death->scale.y = skin_death->imageSize.y / skin_death->maxFrame.y;
-		skin_death->color.w = 0.3;
+		skin_death->color.w = 0.5;
 		skin_death->ChangeAnim(ANIMSTATE::ONCE, 0.1f);
 	}
 

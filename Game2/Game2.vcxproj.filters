@@ -108,6 +108,10 @@
     <ClInclude Include="Title.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Scene_1_title.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -216,6 +220,9 @@
     <ClCompile Include="Title.cpp">
       <Filter>System</Filter>
     </ClCompile>
+    <ClCompile Include="Scene_1_title.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="window.ini" />
@@ -247,6 +254,9 @@
     </Filter>
     <Filter Include="Object\Player">
       <UniqueIdentifier>{db0b7085-cbc6-45b0-9acf-98eb6d3cbc20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{60725e22-5f79-440c-8d99-d33360fbf4d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

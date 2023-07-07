@@ -101,7 +101,7 @@ extern Application app;//Extern Global
 #include "Sound.h"
 #include "Light.h"
 #include "Dwrite.h"
-//#include "SceneManager.h"
+#include "SceneManager.h"
 
 #include "VertexType.h"
 #include "Shader.h"

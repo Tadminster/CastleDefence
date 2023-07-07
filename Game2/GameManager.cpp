@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-#include "Title.h"
+//#include "Title.h"
 #include "HUD.h"
 #include "ItemList.h"
 #include "Player.h"
@@ -13,7 +13,7 @@ GameManager::~GameManager()
 	//player->~Player();
 	//monster->~MonsterManager();
 
-	delete title;
+	//delete title;
 ;	delete levelUp;
 	delete player;
 	delete monster;
@@ -22,7 +22,7 @@ GameManager::~GameManager()
 
 void GameManager::Init()
 {
-	title = new Title();
+	//title = new Title();
 	itemList = new ItemList();
 	itemList->Init();
 	player = new Player();

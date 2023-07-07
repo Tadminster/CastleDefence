@@ -23,7 +23,9 @@ Main::~Main()
 void Main::Init()
 {
 	sc_1_title->Init();
-	SCENE->Add
+	SCENE->AddScene("sc1", sc_1_title);
+	SCENE->ChangeScene("sc1");
+
 	GM->levelUp->Init();
 	GM->player->Init();
 	GM->monster->Init();
@@ -34,13 +36,15 @@ void Main::Init()
 
 void Main::Release()
 {
+	SCENE->Release();
 }
 
 void Main::Update()
 {
+	SCENE->Update();
 	if (GM->isTitleEntering)
 	{
-		GM->title->Update();
+		//GM->title->Update();
 	}
 	else
 	{
@@ -88,9 +92,10 @@ void Main::Update()
 
 void Main::LateUpdate()
 {
+	SCENE->LateUpdate();
 	if (GM->isTitleEntering)
 	{
-		GM->title->LateUpdate();
+		//GM->title->LateUpdate();
 	}
 	else
 	{
@@ -101,9 +106,11 @@ void Main::LateUpdate()
 
 void Main::Render()
 {
+	SCENE->Render();
 	if (GM->isTitleEntering)
 	{
-		GM->title->Render();
+		//GM->title->Render();
+		
 	}
 	else
 	{
@@ -120,6 +127,7 @@ void Main::Render()
 
 void Main::ResizeScreen()
 {
+	SCENE->ResizeScreen();
 }
 
 int WINAPI wWinMain(HINSTANCE instance, HINSTANCE prevInstance, LPWSTR param, int command)

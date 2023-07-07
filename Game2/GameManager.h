@@ -7,7 +7,7 @@ public:
 	bool	DEBUG_MODE = false;
 	bool	isTitleEntering = true;
 
-	class   Title* title;
+	//class   Title* title;
 	class   HUD* hud;
 	class	ItemList* itemList;
 	class	LevelUp* levelUp;

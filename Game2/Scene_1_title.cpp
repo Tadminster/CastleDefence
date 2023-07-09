@@ -94,7 +94,7 @@ void Scene_1_title::OnClick()
 	{
 		if (btnStart->IntersectScreenMouse(INPUT->GetScreenMousePos()))
 		{
-			GM->isTitleEntering = false;
+			SCENE->ChangeScene("sc2");
 		}
 		if (btnExit->IntersectScreenMouse(INPUT->GetScreenMousePos()))
 		{

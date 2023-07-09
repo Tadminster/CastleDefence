@@ -3,7 +3,8 @@ class Main : public Scene
 {
 private:
 	class Scene_1_title* sc_1_title;
-	class Map* mapManager;
+	class Scene_2_inGame* sc_2_inGame;
+	//class Map* mapManager;
 	//class HUD* hud;
 
 public:

@@ -8,6 +8,7 @@ private:
 	class ObRect* btnStart;
 	class ObRect* btnExit;
 
+
 public:
 	Scene_1_title();
 	~Scene_1_title();

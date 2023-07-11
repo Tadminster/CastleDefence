@@ -155,11 +155,11 @@ void Player::Update()
 		elapsedDeathTime += DELTA;
 		// 사망처리
 		skin_death->Update();
-		TIMER->TimeStop();
+		//TIMER->TimeStop();
 
 		if (elapsedDeathTime > 3.0f)
 		{
-			app.deltaScale = 0;
+			//app.deltaScale = 0;
 		}
 	}
 	else

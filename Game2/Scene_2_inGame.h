@@ -2,8 +2,10 @@
 class Scene_2_inGame : public Scene
 {
 private:
-	class Map* mapManager;
-	class HUD* hud;
+	class Map*	mapManager;
+	class HUD*	hud;
+
+	float		fadeout = 0.0f;
 
 public:
 	Scene_2_inGame();

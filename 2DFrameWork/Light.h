@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 class Light : public Singleton<Light>
 {
 private:
 	struct LightDesc
 	{
-		Vector2 screenPos; //½ºÅ©¸°ÁÂÇ¥
-		float radius; //¹İÁö¸§Å©±â
-		float select; //³²´Â°ª
-		Vector4 lightColor; //Á¶¸í »ö
-		Vector4 outColor; //¿Ü°û »ö
+		Vector2		screenPos;	//ìŠ¤í¬ë¦°ì¢Œí‘œ
+		float		radius;		//ë°˜ì§€ë¦„í¬ê¸°
+		float		select;		//ë‚¨ëŠ”ê°’
+		Vector4		lightColor; //ì¡°ëª… ìƒ‰
+		Vector4		outColor;	//ì™¸ê³½ ìƒ‰
 	} light;
 	ID3D11Buffer* lightBuffer;
 public:

@@ -115,6 +115,9 @@
     <ClInclude Include="Scene_2_inGame.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Scene_3_death.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -227,6 +230,9 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene_2_inGame.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_3_death.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>

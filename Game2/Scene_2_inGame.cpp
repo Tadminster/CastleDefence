@@ -59,6 +59,21 @@ void Scene_2_inGame::Update()
 		if (INPUT->KeyPress(VK_RIGHT)) CAM->position.x += 5000 * DELTA;
 	}
 
+	static bool ending = true;
+	if (GM->player->getPlayerAction() == PLAYER_ACTION::DEATH && ending)
+	{
+		ending = false;
+		SCENE->ChangeScene("sc3", 2.0f);
+		fadeout = 2.0f;
+	}
+
+	if (fadeout > 0.0f)
+	{
+		fadeout -= DELTA;
+		LIGHT->lightColor.x = fadeout / 2.0f;
+		LIGHT->lightColor.y = fadeout / 2.0f;
+		LIGHT->lightColor.z = fadeout / 2.0f;
+	}
 
 	GM->Update();
 	GM->hud->Update();

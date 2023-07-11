@@ -29,6 +29,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene_1_title.h" />
     <ClInclude Include="Scene_2_inGame.h" />
+    <ClInclude Include="Scene_3_death.h" />
     <ClInclude Include="SharpEdge.h" />
     <ClInclude Include="FilePath.h" />
     <ClInclude Include="Fireball.h" />
@@ -70,6 +71,7 @@
     <ClCompile Include="Proj_shuriken.cpp" />
     <ClCompile Include="Scene_1_title.cpp" />
     <ClCompile Include="Scene_2_inGame.cpp" />
+    <ClCompile Include="Scene_3_death.cpp" />
     <ClCompile Include="SharpEdge.cpp" />
     <ClCompile Include="FilePath.cpp" />
     <ClCompile Include="Fireball.cpp" />

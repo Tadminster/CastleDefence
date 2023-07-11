@@ -8,6 +8,8 @@ private:
 	class ObRect* btnStart;
 	class ObRect* btnExit;
 
+	RECT textBox_start;
+	RECT textBox_exit;
 
 public:
 	Scene_1_title();

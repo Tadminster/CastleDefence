@@ -30,17 +30,29 @@ void Scene_1_title::Init()
 
 	btnStart->SetParentRT(*bg_title);
 	btnStart->SetLocalPosY(0);
-	btnStart->scale.x = 300;
-	btnStart->scale.y = 150;
+	btnStart->scale.x = 200;
+	btnStart->scale.y = 100;
 	btnStart->isFilled = false;
 	btnStart->color = Vector4(0.5, 0.5, 0.5, 0.5);
 
 	btnExit->SetParentRT(*bg_title);
 	btnExit->SetLocalPosY(-200);
-	btnExit->scale.x = 300;
-	btnExit->scale.y = 150;
+	btnExit->scale.x = 200;
+	btnExit->scale.y = 100;
 	btnExit->isFilled = false;
 	btnExit->color = Vector4(0.5, 0.5, 0.5, 0.5);
+
+	Vector2 textBox_start_pos = Utility::WorldToScreen(btnStart->GetWorldPos());
+	textBox_start.left = textBox_start_pos.x - 80;
+	textBox_start.top = textBox_start_pos.y - 20;
+	textBox_start.right = textBox_start.left + 500;
+	textBox_start.bottom = textBox_start.top + 500;
+
+	Vector2 textBox_exit_pos = Utility::WorldToScreen(btnExit->GetWorldPos());
+	textBox_exit.left = textBox_exit_pos.x - 80;
+	textBox_exit.top = textBox_exit_pos.y - 20;
+	textBox_exit.right = textBox_exit.left + 500;
+	textBox_exit.bottom = textBox_exit.top + 500;
 }
 
 void Scene_1_title::Release()
@@ -79,6 +91,28 @@ void Scene_1_title::LateUpdate()
 
 void Scene_1_title::Render()
 {
+	// 시작
+	DWRITE->RenderText(
+		L"시작하기",
+		textBox_start,
+		40.0f,
+		L"Neo둥근모",
+		Color(1, 1, 1, 1),
+		DWRITE_FONT_WEIGHT_BOLD,
+		DWRITE_FONT_STYLE_NORMAL,
+		DWRITE_FONT_STRETCH_ULTRA_EXPANDED);
+
+	// 종료
+	DWRITE->RenderText(
+		L"종료하기",
+		textBox_exit,
+		40.0f,
+		L"Neo둥근모",
+		Color(1, 1, 1, 1),
+		DWRITE_FONT_WEIGHT_BOLD,
+		DWRITE_FONT_STYLE_NORMAL,
+		DWRITE_FONT_STRETCH_ULTRA_EXPANDED);
+
 	bg_title->Render();
 	btnStart->Render();
 	btnExit->Render();

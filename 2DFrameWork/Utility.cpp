@@ -1,4 +1,4 @@
-#include "framework.h"
+ï»¿#include "framework.h"
 
 Utility::RECT::RECT(Vector2 pivot, Vector2 scale)
 {
@@ -38,14 +38,14 @@ bool Utility::IntersectRectRect(RECT & rc1, RECT & rc2)
 
 bool Utility::IntersectRectRect(GameObject* ob1, GameObject* ob2)
 {
-    //Áß½ÉÁ¡
+    //ì¤‘ì‹¬ì 
     Vector2 rc1Pivot = ob1->GetWorldPivot();
     Vector2 rc2Pivot = ob2->GetWorldPivot();
 
-    //µÎ Áß½ÉÁ¡°£ÀÇ Â÷ÀÌ º¤ÅÍ
+    //ë‘ ì¤‘ì‹¬ì ê°„ì˜ ì°¨ì´ ë²¡í„°
     Vector2 dis = rc1Pivot - rc2Pivot;
 
-    //»ç°¢Çü¸¶´Ù 2°³ÀÇ Àı¹İÅ©±âÀÇ º¤ÅÍ
+    //ì‚¬ê°í˜•ë§ˆë‹¤ 2ê°œì˜ ì ˆë°˜í¬ê¸°ì˜ ë²¡í„°
     Vector2 Rc1Up =
         ob1->GetUp() * ob1->scale.y * 0.5f;
     Vector2 Rc1Right =
@@ -56,51 +56,51 @@ bool Utility::IntersectRectRect(GameObject* ob1, GameObject* ob2)
     Vector2 Rc2Right =
         ob2->GetRight() * ob2->scale.x * 0.5f;
 
-    //ob1ÀÇ rightÃà ºñ±³
-    //       Àı´ë°ª(³»Àû a . b)
+    //ob1ì˜ rightì¶• ë¹„êµ
+    //       ì ˆëŒ€ê°’(ë‚´ì  a . b)
     float c = fabs(dis.Dot(ob1->GetRight()));
 
-    //ob2¿¡¼­ µÎº¤ÅÍ°¡ Åõ¿µµÈ ±æÀÌ
+    //ob2ì—ì„œ ë‘ë²¡í„°ê°€ íˆ¬ì˜ëœ ê¸¸ì´
     float a = fabs(Rc2Up.Dot(ob1->GetRight()))
         + fabs(Rc2Right.Dot(ob1->GetRight()));
 
-    //ob1¿¡¼­ µÎº¤ÅÍ°¡ Åõ¿µµÈ ±æÀÌ
+    //ob1ì—ì„œ ë‘ë²¡í„°ê°€ íˆ¬ì˜ëœ ê¸¸ì´
     float b = ob1->scale.x * 0.5f;
 
     if (c > a + b)return false;
 
-    //ob1ÀÇ UpÃà ºñ±³
-    //       Àı´ë°ª(³»Àû a . b)
+    //ob1ì˜ Upì¶• ë¹„êµ
+    //       ì ˆëŒ€ê°’(ë‚´ì  a . b)
     c = fabs(dis.Dot(ob1->GetUp()));
 
-    //ob2¿¡¼­ µÎº¤ÅÍ°¡ Åõ¿µµÈ ±æÀÌ
+    //ob2ì—ì„œ ë‘ë²¡í„°ê°€ íˆ¬ì˜ëœ ê¸¸ì´
     a = fabs(Rc2Up.Dot(ob1->GetUp()))
         + fabs(Rc2Right.Dot(ob1->GetUp()));
-    //ob1¿¡¼­ µÎº¤ÅÍ°¡ Åõ¿µµÈ ±æÀÌ
+    //ob1ì—ì„œ ë‘ë²¡í„°ê°€ íˆ¬ì˜ëœ ê¸¸ì´
     b = ob1->scale.y * 0.5f;
 
     if (c > a + b)return false;
 
-    //ob2ÀÇ RightÃà ºñ±³
-    //       Àı´ë°ª(³»Àû a . b)
+    //ob2ì˜ Rightì¶• ë¹„êµ
+    //       ì ˆëŒ€ê°’(ë‚´ì  a . b)
     c = fabs(dis.Dot(ob2->GetRight()));
 
-    //ob1¿¡¼­ µÎº¤ÅÍ°¡ Åõ¿µµÈ ±æÀÌ
+    //ob1ì—ì„œ ë‘ë²¡í„°ê°€ íˆ¬ì˜ëœ ê¸¸ì´
     a = fabs(Rc1Up.Dot(ob2->GetRight()))
         + fabs(Rc1Right.Dot(ob2->GetRight()));
-    //ob2¿¡¼­ µÎº¤ÅÍ°¡ Åõ¿µµÈ ±æÀÌ
+    //ob2ì—ì„œ ë‘ë²¡í„°ê°€ íˆ¬ì˜ëœ ê¸¸ì´
     b = ob2->scale.x * 0.5f;
 
     if (c > a + b)return false;
 
-    //ob2ÀÇ UpÃà ºñ±³
-    //       Àı´ë°ª(³»Àû a . b)
+    //ob2ì˜ Upì¶• ë¹„êµ
+    //       ì ˆëŒ€ê°’(ë‚´ì  a . b)
     c = fabs(dis.Dot(ob2->GetUp()));
 
-    //ob1¿¡¼­ µÎº¤ÅÍ°¡ Åõ¿µµÈ ±æÀÌ
+    //ob1ì—ì„œ ë‘ë²¡í„°ê°€ íˆ¬ì˜ëœ ê¸¸ì´
     a = fabs(Rc1Up.Dot(ob2->GetUp()))
         + fabs(Rc1Right.Dot(ob2->GetUp()));
-    //ob2¿¡¼­ µÎº¤ÅÍ°¡ Åõ¿µµÈ ±æÀÌ
+    //ob2ì—ì„œ ë‘ë²¡í„°ê°€ íˆ¬ì˜ëœ ê¸¸ì´
     b = ob2->scale.y * 0.5f;
 
     if (c > a + b)return false;
@@ -167,7 +167,7 @@ bool Utility::IntersectCircleCircle(CIRCLE & cc1, CIRCLE & cc2)
 
 float Utility::DirToRadian(Vector2 Dir)
 {
-    //¸¸¾à ´ÜÀ§º¤ÅÍ°¡ ¾Æ´Ï¶ó¸é
+    //ë§Œì•½ ë‹¨ìœ„ë²¡í„°ê°€ ì•„ë‹ˆë¼ë©´
     //Dir.Normalize();
     return atan2f(Dir.y, Dir.x);
 }

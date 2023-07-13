@@ -29,30 +29,30 @@ void Scene_1_title::Init()
 	bg_title->scale.y = app.GetHeight();
 
 	btnStart->SetParentRT(*bg_title);
-	btnStart->SetLocalPosY(0);
+	btnStart->SetLocalPosY(-100);
 	btnStart->scale.x = 200;
-	btnStart->scale.y = 100;
+	btnStart->scale.y = 80;
 	btnStart->isFilled = false;
 	btnStart->color = Vector4(0.5, 0.5, 0.5, 0.5);
 
 	btnExit->SetParentRT(*bg_title);
 	btnExit->SetLocalPosY(-200);
 	btnExit->scale.x = 200;
-	btnExit->scale.y = 100;
+	btnExit->scale.y = 80;
 	btnExit->isFilled = false;
 	btnExit->color = Vector4(0.5, 0.5, 0.5, 0.5);
 
 	Vector2 textBox_start_pos = Utility::WorldToScreen(btnStart->GetWorldPos());
 	textBox_start.left = textBox_start_pos.x - 80;
-	textBox_start.top = textBox_start_pos.y - 20;
+	textBox_start.top = textBox_start_pos.y + 80;
 	textBox_start.right = textBox_start.left + 500;
 	textBox_start.bottom = textBox_start.top + 500;
 
 	Vector2 textBox_exit_pos = Utility::WorldToScreen(btnExit->GetWorldPos());
 	textBox_exit.left = textBox_exit_pos.x - 80;
-	textBox_exit.top = textBox_exit_pos.y - 20;
-	textBox_exit.right = textBox_exit.left + 500;
-	textBox_exit.bottom = textBox_exit.top + 500;
+	textBox_exit.top = textBox_exit_pos.y + 180;
+	textBox_exit.right = textBox_exit.left + 1000;
+	textBox_exit.bottom = textBox_exit.top + 1000;
 }
 
 void Scene_1_title::Release()
@@ -76,46 +76,77 @@ void Scene_1_title::LateUpdate()
 	//	btnStart->color = Vector4(1, 0, 0, 0.5);
 	//} 
 
-	if (btnStart->IntersectScreenMouse(INPUT->GetScreenMousePos()))
-	{
-		btnStart->color = Vector4(1, 0, 0, 0.5);
-	}
-	else btnStart->color = Vector4(0.5, 0.5, 0.5, 0.5);
+	//if (btnStart->IntersectScreenMouse(INPUT->GetScreenMousePos()))
+	//{
+	//	btnStart->color = Vector4(1, 0, 0, 0.5);
+	//}
+	//else btnStart->color = Vector4(0.5, 0.5, 0.5, 0.5);
 
-	if (btnExit->IntersectScreenMouse(INPUT->GetScreenMousePos()))
-	{
-		btnExit->color = Vector4(1, 0, 0, 0.5);
-	}
-	else btnExit->color = Vector4(0.5, 0.5, 0.5, 0.5);
+	//if (btnExit->IntersectScreenMouse(INPUT->GetScreenMousePos()))
+	//{
+	//	btnExit->color = Vector4(1, 0, 0, 0.5);
+	//}
+	//else btnExit->color = Vector4(0.5, 0.5, 0.5, 0.5);
 }
 
 void Scene_1_title::Render()
 {
-	// 시작
-	DWRITE->RenderText(
-		L"시작하기",
-		textBox_start,
-		40.0f,
-		L"Neo둥근모",
-		Color(1, 1, 1, 1),
-		DWRITE_FONT_WEIGHT_BOLD,
-		DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_ULTRA_EXPANDED);
-
-	// 종료
-	DWRITE->RenderText(
-		L"종료하기",
-		textBox_exit,
-		40.0f,
-		L"Neo둥근모",
-		Color(1, 1, 1, 1),
-		DWRITE_FONT_WEIGHT_BOLD,
-		DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_ULTRA_EXPANDED);
-
 	bg_title->Render();
-	btnStart->Render();
-	btnExit->Render();
+	//btnStart->Render();
+	//btnExit->Render();
+
+	if (btnStart->IntersectScreenMouse(INPUT->GetScreenMousePos()))
+	{
+		DWRITE->RenderText(
+			L"시작하기",
+			textBox_start,
+			40.0f,
+			L"Neo둥근모",
+			Color(1, 0.9, 0.5, 0.5),
+			DWRITE_FONT_WEIGHT_BOLD,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_ULTRA_EXPANDED);
+	}
+	else
+	{
+		DWRITE->RenderText(
+			L"시작하기",
+			textBox_start,
+			40.0f,
+			L"Neo둥근모",
+			Color(1, 1, 1, 0.5),
+			DWRITE_FONT_WEIGHT_BOLD,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_ULTRA_EXPANDED);
+	}
+
+	if (btnExit->IntersectScreenMouse(INPUT->GetScreenMousePos()))
+	{
+		// 종료
+		DWRITE->RenderText(
+			L"종료하기",
+			textBox_exit,
+			40.0f,
+			L"Neo둥근모",
+			Color(1, 0.9, 0.5, 0.5),
+			DWRITE_FONT_WEIGHT_BOLD,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_ULTRA_EXPANDED);
+	}
+	else
+	{
+		DWRITE->RenderText(
+			L"종료하기",
+			textBox_exit,
+			40.0f,
+			L"Neo둥근모",
+			Color(1, 1, 1, 0.5),
+			DWRITE_FONT_WEIGHT_BOLD,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_ULTRA_EXPANDED);
+	}
+
+
 }
 
 void Scene_1_title::ResizeScreen()
